@@ -5,12 +5,24 @@ PRALLIE is a web application equipped with multiple functionalities to help user
 This is an educational project and not meant to be used for production purpose.
 
 ## Getting Started
-Simply clone the repository into your local LAMP server. No dependency required.
+Clone the repository into your local LAMP server.
+
+#### Compiling CSS
+The CSS framework is based on [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), written in [Stylus](http://stylus-lang.com/).
+
+To compile:
+```stylus -w -u rupture css/src/style.styl -o css/style.css```
+
+## Dependencies
+- LAMP server
+- [Stylus](https://www.npmjs.com/package/stylus)
+- [Rupture](https://www.npmjs.com/package/rupture)
 
 ## Authors
 IM4717-F36-DG09
-Denny (U1420246C)
-Raymond Aditya Pradhana (U1420238K)
+- Denny
+- Ferdi
+- Raymond
 
 ## Contributing
 This is an educational project and not meant to be developed further. For any feedback or suggestion, please notify the authors of this project.

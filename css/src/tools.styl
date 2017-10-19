@@ -1,0 +1,25 @@
+/**
+ * Tools
+ */
+
+vendor(prop, args)
+	-webkit-{prop} args
+	-moz-{prop} args
+	{prop} args
+
+border-radius(args = 4px)
+	vendor('border-radius', args)
+
+box-shadow(args = 0 0 space-s space-s alpha(color-black, 0.5))
+	vendor('box-shadow', args)
+
+outline(color = color-black)
+	box-shadow(0 0 0 1 color)
+
+clearfix() {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
