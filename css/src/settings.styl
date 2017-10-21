@@ -3,23 +3,44 @@
  */
 
 // Font
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700')
+font = 'Open Sans'
+base-weight = 400
 base = 100%
+h1   = 2rem
+h2   = 1.5rem
+h3   = 1.25rem
+h4   = 1rem
+sub-h1 = 0.875rem
+sub-h2 = 0.75rem
+sub-h3 = 0.675rem
+sub-h4 = 0.5rem
+lh-s = 1em
+lh-m = 1.25em
+lh-l = 1.5em
 
 // Color
-color-black     = #222233
-color-grey      = #AABBCC
-color-white     = #FAFAFA
-color-primary   = #BF0040 // pink red
-color-secondary = #154070 // navy blue
+color-black      = #112233
+color-dark-grey  = #667788
+color-grey       = #AABBCC
+color-light-grey = #DDDEEF
+color-white      = #FAFAFA
+color-primary    = #BF0040 // pink red
+color-secondary  = #154070 // navy blue
 
-// Spacing
-space-1 = 0.25rem
-space-2 = 0.5rem
-space-3 = 1rem
-space-4 = 1.5rem
-space-5 = 2rem
-space-6 = 3rem
-space-7 = 4rem
+color-red       = #D33
+color-green     = #3D3
+color-blue      = #33D
+
+// Size & Spacing
+size-xxs = 0.125rem
+size-xs  = 0.25rem
+size-s   = 0.5rem
+size-m   = 1rem
+size-l   = 1.5rem
+size-xl  = 2rem
+size-xxl = 3rem
+size-xxxl = 4rem
 
 // Breakpoint
 breakpoint-mobile   = 48em // 768px
@@ -28,13 +49,16 @@ breakpoint-hd       = 75em // 1200px
 
 // Rupture
 rupture = {
+	rasterise-media-queries: rasterise-media-queries
 	mobile-cutoff: breakpoint-mobile
 	desktop-cutoff: breakpoint-desktop
 	hd-cutoff: breakpoint-hd
 	enable-em-breakpoints: true
-	base-font-size: font-base
-	anti-overlap: false
+	base-font-size: base
 	density-queries: 'dppx' 'webkit' 'moz' 'dpi'
 	retina-density: 1.5
 	use-device-width: false
 }
+
+rupture.scale = 0 (rupture.mobile-cutoff) 600px 800px (rupture.desktop-cutoff) (rupture.hd-cutoff)
+rupture.scale-names = 'xs' 's' 'm' 'l' 'xl' 'hd'

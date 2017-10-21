@@ -10,16 +10,24 @@ vendor(prop, args)
 border-radius(args = 4px)
 	vendor('border-radius', args)
 
-box-shadow(args = 0 0 space-s space-s alpha(color-black, 0.5))
+box-shadow(args = 0 size-xxs size-xxs 0 alpha(color-black, 0.125))
 	vendor('box-shadow', args)
 
-outline(color = color-black)
-	box-shadow(0 0 0 1 color)
+box-shadow-multiple(args = 0 size-xxs size-xxs 0 alpha(color-black, 0.125))
+	vendor('box-shadow', args)
 
-clearfix() {
-	&:after {
-		content: "";
-		display: table;
-		clear: both;
-	}
-}
+transition(args = all 0.1s ease-out)
+	vendor('transition', args)
+
+/**
+ * Mixins
+ */
+ 
+outline(color = color-black)
+	box-shadow(0 0 0 1px color)
+
+clearfix()
+	&:after
+		content ""
+		display table
+		clear both

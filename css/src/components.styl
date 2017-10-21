@@ -1,3 +1,204 @@
 /**
  * Components
  */
+
+/**
+ * Navigation
+ */
+
+.nav
+	background color-white
+	box-shadow(0 2px 2px 0 alpha(color-black, 0.125))
+	width 100%
+	z-index 1000
+
+.nav--primary
+	padding 0 0 0 0
+	z-index 100
+
+.nav--tertiary
+	background color-white
+	// box-shadow(inset 0 1px 0 0 alpha(color-black, 0.125))
+	border-top 1px solid alpha(color-black, 0.125)
+	box-shadow()
+	position absolute
+	width 100%
+	z-index 10
+	display none
+	transition()
+
+.nav__logo
+	display flex
+	margin-right size-l
+
+.nav__logo img
+	display flex
+	width 7.5rem
+	height 100%
+
+.nav__menu
+	align-items center
+	line-height 1em
+
+.menu__button
+	padding size-l size-m
+
+// .menu__button:hover
+// .menu__button:active
+// .menu__button:focus
+// 	color color-primary
+
+.menu__search
+	flex 1
+	flex-direction row
+	margin 0 size-m
+
+.nav__submenu
+	justify-content flex-end
+	align-items center
+	font-size sub-h2
+	line-height 1em
+
+.submenu__button
+	color color-black
+
+.category
+	align-items center
+	font-size base
+
+.category__button
+	padding size-s size-m
+
+.search__input
+	border-top-right-radius 0px
+	border-bottom-right-radius 0px
+
+.search__button
+	border-top-left-radius 0px
+	border-bottom-left-radius 0px
+
+/**
+ * Hero
+ */
+
+.hero
+	padding size-xl 0
+
+/**
+ * Product Preview
+ */
+
+[id^=product-preview]
+	padding size-m 0
+
+/**
+ * Product
+ */
+
+.product
+	padding-top size-l
+	padding-bottom size-l
+
+.product__label
+	position absolute
+	display block
+	bottom 0
+
+.product__label *
+	font-size sub-h3
+	letter-spacing 0.1em
+	line-height lh-m
+	text-transform uppercase
+	padding size-xs size-s
+	background color-black
+	color color-white
+	margin-top size-xxs
+	float left
+	clear both
+	cursor pointer
+
+.product__label--new
+	background color-black
+
+.product__label--popular
+	background color-black
+
+.product__label--discount
+	background color-black
+
+.product__image
+	margin-bottom size-m
+
+.product__image img
+	width 100%
+
+.product__name
+	margin-bottom size-s
+	overflow hidden
+
+.product__price
+	margin-bottom size-m
+	align-items center
+
+.product__price--main
+	margin-right size-s
+
+.product__price--pre-discount
+	text-decoration line-through
+	color color-dark-grey
+
+.product__color
+	flex-wrap wrap
+
+.product__color *
+	width size-l
+	height size-s
+	margin-right size-xs
+	margin-bottom size-xs
+	background color-black
+
+.product__color--black
+	background color-black
+
+.product__color--dark-grey
+	background color-dark-grey
+
+.product__color--grey
+	background color-grey
+
+.product__color--light-grey
+	background color-light-grey
+
+.product__color--red
+	background color-red
+
+.product__color--green
+	background color-green
+
+.product__color--blue
+	background color-blue
+
+/**
+ * Footer
+ */
+
+.footer
+	line-height lh-s
+	padding size-l 0
+	background color-black
+	color color-grey
+	margin-top size-xxl
+
+.footer__menu
+	font-size sub-h1
+	align-items center
+
+.footer__button
+	color color-grey
+	justify-self flex-start
+
+.footer__copyright
+	font-size sub-h1
+	justify-self flex-end
+	flex 1
+	text-align right
