@@ -152,38 +152,45 @@ button-moz-focusring,
   transition: all 0.1s ease-out;
 }
 .debug:not(.d).o *:hover {
-  -webkit-box-shadow: 0 0 0 1px inset rgba(17,34,51,0.5);
-  -moz-box-shadow: 0 0 0 1px inset rgba(17,34,51,0.5);
-  box-shadow: 0 0 0 1px inset rgba(17,34,51,0.5);
+  -webkit-box-shadow: 0 0 0 1px inset rgba(0,17,34,0.5);
+  -moz-box-shadow: 0 0 0 1px inset rgba(0,17,34,0.5);
+  box-shadow: 0 0 0 1px inset rgba(0,17,34,0.5);
 }
 .debug:not(.d).f *:hover {
-  background-color: rgba(17,34,51,0.05);
+  background-color: rgba(0,17,34,0.05);
 }
 .debug:not(.h):not(.d).o * {
-  -webkit-box-shadow: 0 0 0 1px inset rgba(17,34,51,0.5);
-  -moz-box-shadow: 0 0 0 1px inset rgba(17,34,51,0.5);
-  box-shadow: 0 0 0 1px inset rgba(17,34,51,0.5);
+  -webkit-box-shadow: 0 0 0 1px inset rgba(0,17,34,0.5);
+  -moz-box-shadow: 0 0 0 1px inset rgba(0,17,34,0.5);
+  box-shadow: 0 0 0 1px inset rgba(0,17,34,0.5);
 }
 .debug:not(.h):not(.d).f * {
-  background-color: rgba(17,34,51,0.05);
+  background-color: rgba(0,17,34,0.05);
+}
+.header {
+  color: #bf0040;
+}
+.header a {
+  text-decoration: none;
 }
 .button {
   display: flex;
   flex-direction: row;
+  align-self: center;
   align-items: center;
   justify-items: center;
   padding: 0.5rem 1rem;
   cursor: pointer;
   text-transform: none;
   text-decoration: none;
-  color: #123;
+  color: #012;
   border: none;
   -webkit-transition: all 0.1s ease-out;
   -moz-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
 .button:hover {
-  color: #678;
+  color: #f05;
 }
 .button--primary {
   background: #bf0040;
@@ -192,9 +199,27 @@ button-moz-focusring,
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+.button--primary:hover {
+  background: #f05;
+  color: #fafafa;
+}
 .button--secondary {
   background: #dddeef;
-  color: #123;
+  color: #012;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.button--secondary:hover {
+  color: inherit;
+  background: rgba(221,222,239,0.75);
+}
+.button--ghost {
+  background: none;
+  color: #012;
+  -webkit-box-shadow: 0 0 0 1px #012;
+  -moz-box-shadow: 0 0 0 1px #012;
+  box-shadow: 0 0 0 1px #012;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -203,7 +228,7 @@ button-moz-focusring,
 .icon * {
   display: flex;
 }
-.icon--button {
+.button__icon {
   margin-right: 0.5rem;
 }
 .form--search {
@@ -214,9 +239,9 @@ button-moz-focusring,
   border: none;
   padding: 0.5rem 1rem;
   line-height: 1em;
-  -webkit-box-shadow: inset 0 0 1px 1px rgba(17,34,51,0.125);
-  -moz-box-shadow: inset 0 0 1px 1px rgba(17,34,51,0.125);
-  box-shadow: inset 0 0 1px 1px rgba(17,34,51,0.125);
+  -webkit-box-shadow: inset 0 0 1px 1px rgba(0,17,34,0.125);
+  -moz-box-shadow: inset 0 0 1px 1px rgba(0,17,34,0.125);
+  box-shadow: inset 0 0 1px 1px rgba(0,17,34,0.125);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -227,7 +252,26 @@ button-moz-focusring,
   box-shadow: 0 0 2px 0 #154070;
 }
 .input::placeholder {
-  color: rgba(17,34,51,0.5);
+  color: rgba(0,17,34,0.5);
+}
+.badge {
+  background: #bf0040;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+  font-size: 0.675rem;
+  height: 1rem;
+  width: 1rem;
+  color: #fafafa;
+  display: flex;
+  align-self: center;
+  align-items: center;
+}
+.badge--empty {
+  background: #012;
+}
+.button__badge {
+  margin-left: 0.5rem;
 }
 html {
   font-size: 100%;
@@ -277,10 +321,10 @@ h4,
 }
 body {
   font-family: 'Open Sans';
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.5em;
   background-color: #fafafa;
-  color: #123;
+  color: #012;
 }
 body * {
   flex-direction: column;
@@ -288,13 +332,29 @@ body * {
 .material-icons {
   font-size: 100%;
 }
+a {
+  color: #bf0040;
+}
+a:hover {
+  color: #f05;
+}
 .nav {
   background: #fafafa;
-  -webkit-box-shadow: 0 2px 2px 0 rgba(17,34,51,0.125);
-  -moz-box-shadow: 0 2px 2px 0 rgba(17,34,51,0.125);
-  box-shadow: 0 2px 2px 0 rgba(17,34,51,0.125);
+  -webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
+  -moz-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
+  box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
   width: 100%;
   z-index: 1000;
+}
+@media only screen and (min-width: 48em) {
+  .nav {
+    position: fixed;
+  }
+}
+@media only screen and (min-width: 48em) {
+  .nav--fix {
+    height: 92px;
+  }
 }
 .nav--primary {
   padding: 0 0 0 0;
@@ -302,10 +362,10 @@ body * {
 }
 .nav--tertiary {
   background: #fafafa;
-  border-top: 1px solid rgba(17,34,51,0.125);
-  -webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(17,34,51,0.125);
-  -moz-box-shadow: 0 0.125rem 0.125rem 0 rgba(17,34,51,0.125);
-  box-shadow: 0 0.125rem 0.125rem 0 rgba(17,34,51,0.125);
+  border-top: 1px solid rgba(0,17,34,0.125);
+  -webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
+  -moz-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
+  box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
   position: absolute;
   width: 100%;
   z-index: 10;
@@ -342,14 +402,14 @@ body * {
   line-height: 1em;
 }
 .submenu__button {
-  color: #123;
+  color: #012;
 }
 .category {
   align-items: center;
   font-size: 100%;
 }
 .category__button {
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.5rem;
 }
 .search__input {
   border-top-right-radius: 0px;
@@ -360,10 +420,55 @@ body * {
   border-bottom-left-radius: 0px;
 }
 .hero {
+  margin-bottom: 3rem;
+}
+.hero__half {
+  width: 50%;
+  height: calc(100vh - 92px - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero__half--women {
+  background-image: url("./images/hero-women.jpg");
+  background-size: cover;
+  background-position: right;
+}
+@media only screen and (min-width: 75em) {
+  .hero__half--women {
+    background-image: url("./images/hero-women@2x.jpg");
+  }
+}
+.hero__half--men {
+  background-image: url("./images/hero-men.jpg");
+  background-size: cover;
+  background-position: left;
+}
+@media only screen and (min-width: 75em) {
+  .hero__half--men {
+    background-image: url("./images/hero-men@2x.jpg");
+  }
+}
+.hero__button {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  padding: 2rem 3rem;
+  background: #bf0040;
+  color: #fafafa;
+}
+[id^=collection] {
   padding: 2rem 0;
 }
-[id^=product-preview] {
-  padding: 1rem 0;
+.collection__signifier {
+  height: 0.25rem;
+  width: 6rem;
+  margin-bottom: 0.5rem;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background: #bf0040;
 }
 .product {
   padding-top: 1.5rem;
@@ -380,21 +485,23 @@ body * {
   line-height: 1.25em;
   text-transform: uppercase;
   padding: 0.25rem 0.5rem;
-  background: #123;
+  background: #012;
   color: #fafafa;
   margin-top: 0.125rem;
   float: left;
   clear: both;
   cursor: pointer;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 .product__label--new {
-  background: #123;
+  background: #012;
 }
 .product__label--popular {
-  background: #123;
+  background: #012;
 }
 .product__label--discount {
-  background: #123;
+  background: #012;
 }
 .product__image {
   margin-bottom: 1rem;
@@ -410,8 +517,9 @@ body * {
   margin-bottom: 1rem;
   align-items: center;
 }
-.product__price--main {
+.product__price--current {
   margin-right: 0.5rem;
+  color: #bf0040;
 }
 .product__price--pre-discount {
   text-decoration: line-through;
@@ -425,10 +533,13 @@ body * {
   height: 0.5rem;
   margin-right: 0.25rem;
   margin-bottom: 0.25rem;
-  background: #123;
+  background: #012;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
 .product__color--black {
-  background: #123;
+  background: #012;
 }
 .product__color--dark-grey {
   background: #678;
@@ -440,18 +551,27 @@ body * {
   background: #dddeef;
 }
 .product__color--red {
-  background: #d33;
+  background: #cf000f;
+}
+.product__color--orange {
+  background: #d43900;
+}
+.product__color--yellow {
+  background: #efbc08;
 }
 .product__color--green {
-  background: #3d3;
+  background: #1b7742;
 }
 .product__color--blue {
-  background: #33d;
+  background: #1460aa;
+}
+.product__color--purple {
+  background: #639;
 }
 .footer {
   line-height: 1em;
   padding: 1.5rem 0;
-  background: #123;
+  background: #012;
   color: #abc;
   margin-top: 3rem;
 }

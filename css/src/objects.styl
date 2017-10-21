@@ -2,9 +2,16 @@
  * Objects
  */
 
+.header
+	color color-primary
+
+.header a
+	text-decoration none
+
 .button
 	display flex
 	flex-direction row
+	align-self center
 	align-items center
 	justify-items center
 	padding size-s size-m
@@ -16,23 +23,37 @@
 	transition()
 
 .button:hover
-	color color-dark-grey
+	color lightness(color-primary 50%)
 
 .button--primary
 	background color-primary
 	color color-white
 	border-radius()
 
+.button--primary:hover
+	background lightness(color-primary 50%)
+	color color-white
+
 .button--secondary
 	background color-light-grey
 	color color-black
+	border-radius()
+
+.button--secondary:hover
+	color inherit
+	background alpha(color-light-grey, 0.75)
+
+.button--ghost
+	background none
+	color color-black
+	outline()
 	border-radius()
 
 .icon
 .icon *
 	display flex
 
-.icon--button
+.button__icon
 	margin-right size-s
 
 .form--search
@@ -51,3 +72,20 @@
 
 .input::placeholder
 	color alpha(color-black, 0.5)
+
+.badge
+	background color-primary
+	border-radius 1em
+	font-size sub-h3
+	height size-m
+	width size-m
+	color color-white
+	display flex
+	align-self center
+	align-items center
+
+.badge--empty
+	background color-black
+
+.button__badge
+	margin-left size-s

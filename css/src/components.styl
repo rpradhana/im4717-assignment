@@ -8,9 +8,15 @@
 
 .nav
 	background color-white
-	box-shadow(0 2px 2px 0 alpha(color-black, 0.125))
+	box-shadow()
 	width 100%
 	z-index 1000
+	+above(breakpoint-mobile)
+		position fixed
+
+.nav--fix
+	+above(breakpoint-mobile)
+		height 92px
 
 .nav--primary
 	padding 0 0 0 0
@@ -43,11 +49,6 @@
 .menu__button
 	padding size-l size-m
 
-// .menu__button:hover
-// .menu__button:active
-// .menu__button:focus
-// 	color color-primary
-
 .menu__search
 	flex 1
 	flex-direction row
@@ -67,7 +68,7 @@
 	font-size base
 
 .category__button
-	padding size-s size-m
+	padding size-m size-l
 
 .search__input
 	border-top-right-radius 0px
@@ -82,14 +83,51 @@
  */
 
 .hero
-	padding size-xl 0
+	margin-bottom size-xxl
+
+.hero__half
+	width 50%
+	height calc(100vh - 92px - 64px)
+	display flex
+	justify-content center
+	align-items center
+	text-align center
+
+.hero__half--women
+	background-image url('./images/hero-women.jpg')
+	+hd()
+		background-image url('./images/hero-women@2x.jpg')
+	background-size cover
+	background-position right
+
+.hero__half--men
+	background-image url('./images/hero-men.jpg')
+	+hd()
+		background-image url('./images/hero-men@2x.jpg')
+	background-size cover
+	background-position left
+
+.hero__button
+	text-transform uppercase
+	letter-spacing 0.2em
+	font-weight 600
+	padding size-xl size-xxl
+	background color-primary
+	color color-white
 
 /**
- * Product Preview
+ * Collection
  */
 
-[id^=product-preview]
-	padding size-m 0
+[id^=collection]
+	padding size-xl 0
+
+.collection__signifier
+	height size-xs
+	width 6rem
+	margin-bottom size-s
+	border-radius(2px)
+	background color-primary
 
 /**
  * Product
@@ -116,6 +154,8 @@
 	float left
 	clear both
 	cursor pointer
+	border-top-right-radius 2px
+	border-bottom-right-radius 2px
 
 .product__label--new
 	background color-black
@@ -140,8 +180,9 @@
 	margin-bottom size-m
 	align-items center
 
-.product__price--main
+.product__price--current
 	margin-right size-s
+	color color-primary
 
 .product__price--pre-discount
 	text-decoration line-through
@@ -156,6 +197,7 @@
 	margin-right size-xs
 	margin-bottom size-xs
 	background color-black
+	border-radius(2px)
 
 .product__color--black
 	background color-black
@@ -172,11 +214,20 @@
 .product__color--red
 	background color-red
 
+.product__color--orange
+	background color-orange
+
+.product__color--yellow
+	background color-yellow
+
 .product__color--green
 	background color-green
 
 .product__color--blue
 	background color-blue
+
+.product__color--purple
+	background color-purple
 
 /**
  * Footer
