@@ -7,10 +7,11 @@ This is an educational project and not meant to be used for production purpose.
 ## Getting Started
 Clone the repository into your local LAMP server.
 
-#### Compiling CSS
-The CSS framework is based on [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), written in [Stylus](http://stylus-lang.com/).
+#### Styling
+The CSS framework is based on [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/), written in [Stylus](http://stylus-lang.com/) with [BEM](http://getbem.com/naming/) naming convention.
 
 To compile:
+
 ```stylus -w -u rupture css/src/style.styl -o css/style.css```
 
 ## Dependencies
