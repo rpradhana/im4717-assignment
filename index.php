@@ -142,8 +142,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">
@@ -176,8 +178,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">
@@ -210,8 +214,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">
@@ -244,8 +250,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">
@@ -291,8 +299,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">
@@ -325,8 +335,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">
@@ -359,8 +371,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">
@@ -393,8 +407,10 @@
 						</div>
 					</div>
 					<div class="row product__name">
-						<!-- DATA -->
-						WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						<a href="#">
+							<!-- DATA -->
+							WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
+						</a>
 					</div>
 					<div class="row product__price">
 						<div class="product__price--current">

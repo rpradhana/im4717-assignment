@@ -513,6 +513,10 @@ a:hover {
   margin-bottom: 0.5rem;
   overflow: hidden;
 }
+.product__name a {
+  color: inherit;
+  text-decoration: none;
+}
 .product__price {
   margin-bottom: 1rem;
   align-items: center;
