@@ -58,20 +58,58 @@
 
 .form--search
 	display flex
+	flex-direction row
 	flex 1
 
-.input
+.input--text
+	background #FFFFFF
 	border none
 	padding size-s size-m
 	line-height lh-s
 	box-shadow(inset 0 0 1px 1px alpha(color-black, 0.125))
 	border-radius()
 
-.input:focus
+.input--text:focus
 	box-shadow(0 0 2px 0 alpha(color-secondary, 1))
 
-.input::placeholder
+.input--text::placeholder
 	color alpha(color-black, 0.5)
+
+.select
+	border none
+	padding size-xs size-s
+	box-shadow(inset 0 0 1px 1px alpha(color-black, 0.125))
+	border-radius()
+
+/**
+ * Label
+ */
+
+.label--checkbox
+	display block
+	padding-left 1.75em
+	text-indent -1.75em
+	cursor pointer
+
+.label--checkbox:not(:nth-last-of-type(1))
+	margin-bottom size-xs
+
+/**
+ * Checkbox
+ */
+
+.input--checkbox
+	width 1em
+	height 1em
+	padding 0
+	margin 0 0.5rem 3px 0
+	vertical-align bottom
+	position relative
+	*overflow hidden
+
+/**
+ * Badge
+ */
 
 .badge
 	background color-primary

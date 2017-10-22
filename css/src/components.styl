@@ -50,8 +50,6 @@
 	padding size-l size-m
 
 .menu__search
-	flex 1
-	flex-direction row
 	margin 0 size-m
 
 .nav__submenu
@@ -232,6 +230,71 @@
 
 .product__color--purple
 	background color-purple
+/**
+ * Shop
+ */
+
+.sort__select
+	margin-left size-s
+
+/**
+ * Shop Sidebar
+ */
+
+.filter
+	width 100%
+	padding-top size-l
+
+.label--checkbox.filter:hover
+	color color-primary
+
+.filter-group
+	margin-bottom size-m
+
+.filter__header
+	display flex
+	flex-direction row
+	justify-content space-between
+	padding-bottom size-xs
+	margin-bottom size-s
+	box-shadow(0 1px 0 0 color-dark-grey)
+
+.header__reset
+	text-transform uppercase
+	font-size sub-h2
+	letter-spacing 0.025em
+	cursor pointer
+	color color-dark-grey
+
+.search-result
+	display flex
+	flex-direction row
+	justify-content space-between
+	margin size-l 0
+
+.search-result__info
+	display flex
+	justify-content center
+
+.price
+	justify-content space-between
+	align-items center
+
+.price__input
+	width 42%
+	padding size-s size-s
+
+.price__input input
+	display inline-block
+	margin-left size-xs
+	width 70%
+	border none
+
+.filter__button
+	margin-top size-s
+	width 100%
+	justify-content center
+	text-align center
 
 /**
  * Footer
