@@ -17,8 +17,8 @@
 							</div>
 							<div class="search-result__sort">
 								Sort by
-								<select class="select sort__select">
-									<option class="option" value="popular">Most Popular</option>
+								<select class="select select--with-label">
+									<option alue="popular">Most Popular</option>
 								</select>
 							</div>
 						</div>

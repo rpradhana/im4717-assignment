@@ -234,9 +234,6 @@
  * Shop
  */
 
-.sort__select
-	margin-left size-s
-
 /**
  * Shop Sidebar
  */
@@ -248,10 +245,10 @@
 .label--checkbox.filter:hover
 	color color-primary
 
-.filter-group
+.option-group
 	margin-bottom size-m
 
-.filter__header
+.option__header
 	display flex
 	flex-direction row
 	justify-content space-between
@@ -259,12 +256,16 @@
 	margin-bottom size-s
 	box-shadow(0 1px 0 0 color-dark-grey)
 
-.header__reset
+.header__button
 	text-transform uppercase
 	font-size sub-h2
 	letter-spacing 0.025em
 	cursor pointer
 	color color-dark-grey
+
+.header__button a
+	color inherit
+	text-decoration inherit
 
 .search-result
 	display flex
@@ -290,11 +291,50 @@
 	width 70%
 	border none
 
-.filter__button
+.option__button
 	margin-top size-s
 	width 100%
 	justify-content center
 	text-align center
+
+/**
+ * Product Details
+ */
+
+.product-details
+	margin size-xl 0
+
+.product-info__name
+.product-info__id
+.product-info__price
+	margin-bottom size-s
+
+.product-info__price--current
+	font-weight bold
+	margin-right size-s
+
+.product-info__price--pre-discount
+	text-decoration line-through
+	color color-dark-grey
+
+.product-info__description
+	font-size sub-h1
+
+.option--quantity
+	display flex
+	flex-direction row
+	justify-content space-between
+
+.option--quantity input
+	width 40%
+
+.product-thumbnails
+	margin-bottom size-s
+	cursor pointer
+	display flex
+
+.product-thumbnails--active
+	outline(color-primary)
 
 /**
  * Footer

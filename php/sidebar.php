@@ -3,7 +3,7 @@
 		<div class="u-m-medium--bottom">
 			<h2 class="header">Narrow your search</h2>
 		</div>
-		<div id="filter--tag" class="filter-group">
+		<div id="option--tag" class="option-group">
 			<?php
 				$tag = array('popular'   => 'Popular',
 				             'new'       => 'New',
@@ -18,10 +18,10 @@
 				}
 			?>
 		</div>
-		<div id="filter--gender" class="filter-group">
-			<div class="filter__header">
+		<div id="option--gender" class="option-group">
+			<div class="option__header">
 				<h4>Gender</h4>
-				<div class="header__reset">
+				<div class="header__button">
 					Any Gender
 				</div>
 			</div>
@@ -38,10 +38,10 @@
 				}
 			?>
 		</div>
-		<div id="filter--type" class="filter-group">
-			<div class="filter__header">
+		<div id="option--type" class="option-group">
+			<div class="option__header">
 				<h4>Type</h4>
-				<div class="header__reset">
+				<div class="header__button">
 					Any Type
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 				              'outerwear' => 'Outerwear');
 				/**
 				 * adjust key value pair and checkbox visibility
-				 * depending on filter--gender
+				 * depending on option--gender
 				 */
 				foreach($type as $type => $type_string) {
 					echo '
@@ -68,10 +68,10 @@
 			?>
 		</div>
 		<!-- Show more button -->
-		<div id="filter--gender" class="filter-group">
-			<div class="filter__header">
+		<div id="option--gender" class="option-group">
+			<div class="option__header">
 				<h4>Size</h4>
-				<div class="header__reset">
+				<div class="header__button">
 					Any Size
 				</div>
 			</div>
@@ -97,10 +97,10 @@
 				?>
 			</div>
 		</div>
-		<div id="filter--color" class="filter-group">
-			<div class="filter__header">
+		<div id="option--color" class="option-group">
+			<div class="option__header">
 				<h4>Color</h4>
-				<div class="header__reset">
+				<div class="header__button">
 					Any Color
 				</div>
 			</div>
@@ -130,10 +130,10 @@
 				?>
 			</div>
 		</div>
-		<div id="filter--price" class="filter-group">
-			<div class="filter__header">
+		<div id="option--price" class="option-group">
+			<div class="option__header">
 				<h4>Price Range</h4>
-				<div class="header__reset">
+				<div class="header__button">
 					Any Price
 				</div>
 			</div>
@@ -143,10 +143,10 @@
 				<span class="input input--text price__input">$<input type="text" name="price--max" id="price--max" placeholder="Max"></span>
 			</div>
 		</div>
-		<button type="submit" class="button button--primary filter__button">
+		<button type="submit" class="button button--primary option__button">
 			Apply Filters
 		</button>
-		<button type="reset" class="button button--secondary filter__button">
+		<button type="reset" class="button button--secondary option__button">
 			Clear All
 		</button>
 	</form>
