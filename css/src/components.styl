@@ -73,8 +73,34 @@
 	border-bottom-right-radius 0px
 
 .search__button
+	height 2.25rem
 	border-top-left-radius 0px
 	border-bottom-left-radius 0px
+
+/**
+ * Footer
+ */
+
+.footer
+	line-height lh-s
+	padding size-l 0
+	background color-black
+	color color-grey
+	margin-top size-xxl
+
+.footer__menu
+	font-size sub-h1
+	align-items center
+
+.footer__button
+	color color-grey
+	justify-self flex-start
+
+.footer__copyright
+	font-size sub-h1
+	justify-self flex-end
+	flex 1
+	text-align right
 
 /**
  * Hero
@@ -230,6 +256,7 @@
 
 .product__color--purple
 	background color-purple
+
 /**
  * Shop
  */
@@ -337,26 +364,39 @@
 	outline(color-primary)
 
 /**
- * Footer
+ * Shopping Bag
  */
 
-.footer
-	line-height lh-s
-	padding size-l 0
-	background color-black
-	color color-grey
-	margin-top size-xxl
+.bag
+	margin size-xxl 0 0 0
+	// 100vh - nav - footer - footer margin - this margin
+	min-height calc(100vh - 92px - 80px - 48px - 48px)
 
-.footer__menu
-	font-size sub-h1
+.bag__table
+	width 100%
+	text-align center
+
+.bag__thumbnail
+	width 64px
+	display block
+
+// .bag__edit
+// 	width 6rem
+
+.bag__edit
+	color color-grey
+	cursor pointer
+
+.bag__edit:hover
+	color color-primary
+
+.bag__review
+	display flex
+	flex-direction row
+	justify-content flex-end
 	align-items center
+	margin-top size-xl
 
-.footer__button
-	color color-grey
-	justify-self flex-start
-
-.footer__copyright
-	font-size sub-h1
-	justify-self flex-end
-	flex 1
-	text-align right
+.bag__subtotal
+	font-weight bold
+	margin-right size-l

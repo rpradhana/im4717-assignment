@@ -3,11 +3,11 @@
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
 	<?php
-		$productInfoName = 'WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt';
-		$productInfoID = 12345678;
-		$productInfoPriceCurrent = 19.90;
-		$productInfoPricePreDiscount = 29.90;
-		$productInfoDescription = '- White short sleeve tee with embroidered and sequined flower detail
+		$productName = 'WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt';
+		$productID = 12345678;
+		$productPriceCurrent = 19.90;
+		$productPricePreDiscount = 29.90;
+		$productDescription = '- White short sleeve tee with embroidered and sequined flower detail
 			- Sizing runs one size larger
 			- Round neckline
 			- Unlined
@@ -104,24 +104,24 @@
 							<input type="text" name="quantity" class="input input--text" id="quantity" value="1" placeholder="Quantity">
 						</div>
 						<button type="submit" class="button button--primary button--large option__button">
-							Add to Bag <?php echo '($' . $productInfoPriceCurrent . ')'?>
+							Add to Bag <?php echo '($' . $productPriceCurrent . ')'?>
 						</button>
 					</form>
 				</div>
 				<div class="four column">
 					<div class="product-info">
 						<div class="product-info__name">
-							<h4 class="header"><?php echo $productInfoName ?></h4>
+							<h4 class="header"><?php echo $productName ?></h4>
 						</div>
 						<div class="product-info__id">
-							ID: <?php echo $productInfoID ?>
+							ID: <?php echo $productID ?>
 						</div>
 						<div class="product-info__price">
-							<span class="product-info__price--current">$<?php echo $productInfoPriceCurrent ?></span>
-							<span class="product-info__price--pre-discount">$<?php echo $productInfoPricePreDiscount ?></span>
+							<span class="product-info__price--current">$<?php echo $productPriceCurrent ?></span>
+							<span class="product-info__price--pre-discount">$<?php echo $productPricePreDiscount ?></span>
 						</div>
 						<div class="product-info__description">
-							<?php echo nl2br($productInfoDescription) ?>
+							<?php echo nl2br($productDescription) ?>
 						</div>
 					</div>
 				</div>
