@@ -24,6 +24,7 @@
 	text-decoration none
 	color color-black
 	border none
+	white-space nowrap
 	border-radius()
 	transition()
 	&:hover
@@ -50,6 +51,14 @@
 	background none
 	color color-primary
 	inner-outline(color-primary)
+
+.button--text
+	color inherit
+	cursor pointer
+	text-decoration underline
+	transition()
+	&:hover
+		color color-dark-grey
 
 /**
  * Icon
@@ -212,11 +221,37 @@
 	display flex
 
 /**
- * Anchor
+ * Modal
  */
 
-.anchor
-	color inherit
-	text-decoration none
-	&:hover
-		color color-dark-grey
+.modal
+	width 100%
+	height 100%
+	background alpha(color-black, 0.75)
+	position fixed
+	display block
+	z-index 10001
+	transition()
+
+.modal__window
+	position absolute
+	left 50%
+	top 50%
+	transform translate(-50%, -50%)
+	background color-white
+	padding 6rem 6rem
+	border-radius(size-s)
+	box-shadow(0 4px 32px 0 alpha(color-black, 0.5))
+
+.modal__close
+	width 2rem
+	height 2rem
+	display flex
+	align-items center
+	justify-content center
+	cursor pointer
+	position absolute
+	right 2rem
+	top 2rem
+	font-size h2
+	color color-dark-grey

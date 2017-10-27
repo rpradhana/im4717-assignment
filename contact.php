@@ -17,14 +17,14 @@
 								</label>
 								<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
 							</div>
-							<div class="u-m-medium--bottom">
+							<div class="u-m-large--bottom">
 								<label for="message" class="label--required label--top">
 									Message
 								</label>
 								<textarea name="message" id="message" class="input--text u-fill" rows="5" placeholder="Enter your message."></textarea>
 							</div>
 						</div>
-						<div class="u-m-medium--top">
+						<div>
 							<button type="submit" class="button button--primary button--large">
 								Submit
 							</button>

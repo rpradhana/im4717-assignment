@@ -79,25 +79,27 @@
 								</label>
 								<input type="date" name="birthday" id="birthday" class="input--date u-fill">
 							</div>
-							<div class="u-m-medium--bottom">
+							<div class="u-m-large--bottom">
 								<!-- Replace button with password fields on click -->
 								<button type="button" class="button button--tertiary u-m-medium--top">
 									Change Password
 								</button>
-					<!-- 			<div class="u-m-medium--bottom">
-									<label for="postal-code" class="label--required label--top">
+								<!--
+								<div class="u-m-medium--bottom">
+									<label for="password" class="label--required label--top">
 										Password
 									</label>
 									<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
 								</div>
 								<div class="u-m-medium--bottom">
-									<label for="postal-code" class="label--required label--top">
-										Password
+									<label for="password--verify" class="label--required label--top">
+										Verify Password
 									</label>
 									<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
-								</div> -->
+								</div>
+							-->
 							</div>
-							<div class="u-m-medium--top">
+							<div>
 								<button type="submit" class="button button--primary button--large">
 									Update Profile
 								</button>

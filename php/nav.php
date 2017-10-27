@@ -6,8 +6,8 @@
 					<div class="row nav__submenu">
 						<a href="#" class="button submenu__button">Contact</a>
 						<a href="#" class="button submenu__button">Support</a>
-						<a href="#" class="button submenu__button"><strong>Register</strong></a>
-						<a href="#" class="button submenu__button"><strong>Sign In</strong></a>
+						<a href="#" class="button submenu__button" id="submenu__button--register"><strong>Register</strong></a>
+						<a href="#" class="button submenu__button" id="submenu__button--login"><strong>Sign In</strong></a>
 					</div>
 				</div>
 			</div>

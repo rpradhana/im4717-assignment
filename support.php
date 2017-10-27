@@ -10,7 +10,7 @@
 				<section class="support">
 					<h2 class="header">Help Centre</h2>
 					<section class="support__section" id="shipping-delivery">
-						<a href="#shipping-delivery" class="anchor"><h3>Shipping and Delivery</h3></a>
+						<h3 class="header"><a href="#shipping-delivery" class="button--text">Shipping and Delivery</a></h3>
 						<table class="u-fill">
 							<tr class="table__row">
 								<th>
@@ -61,7 +61,7 @@
 						</p>
 					</section>
 					<section class="support__section" id="return-policy">
-						<a href="#return-policy" class="anchor"><h3>Return Policy</h3></a>
+						<h3 class="header"><a href="#return-policy" class="button--text">Return Policy</a></h3>
 						<p>
 							You can, within 14 days of the order being received, return any goods in saleable condition.
 						</p>
@@ -73,13 +73,13 @@
 						</p>
 					</section>
 					<section class="support__section" id="not-collected">
-						<a href="#not-collected" class="anchor"><h3>How do I receive my orders if I am not home?</h3></a>
+						<h3 class="header"><a href="#not-collected" class="button--text">How do I receive my orders if I am not home?</a></h3>
 						<p>
 							All orders are delivered through Singapore Post and will require a signature upon delivery. If you are not at home to receive your items, a notification card will be dropped in your mailbox to invite you to collect your parcel at the nearest Singapore Post office.
 						</p>
 					</section>
 					<section class="support__section" id="help">
-						<a href="#help" class="anchor"><h3>I need help!</h3></a>
+						<h3 class="header"><a href="#help" class="button--text">I need help!</a></h3>
 						<p>
 							Feel free to <a href="./contact.php">contact us</a> and let us know how we could help you! We will reply to your query within 1 working day.
 						</p>

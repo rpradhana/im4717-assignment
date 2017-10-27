@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <?php include './php/head.php'; ?>
-<body class="debug o f h d">
+<body class="debug o f d">
 	<?php include './php/nav.php' ?>
 	<?php include './php/hero.php' ?>
 	<section id="collection--popular">

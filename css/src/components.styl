@@ -487,7 +487,7 @@
 	min-height()
 
 .support__section
-	padding size-m 0
+	padding size-l 0
 
 
 /**
@@ -502,3 +502,31 @@
 	padding size-xxxl 0
 	background-color color-light-grey
 	margin-bottom -(size-xxl)
+
+/**
+ * Login & Register
+ */
+
+.login
+.register
+	min-width 35rem
+	+mobile()
+		width calc(100% - 2rem)
+
+.login__action
+.register__action
+	display flex
+	flex-direction row
+	align-items center
+	justify-content center
+	margin-bottom size-l
+
+.register__action--secondary
+.login__action--secondary
+	text-align center
+
+.login__action--secondary span
+.register__action--secondary span
+	color color-dark-grey
+	font-size sub-h1
+	white-space nowrap
