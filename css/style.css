@@ -366,6 +366,13 @@ button-moz-focusring,
 .stepper__content {
   display: flex;
 }
+.anchor {
+  color: inherit;
+  text-decoration: none;
+}
+.anchor:hover {
+  color: #678;
+}
 html {
   font-size: 100%;
   background: #012;
@@ -893,6 +900,13 @@ strong {
 }
 .profile__name {
   margin: 0 0 1.5rem;
+}
+.support {
+  margin: 3rem 0;
+  min-height: calc(100vh - 92px - 80px - 48px - 48px);
+}
+.support__section {
+  padding: 1rem 0;
 }
 .u-fill {
   width: 100% !important;
