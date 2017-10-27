@@ -89,8 +89,8 @@
 					</section>
 				</section>
 			</div>
+			<div class="two column"></div>
 		</div>
-		<div class="two column"></div>
 	</div>
 	<?php include './php/footer.php' ?>
 	<script type="text/javascript" src='./js/global.js'></script>
