@@ -36,7 +36,7 @@
 								$19.90
 							</td>
 							<td>
-								<input type="text" name="quantity" class="input input--text" value="1">
+								<input type="text" name="quantity" class="input--text" value="1">
 							</td>
 							<td class="u-align--right">
 								<strong>$39.80</strong>

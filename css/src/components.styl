@@ -454,10 +454,7 @@
 
 .profile
 	margin size-xxl 0
-	min-height calc(100vh - 92px - 80px - 48px - 48px)
-
-.profile__header
-	margin-bottom size-l
+	min-height()
 
 .profile__menu
 	display flex
@@ -487,7 +484,21 @@
 
 .support
 	margin size-xxl 0
-	min-height calc(100vh - 92px - 80px - 48px - 48px)
+	min-height()
 
 .support__section
 	padding size-m 0
+
+
+/**
+ * Contact
+ */
+
+.contact
+	margin size-xxl 0
+	padding size-xl 0
+
+.map
+	padding size-xxxl 0
+	background-color color-light-grey
+	margin-bottom -(size-xxl)

@@ -101,7 +101,7 @@
 						</div>
 						<div class="option--quantity">
 							<div>Quantity</div>
-							<input type="text" name="quantity" class="input input--text" id="quantity" value="1" placeholder="Quantity">
+							<input type="text" name="quantity" class="input--text" id="quantity" value="1" placeholder="Quantity">
 						</div>
 						<button type="submit" class="button button--primary button--large option__button">
 							Add to Bag <?php echo '($' . $productPriceCurrent . ')'?>

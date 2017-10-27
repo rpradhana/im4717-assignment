@@ -22,13 +22,13 @@
 				</div>
 				<div class="six column">
 					<form id="profile__edit">
-						<h2 class="header profile__header">My Profile</h2>
+						<h2 class="header u-m-large--bottom">My Profile</h2>
 						<div class="u-flex">
 							<div class="u-m-medium--bottom">
 								<label for="name" class="label--required label--top">
 									Full Name
 								</label>
-								<input type="text" name="name" id="name" class="input input--text u-fill" placeholder="Your full name" required>
+								<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
 							</div>
 							<div class="u-m-medium--bottom">
 								<label for="email" class="label--required label--top">
@@ -65,7 +65,7 @@
 								<label for="phone" class="label--required label--top">
 									Phone No.
 								</label>
-								<input type="text" name="phone" id="phone" class="input input--text u-fill" placeholder="Phone number" required>
+								<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" required>
 							</div>
 							<div class="u-m-medium--bottom">
 								<label for="country" class="label--required label--top">

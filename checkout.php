@@ -27,7 +27,7 @@
 												<label class="label--required">Full Name</label>
 											</td>
 											<td>
-												<input type="text" name="name" id="name" class="input input--text u-fill" placeholder="Your full name" required>
+												<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
 											</td>
 										</tr>
 										<tr class="checkout__row">
@@ -41,7 +41,7 @@
 										<tr class="checkout__row">
 											<td colspan="2">
 												<label for="create-account" class="label--checkbox">
-													<input type="checkbox" name="create-account" id="create-account" class="input input--checkbox">
+													<input type="checkbox" name="create-account" id="create-account" class="input--checkbox">
 													Create account for later use.
 												</label>
 											</td>
@@ -104,7 +104,7 @@
 												<label>Phone No.</label>
 											</td>
 											<td>
-												<input type="text" name="phone" id="phone" class="input input--text u-fill" placeholder="Phone number" required>
+												<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" required>
 											</td>
 										</tr>
 										<tr class="checkout__row">

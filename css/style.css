@@ -875,9 +875,6 @@ strong {
   margin: 3rem 0;
   min-height: calc(100vh - 92px - 80px - 48px - 48px);
 }
-.profile__header {
-  margin-bottom: 1.5rem;
-}
 .profile__menu {
   display: flex;
   justify-content: flex-start;
@@ -907,6 +904,15 @@ strong {
 }
 .support__section {
   padding: 1rem 0;
+}
+.contact {
+  margin: 3rem 0;
+  padding: 2rem 0;
+}
+.map {
+  padding: 4rem 0;
+  background-color: #dddeef;
+  margin-bottom: -3rem;
 }
 .u-fill {
   width: 100% !important;
@@ -952,6 +958,18 @@ strong {
 }
 .u-m-medium--left {
   margin-left: 1rem !important;
+}
+.u-m-large--top {
+  margin-top: 1.5rem !important;
+}
+.u-m-large--right {
+  margin-right: 1.5rem !important;
+}
+.u-m-large--bottom {
+  margin-bottom: 1.5rem !important;
+}
+.u-m-large--left {
+  margin-left: 1.5rem !important;
 }
 .u-align--center {
   text-align: center !important;
