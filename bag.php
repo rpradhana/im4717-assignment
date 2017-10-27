@@ -10,7 +10,7 @@
 					<h2 class="header u-m-medium--bottom">Shopping Bag</h2>
 					<table class="bag__table">
 						<tr class="table__header">
-							<th class="u-align--left">Image</th>
+							<th class="u-align--left u-p-zero--left">Image</th>
 							<th>Color</th>
 							<th>Size</th>
 							<th class="u-align--left">Item</th>
@@ -19,7 +19,7 @@
 							<th class="u-align--right">Subtotal</th>
 							<th></th>
 						</tr>
-						<tr class="table__row bag__content">
+						<tr class="table__row">
 							<td>
 								<img src="./images/pexels-photo-428338.jpg" class="bag__thumbnail">
 							</td>

@@ -51,6 +51,9 @@
 
 .menu__search
 	margin 0 size-m
+	display flex
+	flex-direction row
+	flex 1
 
 .nav__submenu
 	justify-content flex-end
@@ -134,7 +137,7 @@
 .hero__button
 	text-transform uppercase
 	letter-spacing 0.2em
-	font-weight 600
+	font-weight weight-medium
 	padding size-xl size-xxl
 	background color-primary
 	color color-white
@@ -312,6 +315,11 @@
 	width 42%
 	padding size-s size-s
 
+.price__input input:focus
+	outline-style:none;
+	box-shadow:none;
+	border-color:transparent;
+
 .price__input input
 	display inline-block
 	margin-left size-xs
@@ -337,7 +345,7 @@
 	margin-bottom size-s
 
 .product-info__price--current
-	font-weight bold
+	font-weight weight-medium
 	margin-right size-s
 
 .product-info__price--pre-discount
@@ -398,5 +406,47 @@
 	margin-top size-xl
 
 .bag__subtotal
-	font-weight bold
+	font-weight weight-medium
 	margin-right size-l
+
+.bag__order
+	display flex
+	flex-direction row
+	align-items center
+	margin-top size-xl
+
+.bag__order *
+	flex 1
+	justify-content center
+
+.bag__final-check
+	box-shadow(0)
+
+/**
+ * Checkout
+ */
+
+.checkout
+	margin-top size-xxl
+
+.checkout__section:not(:nth-last-of-type(1))
+	box-shadow(0 1px 0 0 color-light-grey)
+
+.checkout__section::before
+.checkout__section::after
+	content ''
+	display block
+	height size-s
+
+.checkout__row td
+	padding size-s 0
+
+.checkout__row td:nth-child(1)
+	padding-right size-s
+
+.payment__expiry
+	display flex
+	flex-direction row
+
+.payment__expiry *
+	display flex

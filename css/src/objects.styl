@@ -8,6 +8,10 @@
 .header a
 	text-decoration none
 
+/**
+ * Button
+ */
+
 .button
 	display flex
 	flex-direction row
@@ -52,6 +56,10 @@
 	outline()
 	border-radius()
 
+/**
+ * Icon
+ */
+
 .icon
 .icon *
 	display flex
@@ -59,29 +67,44 @@
 .button__icon
 	margin-right size-s
 
-.form--search
-	display flex
-	flex-direction row
-	flex 1
+/**
+ * Input
+ */
 
+.input--date
 .input--text
 	background #FFFFFF
 	border none
 	padding size-s size-m
 	width 5rem
-	box-shadow(inset 0 0 1px 1px alpha(color-black, 0.125))
+	inner-outline(alpha(color-black, 0.125))
 	border-radius()
 
+.input--date
 .input--text:focus
 	box-shadow(0 0 2px 0 alpha(color-secondary, 1))
 
 .input--text::placeholder
 	color alpha(color-black, 0.5)
 
+.input--date
+	appearance none
+	-webkit-appearance none
+	font-family font
+	cursor pointer
+	font-family font
+	display inline-block !important
+	visibility visible !important
+	inner-outline(alpha(color-black, 0.125))
+
+/**
+ * Select
+ */
+
 .select
 	border none
 	padding size-xs size-s
-	box-shadow(inset 0 0 1px 1px alpha(color-black, 0.125))
+	inner-outline(alpha(color-black, 0.125))
 	border-radius()
 
 .select--with-label
@@ -90,13 +113,21 @@
 /**
  * Label
  */
+.label--required
+	white-space nowrap
 
+.label--required:after
+	content " *"
+	color color-primary
+
+.label--radio
 .label--checkbox
 	display block
 	padding-left 1.75em
 	text-indent -1.75em
 	cursor pointer
 
+.label--radio:not(:nth-last-of-type(1))
 .label--checkbox:not(:nth-last-of-type(1))
 	margin-bottom size-xs
 
@@ -104,6 +135,7 @@
  * Checkbox
  */
 
+.input--radio
 .input--checkbox
 	width 1em
 	height 1em
@@ -150,3 +182,36 @@
 
 .table__row td:nth-child(1)
 	padding size-s 0
+
+/**
+ * Stepper
+ */
+
+.stepper
+	margin-bottom size-l
+
+.stepper__header
+	width 100%
+	display flex
+	flex-direction row
+	margin-bottom size-l
+
+.stepper__index
+	padding size-m size-l
+	background color-primary
+	color color-white
+	text-align center
+	border-top-left-radius 4px
+	border-bottom-left-radius 4px
+
+.stepper__step-name
+	padding-left size-l
+	background color-light-grey
+	flex 1
+	display flex
+	justify-content center
+	border-top-right-radius 4px
+	border-bottom-right-radius 4px
+
+.stepper__content
+	display flex

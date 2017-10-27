@@ -15,10 +15,10 @@
 							<div class="search-result__info">
 								Displaying all products
 							</div>
-							<div class="search-result__sort">
+							<div>
 								Sort by
 								<select class="select select--with-label">
-									<option class="" value="popular">Most Popular</option>
+									<option value="popular">Most Popular</option>
 								</select>
 							</div>
 						</div>

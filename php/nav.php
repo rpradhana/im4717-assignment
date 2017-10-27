@@ -21,8 +21,8 @@
 						<a href="#" class="nav__logo"><img src="./images/logo.svg"></a>
 						<a href="#" id="menu__button--women" class="button menu__button">Women</a>
 						<a href="#" id="menu__button--men" class="button menu__button">Men</a>
-						<form class="form--search menu__search">
-							<input type="text" class="input--text search__input u-flex-fill" placeholder="Search collection">
+						<form class="menu__search">
+							<input type="text" class="input--text search__input u-flex-1" placeholder="Search collection">
 							<button type="submit" class="button button--secondary search__button">
 								<!-- <img src="http://via.placeholder.com/20x20" class="icon"> -->
 								<div class="icon">

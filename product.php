@@ -61,7 +61,7 @@
 										echo '
 											<div class="six column u-p-zero">
 												<label for="color--' . $color . '" class="label label--checkbox">
-													<input type="checkbox" name="color" class="input--checkbox" id="color--' . $color . '">
+													<input type="radio" name="color" class="input--checkbox" id="color--' . $color . '">
 													' . $color_string . '
 												</label>
 											</div>
@@ -90,7 +90,7 @@
 										echo '
 											<div class="six column u-p-zero">
 												<label for="size--' . $size . '" class="label label--checkbox">
-													<input type="checkbox" name="size" class="input--checkbox" id="size--' . $size . '">
+													<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '">
 													' . $size_string . '
 												</label>
 											</div>
