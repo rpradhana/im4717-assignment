@@ -195,6 +195,7 @@ var spawnModal = function(content) {
 	 * TODO: Refactor!
 	 * TODO: #register__next cannot trigger native form invalid message
 	 */
+window.onload = function() {
 
 	if ($('#register--switch')) {
 		$('#register--switch').addEventListener("click", function() {
