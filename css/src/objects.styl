@@ -24,10 +24,10 @@
 	text-decoration none
 	color color-black
 	border none
+	border-radius()
 	transition()
-
-.button:hover
-	color lightness(color-primary 50%)
+	&:hover
+		color lightness(color-primary 50%)
 
 .button--large
 	padding size-m size-l
@@ -35,26 +35,21 @@
 .button--primary
 	background color-primary
 	color color-white
-	border-radius()
-
-.button--primary:hover
-	background lightness(color-primary 50%)
-	color color-white
+	&:hover
+		background lightness(color-primary 50%)
+		color color-white
 
 .button--secondary
 	background color-light-grey
 	color color-black
-	border-radius()
+	&:hover
+		color inherit
+		background alpha(color-light-grey, 0.75)
 
-.button--secondary:hover
-	color inherit
-	background alpha(color-light-grey, 0.75)
-
-.button--ghost
+.button--tertiary
 	background none
-	color color-black
-	outline()
-	border-radius()
+	color color-primary
+	inner-outline(color-primary)
 
 /**
  * Icon
@@ -131,6 +126,11 @@
 .label--checkbox:not(:nth-last-of-type(1))
 	margin-bottom size-xs
 
+.label--top
+	display block
+	font-size sub-h1
+	margin-bottom size-xs
+
 /**
  * Checkbox
  */
@@ -171,17 +171,12 @@
  */
 
 .table__row
-.table__header
 	box-shadow(0 1px 0 0 color-black)
 
-.table__header th
-	padding size-m size-m
-
+.table__row th
 .table__row td
 	padding size-m size-m
-
-.table__row td:nth-child(1)
-	padding size-s 0
+	text-align left
 
 /**
  * Stepper

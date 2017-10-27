@@ -16,10 +16,6 @@ box-shadow(args = 0 size-xxs size-xxs 0 alpha(color-black, 0.125))
 transition(args = all 0.1s ease-out)
 	vendor('transition', args)
 
-/**
- * Mixins
- */
- 
 outline(color = color-black)
 	box-shadow(0 0 1px 1px color)
 
@@ -31,3 +27,7 @@ clearfix()
 		content ""
 		display table
 		clear both
+
+min-height(height = calc(100vh - 92px - 80px - 48px - 48px))
+	// 100vh - nav - footer - footer margin - this margin
+	min-height height

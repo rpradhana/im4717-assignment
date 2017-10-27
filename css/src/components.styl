@@ -369,7 +369,7 @@
 	display flex
 
 .product-thumbnails--active
-	outline(color-primary)
+	inner-outline(color-primary)
 
 /**
  * Shopping Bag
@@ -377,12 +377,7 @@
 
 .bag
 	margin size-xxl 0 0 0
-	// 100vh - nav - footer - footer margin - this margin
-	min-height calc(100vh - 92px - 80px - 48px - 48px)
-
-.bag__table
-	width 100%
-	text-align center
+	min-height()
 
 .bag__thumbnail
 	width 64px
@@ -428,9 +423,10 @@
 
 .checkout
 	margin-top size-xxl
+	min-height()
 
 .checkout__section:not(:nth-last-of-type(1))
-	box-shadow(0 1px 0 0 color-light-grey)
+	min-height()
 
 .checkout__section::before
 .checkout__section::after
@@ -450,3 +446,36 @@
 
 .payment__expiry *
 	display flex
+
+
+/**
+ * Profile
+ */
+
+.profile
+	margin size-xxl 0
+	min-height calc(100vh - 92px - 80px - 48px - 48px)
+
+.profile__header
+	margin-bottom size-l
+
+.profile__menu
+	display flex
+	justify-content flex-start
+	background none
+	width 100%
+	margin-bottom size-s
+	border-radius()
+
+.profile__menu:hover
+	background color-light-grey
+	color inherit
+
+.profile__menu--active
+.profile__menu--active:hover
+	background-color color-primary
+	color color-white
+	font-weight weight-medium
+
+.profile__name
+	margin 0 0 size-l

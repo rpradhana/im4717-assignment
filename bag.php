@@ -8,12 +8,12 @@
 			<div class="container">
 				<div class="twelve column">
 					<h2 class="header u-m-medium--bottom">Shopping Bag</h2>
-					<table class="bag__table">
-						<tr class="table__header">
-							<th class="u-align--left u-p-zero--left">Image</th>
+					<table class="u-fill">
+						<tr class="table__row">
+							<th>Image</th>
 							<th>Color</th>
 							<th>Size</th>
-							<th class="u-align--left">Item</th>
+							<th>Item</th>
 							<th>Price</th>
 							<th>Quantity</th>
 							<th class="u-align--right">Subtotal</th>
@@ -29,7 +29,7 @@
 							<td>
 								S
 							</td>
-							<td class="u-align--left">
+							<td>
 								WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
 							</td>
 							<td>

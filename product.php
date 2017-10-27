@@ -114,7 +114,7 @@
 							<h4 class="header"><?php echo $productName ?></h4>
 						</div>
 						<div class="product-info__id">
-							ID: <?php echo $productID ?>
+							Product ID: <?php echo $productID ?>
 						</div>
 						<div class="product-info__price">
 							<span class="product-info__price--current">$<?php echo $productPriceCurrent ?></span>

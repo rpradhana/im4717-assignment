@@ -38,7 +38,16 @@
 												<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
 											</td>
 										</tr>
-										<!-- HIDE IF #create-ccount !checked -->
+										<tr class="checkout__row">
+											<td colspan="2">
+												<label for="create-account" class="label--checkbox">
+													<input type="checkbox" name="create-account" id="create-account" class="input input--checkbox">
+													Create account for later use.
+												</label>
+											</td>
+										</tr>
+										<!-- HIDE IF #create-account !checked -->
+										<!-- default not checked -->
 										<tr class="checkout__row">
 											<td>
 												<label class="label--required">Password</label>
@@ -53,14 +62,6 @@
 											</td>
 											<td>
 												<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
-											</td>
-										</tr>
-										<tr class="checkout__row">
-											<td colspan="2">
-												<label for="create-account" class="label--checkbox">
-													<input type="checkbox" name="create-account" id="create-account" class="input input--checkbox">
-													Create account for later use.
-												</label>
 											</td>
 										</tr>
 									</tbody>
@@ -88,7 +89,7 @@
 												<label>Gender</label>
 											</td>
 											<td>
-												<label for="gender--men" class="label--radio u-inline-block">
+												<label for="gender--men" class="label--radio u-inline-block u-m-medium--right">
 													<input type="radio" name="gender" value="men" id="gender--men" class="input--radio">
 													Women
 												</label>
@@ -233,20 +234,20 @@
 									<h3>Order Confirmation</h3>
 								</div>
 							</div>
-							<table class="bag__table">
-								<tr class="table__header">
-									<th class="u-align--left u-p-zero--left">Item</th>
-									<th>Quantity</th>
-									<th class="u-align--right u-p-zero--right">Subtotal</th>
+							<table class="u-fill">
+								<tr class="table__row">
+									<th>Item</th>
+									<th class="u-align--center">Quantity</th>
+									<th class="u-align--right">Subtotal</th>
 								</tr>
 								<tr class="table__row">
-									<td class="u-align--left">
+									<td>
 										WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt
 									</td>
-									<td>
+									<td class="u-align--center">
 										1
 									</td>
-									<td class="u-align--right u-p-zero--right">
+									<td class="u-align--right">
 										$39.80
 									</td>
 								</tr>
@@ -256,7 +257,7 @@
 										<div>Shipping</div>
 										<div><h3 class="header u-m-medium--top">Grand Total</h3></div>
 									</td>
-									<td class="u-align--right u-p-zero--right">
+									<td class="u-align--right">
 										<div>$39.80</div>
 										<div>$6.00</div>
 										<div><h3 class="header u-m-medium--top">$45.80</h3></div>
