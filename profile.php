@@ -12,12 +12,12 @@
 						<div class="profile__name">
 							<h4 class="header">Raymond Aditya Pradhana</h4>
 						</div>
-						<button class="button button--large profile__menu profile__menu--active">
+						<a href="./profile.php" class="button button--large profile__menu profile__menu--active">
 							My Profile
-						</button>
-						<button class="button button--large profile__menu">
+						</a>
+						<a href="./past-orders.php" class="button button--large profile__menu">
 							Past Orders
-						</button>
+						</a>
 					</aside>
 				</div>
 				<div class="six column">

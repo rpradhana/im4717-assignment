@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <?php include './php/head.php'; ?>
-<body class="debug o f h">
+<body class="debug o f h d">
 	<?php
 		$productName     = 'WOMEN LOREM IPSUM Cotton Turtle Neck Long Sleeve T-Shirt';
 		$productID       = 12345678;
@@ -18,12 +18,12 @@
 						<div class="profile__name">
 							<h4 class="header">Raymond Aditya Pradhana</h4>
 						</div>
-						<button class="button button--large profile__menu">
+						<a href="./profile.php" class="button button--large profile__menu">
 							My Profile
-						</button>
-						<button class="button button--large profile__menu profile__menu--active">
+						</a>
+						<a href="./past-orders.php" class="button button--large profile__menu profile__menu--active">
 							Past Orders
-						</button>
+						</a>
 					</aside>
 				</div>
 				<div class="eight column">
