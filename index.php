@@ -5,6 +5,7 @@
 	<?php include './php/nav.php' ?>
 	<?php include './php/hero.php' ?>
 	<section id="collection--popular">
+		<!--test-->
 		<div class="container">
 			<div class="row">
 				<div class="twelve column">
