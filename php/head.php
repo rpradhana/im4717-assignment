@@ -8,4 +8,5 @@
 	<link rel="icon" type="image/png" href="https://lh3.google.com/u/0/d/0B2BwtQkZdGA2SHNQUnM1b2g2c1k=w1455-h947-iv1">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<script src='./js/JSCustomizeProduct.js' type='text/javascript'></script>
 </head>
