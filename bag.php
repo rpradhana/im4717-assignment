@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <?php include './php/head.php'; ?>
-<body class="debug o f h">
+<body class="debug o f h d">
 	<?php include './php/nav.php' ?>
 	<section id="bag" class="bag">
 		<form>

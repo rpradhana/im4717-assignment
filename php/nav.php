@@ -4,10 +4,10 @@
 			<div class="row">
 				<div class="twelve column" >
 					<div class="row nav__submenu">
-						<a href="#" class="button submenu__button">Contact</a>
-						<a href="#" class="button submenu__button">Support</a>
-						<a href="#" class="button submenu__button" id="submenu__button--register"><strong>Register</strong></a>
-						<a href="#" class="button submenu__button" id="submenu__button--login"><strong>Sign In</strong></a>
+						<a href="./contact.php" class="button submenu__button">Contact</a>
+						<a href="./support.php" class="button submenu__button">Support</a>
+						<span class="button submenu__button" id="submenu__button--register"><strong>Register</strong></span>
+						<span class="button submenu__button" id="submenu__button--login"><strong>Sign In</strong></span>
 					</div>
 				</div>
 			</div>
@@ -18,20 +18,18 @@
 			<div class="row">
 				<div class="twelve column">
 					<div class="row nav__menu">
-						<a href="#" class="nav__logo"><img src="./images/logo.svg"></a>
-						<a href="#" id="menu__button--women" class="button menu__button">Women</a>
-						<a href="#" id="menu__button--men" class="button menu__button">Men</a>
+						<a href="./index.php" class="nav__logo"><img src="./images/logo.svg" width="7.5rem"></a>
+						<a href="./shop.php?gender=women" id="menu__button--women" class="button menu__button">Women</a>
+						<a href="./shop.php?gender=men" id="menu__button--men" class="button menu__button">Men</a>
 						<form class="menu__search">
 							<input type="text" class="input--text search__input u-flex-1" placeholder="Search collection">
 							<button type="submit" class="button button--secondary search__button">
-								<!-- <img src="http://via.placeholder.com/20x20" class="icon"> -->
 								<div class="icon">
 									<i class="material-icons">search</i>
 								</div>
 							</button>
 						</form>
-						<a href="#" class="button menu__button">
-							<!-- <img src="http://via.placeholder.com/20x20" class="icon button__icon"> -->
+						<a href="./bag.php" class="button menu__button">
 							<!-- <div class="icon button__icon">
 								<i class="material-icons">shopping_basket</i>
 							</div> -->
@@ -50,15 +48,24 @@
 			<div class="row">
 				<div class="twelve column u-p-zero">
 					<div class="row nav__category">
-						<a href="#" class="button category__button">Popular</a>
-						<a href="#" class="button category__button">New</a>
-						<a href="#" class="button category__button">Shirts &amp; Blouses</a>
-						<a href="#" class="button category__button">T-Shirts</a>
-						<a href="#" class="button category__button">Dresses</a>
-						<a href="#" class="button category__button">Pants</a>
-						<a href="#" class="button category__button">Shorts</a>
-						<a href="#" class="button category__button">Skirts</a>
-						<a href="#" class="button category__button">Outerwear</a>
+						<a href="./shop.php?gender=women&tag=popular"
+						   class="button category__button">Popular</a>
+						<a href="./shop.php?gender=women&tag=new"
+						   class="button category__button">New</a>
+						<a href="./shop.php?gender=women&type=shirt"
+						   class="button category__button">Shirts &amp; Blouses</a>
+						<a href="./shop.php?gender=women&type=t-shirt"
+						   class="button category__button">T-Shirts</a>
+						<a href="./shop.php?gender=women&type=dress"
+						   class="button category__button">Dresses</a>
+						<a href="./shop.php?gender=women&type=pants"
+						   class="button category__button">Pants</a>
+						<a href="./shop.php?gender=women&type=shorts"
+						   class="button category__button">Shorts</a>
+						<a href="./shop.php?gender=women&type=skirts"
+						   class="button category__button">Skirts</a>
+						<a href="./shop.php?gender=women&type=outerwear"
+						   class="button category__button">Outerwear</a>
 					</div>
 				</div>
 			</div>
@@ -69,13 +76,20 @@
 			<div class="row">
 				<div class="twelve column u-p-zero">
 					<div class="row nav__category">
-						<a href="#" class="button category__button">Popular</a>
-						<a href="#" class="button category__button">New</a>
-						<a href="#" class="button category__button">Shirts</a>
-						<a href="#" class="button category__button">T-Shirts</a>
-						<a href="#" class="button category__button">Pants</a>
-						<a href="#" class="button category__button">Shorts</a>
-						<a href="#" class="button category__button">Outerwear</a>
+						<a href="./shop.php/?gender=men&tag=popular"
+						   class="button category__button">Popular</a>
+						<a href="./shop.php/?gender=men&tag=new"
+						   class="button category__button">New</a>
+						<a href="./shop.php/?gender=men&type=shirt"
+						   class="button category__button">Shirts</a>
+						<a href="./shop.php/?gender=men&&type=t-shirt"
+						   class="button category__button">T-Shirts</a>
+						<a href="./shop.php/?gender=men&type=pants"
+						   class="button category__button">Pants</a>
+						<a href="./shop.php/?gender=men&type=shorts"
+						   class="button category__button">Shorts</a>
+						<a href="./shop.php/?gender=men&type=outerwear"
+						   class="button category__button">Outerwear</a>
 					</div>
 				</div>
 			</div>

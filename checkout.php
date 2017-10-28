@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <?php include './php/head.php'; ?>
-<body class="debug o f h">
+<body class="debug o f h d">
 	<?php include './php/nav.php' ?>
 	<section class="checkout">
 		<div class="container">
@@ -18,7 +18,7 @@
 								</div>
 							</div>
 							<div class="stepper__content">
-								<div class="u-m-medium--bottom">Already registered? <a href="#">Sign in to your account.</a></div>
+								<div class="u-m-medium--bottom">Already registered? <a onclick="spawnModal(HTML_LOGIN)">Sign in to your account.</a></div>
 								<div class="u-m-medium--bottom">Or enter new billing address</div>
 								<table class="u-fill">
 									<tbody class="checkout__section">

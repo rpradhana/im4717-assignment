@@ -18,7 +18,11 @@
 							<div>
 								Sort by
 								<select class="select select--with-label">
-									<option value="popular">Most Popular</option>
+									<option value="relevance">Relevance</option>
+									<option value="popular">Popularity</option>
+									<option value="new">Newest arrivals</option>
+									<option value="price--ascending">Price (lowest)</option>
+									<option value="price--descending">Price (highest)</option>
 								</select>
 							</div>
 						</div>

@@ -4,7 +4,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="twelve column">
-						<a href="#" class="button button--primary hero__button">Shop Women's Collection</a>
+						<a href="./shop.php?gender=women" class="button button--primary hero__button">Shop Women's Collection</a>
 					</div>
 				</div>
 			</div>
@@ -13,7 +13,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="twelve column">
-						<a href="#" class="button button--primary hero__button">Shop Men's Collection</a>
+						<a href="./shop.php?gender=men" class="button button--primary hero__button">Shop Men's Collection</a>
 					</div>
 				</div>
 			</div>

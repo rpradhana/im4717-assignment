@@ -489,6 +489,8 @@ body * {
 }
 a {
   color: #bf0040;
+  cursor: pointer;
+  text-decoration: underline;
 }
 a:hover {
   color: #f05;
@@ -600,6 +602,14 @@ strong {
   flex: 1;
   text-align: right;
 }
+.disclaimer {
+  background: #cf000f;
+  color: #fff;
+  font-weight: 600;
+  padding: 1rem 0;
+  line-height: 1.5em;
+  text-align: center;
+}
 .hero {
   margin-bottom: 3rem;
 }
@@ -612,9 +622,9 @@ strong {
   text-align: center;
 }
 .hero__half--women {
-  background-image: url("./images/hero-women.jpg");
   background-size: cover;
   background-position: right;
+  background-image: url("./images/hero-women.jpg");
 }
 @media only screen and (min-width: 75em) {
   .hero__half--women {
@@ -622,9 +632,9 @@ strong {
   }
 }
 .hero__half--men {
-  background-image: url("./images/hero-men.jpg");
   background-size: cover;
   background-position: left;
+  background-image: url("./images/hero-men.jpg");
 }
 @media only screen and (min-width: 75em) {
   .hero__half--men {
@@ -967,6 +977,9 @@ strong {
   padding: 4rem 0;
   background-color: #dddeef;
   margin-bottom: -3rem;
+}
+.map__widget {
+  background-color: #fff;
 }
 .login,
 .register {

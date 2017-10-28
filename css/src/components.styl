@@ -105,6 +105,14 @@
 	flex 1
 	text-align right
 
+.disclaimer
+	background color-red
+	color color-white
+	font-weight weight-medium
+	padding size-m 0
+	line-height lh-l
+	text-align center
+
 /**
  * Hero
  */
@@ -121,18 +129,18 @@
 	text-align center
 
 .hero__half--women
+	background-size cover
+	background-position right
 	background-image url('./images/hero-women.jpg')
 	+hd()
 		background-image url('./images/hero-women@2x.jpg')
-	background-size cover
-	background-position right
 
 .hero__half--men
+	background-size cover
+	background-position left
 	background-image url('./images/hero-men.jpg')
 	+hd()
 		background-image url('./images/hero-men@2x.jpg')
-	background-size cover
-	background-position left
 
 .hero__button
 	text-transform uppercase
@@ -502,6 +510,9 @@
 	padding size-xxxl 0
 	background-color color-light-grey
 	margin-bottom -(size-xxl)
+
+.map__widget
+	background-color color-white
 
 /**
  * Login & Register
