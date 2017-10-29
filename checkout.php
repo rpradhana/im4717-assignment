@@ -93,6 +93,8 @@
 										</tr>
 										<!-- HIDE IF #create-account !checked -->
 										<!-- default not checked -->
+										<!-- add `required` attribute if checked -->
+										<!-- remove `u-is-hidden` class if checked -->
 										<tr class="checkout__row u-is-hidden">
 											<td>
 												<label class="label--required">Email</label>
@@ -106,7 +108,7 @@
 												<label class="label--required">Password</label>
 											</td>
 											<td>
-												<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
+												<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password">
 											</td>
 										</tr>
 										<tr class="checkout__row u-is-hidden">
@@ -114,7 +116,7 @@
 												<label class="label--required">Verify Password</label>
 											</td>
 											<td>
-												<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
+												<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password">
 											</td>
 										</tr>
 									</tbody>
