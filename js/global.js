@@ -243,7 +243,7 @@ var showErrorWithMessage = function(target, message) {
 
 var hideErrorWithMessage = function(target) {
 	if (target) {
-		target.parentNode.setAttribute('data-attr');
+		target.parentNode.setAttribute('data-attr', '');
 		removeClass(target.parentNode, 'input--invalid');
 	}
 	else console.log('No target found for hideErrorWithMessage()');
