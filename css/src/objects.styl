@@ -140,6 +140,16 @@
 	font-size sub-h1
 	margin-bottom size-xs
 
+.input--invalid input
+	border 1px solid color-red
+
+.input--invalid
+	color color-red
+
+.input::after
+	content attr(data-attr)
+	font-size sub-h2
+
 /**
  * Checkbox
  */
@@ -255,3 +265,16 @@
 	top 2rem
 	font-size h2
 	color color-dark-grey
+
+/**
+ * Popup
+ */
+
+.popup
+	position absolute
+	background color-white
+	padding size-xs size-m
+	font-size sub-h2
+	right 0
+	box-shadow()
+	border-radius()

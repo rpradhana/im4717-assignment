@@ -27,34 +27,36 @@
 												<label class="label--required">Full Name</label>
 											</td>
 											<td>
-												<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
+												<span class="input">
+													<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
+												</span>
 											</td>
 										</tr>
-									</tbody>
-									<tbody class="checkout__section">
 										<tr class="checkout__row">
 											<td>
 												<label class="label--required">Address</label>
 											</td>
 											<td>
-												<input type="text" name="address" id="address" class="input--text u-fill" placeholder="Delivery address" required>
+												<span class="input">
+													<input type="text" name="address" id="address" class="input--text u-fill" placeholder="Delivery address" required>
+												</span>
 											</td>
 										</tr>
-									</tbody>
-									<tbody class="checkout__section">
 										<tr class="checkout__row">
 											<td>
 												<label>Gender</label>
 											</td>
 											<td>
-												<label for="gender--men" class="label--radio u-inline-block u-m-medium--right">
-													<input type="radio" name="gender" value="men" id="gender--men" class="input--radio">
-													Women
-												</label>
-												<label for="gender--women" class="label--radio u-inline-block">
-													<input type="radio" name="gender" value="women" id="gender--women" class="input--radio">
-													Men
-												</label>
+												<span class="input">
+													<label for="gender--men" class="label--radio u-inline-block u-m-medium--right">
+														<input type="radio" name="gender" value="men" id="gender--men" class="input--radio">
+														Women
+													</label>
+													<label for="gender--women" class="label--radio u-inline-block">
+														<input type="radio" name="gender" value="women" id="gender--women" class="input--radio">
+														Men
+													</label>
+												</span>
 											</td>
 										</tr>
 										<tr class="checkout__row" class="label--required">
@@ -62,7 +64,9 @@
 												<label>Phone No.</label>
 											</td>
 											<td>
-												<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" required>
+												<span class="input">
+													<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" required>
+												</span>
 											</td>
 										</tr>
 										<tr class="checkout__row">
@@ -70,7 +74,10 @@
 												<label>Country</label>
 											</td>
 											<td>
-												<input type="text" name="country" id="country" class="input--text u-fill" placeholder="Country of residence">
+												<!-- <span class="popup">Input is invalid</span> -->
+												<span class="input">
+													<input type="text" name="country" id="country" class="input--text u-fill" placeholder="Country of residence">
+												</span>
 											</td>
 										</tr>
 										<tr class="checkout__row">
@@ -78,7 +85,9 @@
 												<label>Birthday</label>
 											</td>
 											<td>
-												<input type="date" name="birthday" id="birthday" class="input--date u-fill">
+												<span class="input">
+													<input type="date" name="birthday" id="birthday" class="input--date u-fill">
+												</span>
 											</td>
 										</tr>
 									</tbody>
@@ -100,7 +109,9 @@
 												<label class="label--required">Email</label>
 											</td>
 											<td>
-												<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com">
+												<span class="input">
+													<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com">
+												</span>
 											</td>
 										</tr>
 										<tr class="checkout__row u-is-hidden">
@@ -108,7 +119,9 @@
 												<label class="label--required">Password</label>
 											</td>
 											<td>
-												<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password">
+												<span class="input">
+													<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password">
+												</span>
 											</td>
 										</tr>
 										<tr class="checkout__row u-is-hidden">
@@ -116,7 +129,9 @@
 												<label class="label--required">Verify Password</label>
 											</td>
 											<td>
-												<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password">
+												<span class="input">
+													<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password">
+												</span>
 											</td>
 										</tr>
 									</tbody>
@@ -167,10 +182,12 @@
 											<label class="label--required">Card Type</label>
 										</td>
 										<td>
-											<select class="select u-fill">
-												<option value="visa">VISA</option>
-												<option value="mastercard">MasterCard</option>
-											</select>
+											<span class="input">
+												<select class="select u-fill">
+													<option value="visa">VISA</option>
+													<option value="mastercard">MasterCard</option>
+												</select>
+											</span>
 										</td>
 									</tr>
 									<tr class="checkout__row">
@@ -178,7 +195,9 @@
 											<label class="label--required">Card Number</label>
 										</td>
 										<td>
-											<input type="text" name="card-number" id="card-number" class="input--text u-fill" required>
+											<span class="input">
+												<input type="text" name="card-number" id="card-number" class="input--text u-fill" required>
+											</span>
 										</td>
 									</tr>
 									<tr class="checkout__row">
@@ -186,31 +205,33 @@
 											<label class="label--required">Expiry Date</label>
 										</td>
 										<td>
-											<div class="payment__expiry">
-												<select class="select u-m-medium--right u-flex-2">
-													<option value="January" selected="selected">January</option>
-													<option value="February">February</option>
-													<option value="March">March</option>
-													<option value="April">April</option>
-													<option value="May">May</option>
-													<option value="June">June</option>
-													<option value="July">July</option>
-													<option value="August">August</option>
-													<option value="September">September</option>
-													<option value="October">October</option>
-													<option value="November">November</option>
-													<option value="December">December</option>
-												</select>
-												<select class="select u-flex-1">
-													<!-- Day option is based on selected month -->
-													<option value="1" selected="selected">1</option>
-												</select>
-											</div>
+											<span class="input">
+												<div id="payment__expiry" class="payment__expiry">
+													<select class="select u-m-medium--right u-flex-2">
+														<option value="January" selected="selected">January</option>
+														<option value="February">February</option>
+														<option value="March">March</option>
+														<option value="April">April</option>
+														<option value="May">May</option>
+														<option value="June">June</option>
+														<option value="July">July</option>
+														<option value="August">August</option>
+														<option value="September">September</option>
+														<option value="October">October</option>
+														<option value="November">November</option>
+														<option value="December">December</option>
+													</select>
+													<select class="select u-flex-1">
+														<!-- Day option is based on selected month -->
+														<option value="1" selected="selected">1</option>
+													</select>
+												</div>
+											</span>
 										</td>
 									</tr>
 									<tr class="checkout__row">
 										<td>
-											<label class="label--required">VCC</label>
+											<label class="label--required">CVV</label>
 										</td>
 										<td>
 											<input type="text" name="vcc" id="vcc" class="input--text" required>
