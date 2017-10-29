@@ -19,8 +19,8 @@
 				<div class="twelve column">
 					<div class="row nav__menu">
 						<a href="./index.php" class="nav__logo"><img src="./images/logo.svg" width="7.5rem"></a>
-						<a href="./shop.php?gender=women" id="menu__button--women" class="button menu__button">Women</a>
-						<a href="./shop.php?gender=men" id="menu__button--men" class="button menu__button">Men</a>
+						<a href="./shop.php?gender[]=W" id="menu__button--women" class="button menu__button">Women</a>
+						<a href="./shop.php?gender[]=M" id="menu__button--men" class="button menu__button">Men</a>
 						<form class="menu__search">
 							<input type="text" class="input--text search__input u-flex-1" placeholder="Search collection">
 							<button type="submit" class="button button--secondary search__button">
@@ -48,23 +48,23 @@
 			<div class="row">
 				<div class="twelve column u-p-zero">
 					<div class="row nav__category">
-						<a href="./shop.php?gender=women&tag=popular"
+						<a href="./shop.php?gender[]=W&tag=popular"
 						   class="button category__button">Popular</a>
-						<a href="./shop.php?gender=women&tag=new"
+						<a href="./shop.php?gender[]=W&tag=new"
 						   class="button category__button">New</a>
-						<a href="./shop.php?gender=women&type=shirt"
+						<a href="./shop.php?gender[]=W&category[]=SHRT"
 						   class="button category__button">Shirts &amp; Blouses</a>
-						<a href="./shop.php?gender=women&type=t-shirt"
+						<a href="./shop.php?gender[]=W&category[]=TSHT"
 						   class="button category__button">T-Shirts</a>
-						<a href="./shop.php?gender=women&type=dress"
+						<a href="./shop.php?gender[]=W&category[]=DRSS"
 						   class="button category__button">Dresses</a>
-						<a href="./shop.php?gender=women&type=pants"
+						<a href="./shop.php?gender[]=W&category[]=PNTS"
 						   class="button category__button">Pants</a>
-						<a href="./shop.php?gender=women&type=shorts"
+						<a href="./shop.php?gender[]=W&category[]=SHTS"
 						   class="button category__button">Shorts</a>
-						<a href="./shop.php?gender=women&type=skirts"
+						<a href="./shop.php?gender[]=W&category[]=SKTS"
 						   class="button category__button">Skirts</a>
-						<a href="./shop.php?gender=women&type=outerwear"
+						<a href="./shop.php?gender[]=W&category[]=OTWR"
 						   class="button category__button">Outerwear</a>
 					</div>
 				</div>
@@ -76,19 +76,19 @@
 			<div class="row">
 				<div class="twelve column u-p-zero">
 					<div class="row nav__category">
-						<a href="./shop.php/?gender=men&tag=popular"
+						<a href="./shop.php?gender[]=M&tag=popular"
 						   class="button category__button">Popular</a>
-						<a href="./shop.php/?gender=men&tag=new"
+						<a href="./shop.php?gender[]=M&tag=new"
 						   class="button category__button">New</a>
-						<a href="./shop.php/?gender=men&type=shirt"
+						<a href="./shop.php?gender[]=M&category[]=SHRT"
 						   class="button category__button">Shirts</a>
-						<a href="./shop.php/?gender=men&&type=t-shirt"
+						<a href="./shop.php?gender[]=M&category[]=TSHT"
 						   class="button category__button">T-Shirts</a>
-						<a href="./shop.php/?gender=men&type=pants"
+						<a href="./shop.php?gender[]=M&category[]=PNTS"
 						   class="button category__button">Pants</a>
-						<a href="./shop.php/?gender=men&type=shorts"
+						<a href="./shop.php?gender[]=M&category[]=SHTS"
 						   class="button category__button">Shorts</a>
-						<a href="./shop.php/?gender=men&type=outerwear"
+						<a href="./shop.php?gender[]=M&category[]=OTWR"
 						   class="button category__button">Outerwear</a>
 					</div>
 				</div>

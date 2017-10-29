@@ -11,7 +11,7 @@
 				foreach($tag as $tag => $tag_string) {
 					echo '
 						<label for="tag--' . $tag . '" class="label label--checkbox">
-							<input type="checkbox" name="tag" class="input--checkbox" id="tag--' . $tag . '">
+							<input type="checkbox" name="tag[]" class="input--checkbox" id="tag--' . $tag . '">
 							' . $tag_string . '
 						</label>
 					';
@@ -31,7 +31,7 @@
 				foreach($gender as $gender => $gender_string) {
 					echo '
 						<label for="gender--' . $gender . '" class="label label--checkbox">
-							<input type="checkbox" name="gender" class="input--checkbox" id="gender--' . $gender . '">
+							<input type="checkbox" name="gender[]" value="' . $gender_string[0] . '" class="input--checkbox" id="gender--' . $gender . '">
 							' . $gender_string . '
 						</label>
 					';
@@ -46,22 +46,22 @@
 				</div>
 			</div>
 			<?php
-				$type = array('shirt'     => 'Shirts and Blouses',
-				              't-shirt'   => 'T-Shirts',
-				              'dress'     => 'Dresses',
-				              'pants'     => 'Pants',
-				              'shorts'    => 'Shorts',
-				              'skirts'    => 'Skirts',
-				              'outerwear' => 'Outerwear');
+				$category = array('SHRT'     => 'Shirts and Blouses',
+				              'TSHT'   => 'T-Shirts',
+				              'DRSS'     => 'Dresses',
+				              'PNTS'     => 'Pants',
+				              'SHTS'    => 'Shorts',
+				              'SKTS'    => 'Skirts',
+				              'OTWR' => 'Outerwear');
 				/**
 				 * adjust key value pair and checkbox visibility
 				 * depending on option--gender
 				 */
-				foreach($type as $type => $type_string) {
+				foreach($category as $category => $category_string) {
 					echo '
-						<label for="type--' . $type . '" class="label label--checkbox">
-							<input type="checkbox" name="type" class="input--checkbox" id="type--' . $type . '">
-							' . $type_string . '
+						<label for="category--' . $category . '" class="label label--checkbox">
+							<input type="checkbox" name="category[]" value="' . $category . '" class="input--checkbox" id="category--' . $category . '">
+							' . $category_string . '
 						</label>
 					';
 				}
@@ -88,7 +88,7 @@
 						echo '
 							<div class="four column u-p-zero">
 								<label for="size--' . $size . '" class="label label--checkbox">
-									<input type="checkbox" name="size" class="input--checkbox" id="size--' . $size . '">
+									<input type="checkbox" name="size[]" value="' . $size_string . '" class="input--checkbox" id="size--' . $size . '">
 									' . $size_string . '
 								</label>
 							</div>
@@ -121,7 +121,7 @@
 						echo '
 							<div class="six column u-p-zero">
 								<label for="color--' . $color . '" class="label label--checkbox">
-									<input type="checkbox" name="color" class="input--checkbox" id="color--' . $color . '">
+									<input type="checkbox" name="color[]"  value="' . $color_string . '" class="input--checkbox" id="color--' . $color . '">
 									' . $color_string . '
 								</label>
 							</div>

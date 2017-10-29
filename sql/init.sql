@@ -61,7 +61,7 @@ CREATE TABLE orders_inventory (
 	FOREIGN KEY orders_inventory(inventoryID) REFERENCES inventory(id)
 );
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("J.W. Anderson Striped Short Sleeve", "SHRT", "M",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("J.W. Anderson Striped Short Sleeve", "TSHT", "M",
                               "A t-shirt with vibrant stripes featuring JW Anderson's distinctive colors.\n
                               - From our collaboration collection with English fashion designer JW Anderson.\n
                               - Striped pattern showcasing beautiful colors.\n
@@ -70,7 +70,7 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
  INSERT INTO inventory (productsID, color, size, stock) VALUES (1, "Blue", "M", 3);
  INSERT INTO inventory (productsID, color, size, stock) VALUES (1, "Gray", "M", 2);
 
- INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Supima Cotton V Neck Short Sleeve", "SHRT", "M",
+ INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Supima Cotton V Neck Short Sleeve", "TSHT", "M",
                                 "Made with rare, 100% Supima® cotton, this V-neck t-shirt looks sharp all on its own.\n
                                - A quality t-shirt made with 100% rare Supima® cotton.\n
                                - This wardrobe classic deserved the best fabric, design and construction we could give it.\n
