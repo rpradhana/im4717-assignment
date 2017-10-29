@@ -30,40 +30,6 @@
 												<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
 											</td>
 										</tr>
-										<tr class="checkout__row">
-											<td>
-												<label class="label--required">Email</label>
-											</td>
-											<td>
-												<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
-											</td>
-										</tr>
-										<tr class="checkout__row">
-											<td colspan="2">
-												<label for="create-account" class="label--checkbox">
-													<input type="checkbox" name="create-account" id="create-account" class="input--checkbox">
-													Create account for later use.
-												</label>
-											</td>
-										</tr>
-										<!-- HIDE IF #create-account !checked -->
-										<!-- default not checked -->
-										<tr class="checkout__row">
-											<td>
-												<label class="label--required">Password</label>
-											</td>
-											<td>
-												<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
-											</td>
-										</tr>
-										<tr class="checkout__row">
-											<td>
-												<label class="label--required">Verify Password</label>
-											</td>
-											<td>
-												<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
-											</td>
-										</tr>
 									</tbody>
 									<tbody class="checkout__section">
 										<tr class="checkout__row">
@@ -72,14 +38,6 @@
 											</td>
 											<td>
 												<input type="text" name="address" id="address" class="input--text u-fill" placeholder="Delivery address" required>
-											</td>
-										</tr>
-										<tr class="checkout__row">
-											<td>
-												<label class="label--required">Postal Code</label>
-											</td>
-											<td>
-												<input type="text" name="postal-code" id="postal-code" class="input--text u-fill" placeholder="Postal code" required>
 											</td>
 										</tr>
 									</tbody>
@@ -121,6 +79,44 @@
 											</td>
 											<td>
 												<input type="date" name="birthday" id="birthday" class="input--date u-fill">
+											</td>
+										</tr>
+									</tbody>
+									<tbody>
+										<tr class="checkout__row">
+											<td colspan="2">
+												<label for="create-account" class="label--checkbox">
+													<input type="checkbox" name="create-account" id="create-account" class="input--checkbox">
+													Create account for later use.
+												</label>
+											</td>
+										</tr>
+										<!-- HIDE IF #create-account !checked -->
+										<!-- default not checked -->
+										<!-- add `required` attribute if checked -->
+										<!-- remove `u-is-hidden` class if checked -->
+										<tr class="checkout__row u-is-hidden">
+											<td>
+												<label class="label--required">Email</label>
+											</td>
+											<td>
+												<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com">
+											</td>
+										</tr>
+										<tr class="checkout__row u-is-hidden">
+											<td>
+												<label class="label--required">Password</label>
+											</td>
+											<td>
+												<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password">
+											</td>
+										</tr>
+										<tr class="checkout__row u-is-hidden">
+											<td>
+												<label class="label--required">Verify Password</label>
+											</td>
+											<td>
+												<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password">
 											</td>
 										</tr>
 									</tbody>
