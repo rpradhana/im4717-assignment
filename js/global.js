@@ -95,14 +95,6 @@ var HTML_REGISTER = `
 							</tr>
 							<tr class="checkout__row">
 								<td>
-									<label class="label--required">Postal Code</label>
-								</td>
-								<td>
-									<input type="text" name="postal-code" id="postal-code" class="input--text u-fill" placeholder="Postal code" required>
-								</td>
-							</tr>
-							<tr class="checkout__row">
-								<td>
 									<label>Gender</label>
 								</td>
 								<td>
