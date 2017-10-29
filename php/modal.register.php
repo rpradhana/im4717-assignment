@@ -10,19 +10,25 @@
 						<label for="email" class="label--required label--top">
 							Email
 						</label>
-						<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
+						<span class="input">
+							<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
+						</span>
 					</div>
 					<div class="u-m-medium--bottom">
 						<label for="password" class="label--required label--top">
 							Password
 						</label>
-						<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
+						<span class="input">
+							<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
+						</span>
 					</div>
 					<div class="u-m-large--bottom">
 						<label for="password--verify" class="label--required label--top">
 							Verify Password
 						</label>
-						<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
+						<span class="input">
+							<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
+						</span>
 					</div>
 					<div class="register__action">
 						<button type="button" class="button button--primary button--large" id="register__next">
@@ -43,7 +49,9 @@
 									<label class="label--required">Full Name</label>
 								</td>
 								<td>
-									<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
+									<span class="input">
+										<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
+									</span>
 								</td>
 							</tr>
 							<tr class="checkout__row">
@@ -51,15 +59,9 @@
 									<label class="label--required">Address</label>
 								</td>
 								<td>
-									<input type="text" name="address" id="address" class="input--text u-fill" placeholder="Delivery address" required>
-								</td>
-							</tr>
-							<tr class="checkout__row">
-								<td>
-									<label class="label--required">Postal Code</label>
-								</td>
-								<td>
-									<input type="text" name="postal-code" id="postal-code" class="input--text u-fill" placeholder="Postal code" required>
+									<span class="input">
+										<input type="text" name="address" id="address" class="input--text u-fill" placeholder="Delivery address" required>
+									</span>
 								</td>
 							</tr>
 							<tr class="checkout__row">
@@ -82,7 +84,9 @@
 									<label>Phone No.</label>
 								</td>
 								<td>
-									<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" required>
+									<span class="input">
+										<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" required>
+									</span>
 								</td>
 							</tr>
 							<tr class="checkout__row">
@@ -90,7 +94,9 @@
 									<label>Country</label>
 								</td>
 								<td>
-									<input type="text" name="country" id="country" class="input--text u-fill" placeholder="Country of residence">
+									<span class="input">
+										<input type="text" name="country" id="country" class="input--text u-fill" placeholder="Country of residence">
+									</span>
 								</td>
 							</tr>
 							<tr class="checkout__row">
@@ -98,7 +104,9 @@
 									<label>Birthday</label>
 								</td>
 								<td>
-									<input type="date" name="birthday" id="birthday" class="input--date u-fill">
+									<span class="input">
+										<input type="date" name="birthday" id="birthday" class="input--date u-fill">
+									</span>
 								</td>
 							</tr>
 						</tbody>

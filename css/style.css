@@ -310,6 +310,16 @@ button-moz-focusring,
   font-size: 0.875rem;
   margin-bottom: 0.25rem;
 }
+.input--invalid input {
+  border: 1px solid #cf000f;
+}
+.input--invalid {
+  color: #cf000f;
+}
+.input::after {
+  content: attr(data-attr);
+  font-size: 0.75rem;
+}
 .input--radio,
 .input--checkbox {
   width: 1em;
@@ -416,6 +426,19 @@ button-moz-focusring,
   font-size: 1.5rem;
   color: #678;
 }
+.popup {
+  position: absolute;
+  background: #fff;
+  padding: 0.25rem 1rem;
+  font-size: 0.75rem;
+  right: 0;
+  -webkit-box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
+  -moz-box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
 html {
   font-size: 100%;
   background: #012;
@@ -500,9 +523,9 @@ strong {
 }
 .nav {
   background: #fff;
-  -webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
-  -moz-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
-  box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
+  -webkit-box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
+  -moz-box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
   width: 100%;
   z-index: 1000;
 }
@@ -523,9 +546,9 @@ strong {
 .nav--tertiary {
   background: #fff;
   border-top: 1px solid rgba(0,17,34,0.125);
-  -webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
-  -moz-box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
-  box-shadow: 0 0.125rem 0.125rem 0 rgba(0,17,34,0.125);
+  -webkit-box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
+  -moz-box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0,17,34,0.15);
   position: absolute;
   width: 100%;
   z-index: 10;
@@ -926,6 +949,7 @@ section[id^=collection] {
 }
 .checkout__row td {
   padding: 0.5rem 0;
+  vertical-align: top;
 }
 .checkout__row td:nth-child(1) {
   padding-right: 0.5rem;
@@ -1082,4 +1106,7 @@ section[id^=collection] {
 }
 .u-is-hidden {
   display: none !important;
+}
+.u-is-invalid {
+  border: 1px solid #cf000f;
 }

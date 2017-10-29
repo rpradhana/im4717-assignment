@@ -9,13 +9,17 @@
 					<label for="email" class="label--required label--top">
 						Email
 					</label>
-					<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
+					<span class="input">
+						<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
+					</span>
 				</div>
 				<div class="u-m-large--bottom">
 					<label for="password" class="label--required label--top">
 						Password
 					</label>
-					<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
+					<span class="input">
+						<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
+					</span>
 				</div>
 				<div class="login__action">
 					<button type="submit" class="button button--primary button--large">
