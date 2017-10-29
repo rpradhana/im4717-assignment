@@ -649,7 +649,7 @@ strong {
   background: #bf0040;
   color: #fff;
 }
-[id^=collection] {
+section[id^=collection] {
   padding: 2rem 0;
 }
 .collection__signifier {
@@ -729,6 +729,8 @@ strong {
   margin-right: 0.25rem;
   margin-bottom: 0.25rem;
   background: #012;
+  border: none;
+  cursor: pointer;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
