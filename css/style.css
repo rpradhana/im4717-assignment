@@ -439,6 +439,25 @@ button-moz-focusring,
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+.pagination {
+  display: flex;
+  flex-direction: row;
+}
+.pagination button {
+  border: none;
+  padding: 0.5rem;
+  width: 2rem;
+  cursor: pointer;
+  background: #dddeef;
+}
+.pagination button:hover,
+.pagination button:focus,
+.pagination button:active {
+  background: rgba(221,222,239,0.75);
+}
+.pagination button:not(:nth-last-child(1)) {
+  margin-right: 0.5rem;
+}
 html {
   font-size: 100%;
   background: #012;
@@ -788,6 +807,10 @@ section[id^=collection] {
 .product__color--purple {
   background: #639;
 }
+.shop__pagination {
+  margin-top: 2rem;
+  justify-content: flex-end;
+}
 .filter {
   width: 100%;
   padding-top: 1.5rem;
@@ -1108,5 +1131,12 @@ section[id^=collection] {
   display: none !important;
 }
 .u-is-invalid {
-  border: 1px solid #cf000f;
+  border: 1px solid #cf000f !important;
+}
+.u-is-active {
+  color: #fff !important;
+  background: #bf0040 !important;
+}
+.u-is-active:hover {
+  background: #f05 !important;
 }

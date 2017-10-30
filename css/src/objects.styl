@@ -278,3 +278,24 @@
 	right 0
 	box-shadow()
 	border-radius()
+
+/**
+ * Pagination
+ */
+
+.pagination
+	display flex
+	flex-direction row
+
+.pagination button
+	border none
+	padding size-s
+	width size-xl
+	cursor pointer
+	background color-light-grey
+	&:hover
+	&:focus
+	&:active
+		background alpha(color-light-grey, 0.75)
+	&:not(:nth-last-child(1))
+		margin-right size-s

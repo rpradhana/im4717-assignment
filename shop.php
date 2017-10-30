@@ -48,6 +48,20 @@
 						<?php include './php/product.php' ?>
 					</div>
 				</div>
+				<div class="row">
+					<div class="twelve column">
+						<div class="pagination shop__pagination">
+							<button><i class="material-icons">keyboard_arrow_left</i></button>
+							<button class="u-is-active">1</button>
+							<button>2</button>
+							<button>3</button>
+							<button>4</button>
+							<button>5</button>
+							<button>6</button>
+							<button><i class="material-icons">keyboard_arrow_right</i></i></button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
