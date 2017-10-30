@@ -21,7 +21,6 @@
         $product_qty = $_GET["quantity"];
         $add_to_cart = isset($_GET["add"]);
 
-
         if (!$product_id) {
             $product_id = 1;
             $add_to_cart = false;
@@ -34,7 +33,6 @@
             //Fallback if unable to connect to database
             exit();
         }
-
 
         $query = 'SELECT p.name, p.price, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
 WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
@@ -189,8 +187,6 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                         ';
                 }
 
-
-
                 //Container for quantity input + submit button
                 echo '    </div>
 						</div>
@@ -203,7 +199,6 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
 						</button>
 					</form>
 				</div>';
-
 
                 //Display product information
                 echo ' <div class="four column">
