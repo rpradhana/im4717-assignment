@@ -15,7 +15,7 @@
 								<label for="email" class="label--required label--top">
 									Email
 								</label>
-								<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
+								<input type="text" name="email" id="email" onchange="validateEmail()" class="input--text u-fill" placeholder="name@email.com" required>
 							</div>
 							<div class="u-m-large--bottom">
 								<label for="message" class="label--required label--top">
