@@ -23,7 +23,7 @@ ORDER BY numberOfTimesBought LIMIT 0,4;";
 
         if ($result) {
             $num_rows = $result->num_rows;
-            if ($result->num_rows > 0) {
+            if ($num_rows > 0) {
                 $section_id = "collection--popular";
                 echo '<section id=". $section_id .">	
                         <div class="container">
