@@ -233,6 +233,14 @@ var spawnModal = function(content) {
  * message = error string
  */
 
+var validateEmail = function(){
+	var name2 = document.getElementById("email").value;
+	var regExp2 = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
+	if(regExp2.test(name2) == false){
+			showErrorWithMessage(document.getElementById("email"), "Invalid input");
+	}
+}
+
 var showErrorWithMessage = function(target, message) {
 	if (target) {
 		target.parentNode.setAttribute('data-attr', message);
