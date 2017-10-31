@@ -4,6 +4,7 @@
 <body class="debug o f d">
     <?php
         //Navigation and main category
+        session_start();
         include './php/nav.php';
         include './php/hero.php';
 

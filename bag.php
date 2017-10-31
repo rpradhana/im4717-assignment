@@ -16,7 +16,7 @@
 
                             include './php/nav.php';
                             echo '<section id="bag" class="bag">
-                                    <form>
+                                    <form method="POST" action="checkout.php">
                                         <div class="container">
                                             <div class="twelve column">
                                                 <h2 class="header u-m-medium--bottom">Shopping Bag</h2>
@@ -84,22 +84,16 @@
                                            $product_prices[$id] = $price_after_discount;
                                            $product_description[$id] = $description;
                                         }
-                                    }
-                                } else {
-                                    //Unable to query database for products information
-                                    exit();
-                                }
 
-
-                                foreach ($_SESSION["cart"] as $cart_item) {
-                                    $id = $cart_item->id;
-                                    $color = $cart_item->color;
-                                    $qty = $cart_item->quantity;
-                                    $prices_per_item = $product_prices[$id];
-                                    echo '<tr class="table__row">
+                                        foreach ($_SESSION["cart"] as $cart_item) {
+                                            $id = $cart_item->id;
+                                            $color = $cart_item->color;
+                                            $qty = $cart_item->quantity;
+                                            $prices_per_item = $product_prices[$id];
+                                            echo '<tr class="table__row">
                                               <td>';
-                                    echo '<img src="./images/' . $id . '_' . $color . '.jpg" class="bag__thumbnail">';
-                                    echo '    </td>
+                                            echo '<img src="./images/' . $id . '_' . $color . '.jpg" class="bag__thumbnail">';
+                                            echo '    </td>
                                               <td>' . ucfirst($color) . '</td>
                                               <td>' . $cart_item->size . '</td>
                                               <td>' . $product_names[$id] . '</td>
@@ -110,6 +104,11 @@
                                               </strong></td>
                                               <td class="bag__edit"><i class="material-icons">close</i></td>
                                           </tr>';
+                                        }
+                                    }
+                                } else {
+                                    //Unable to query database for products information
+                                    exit();
                                 }
                             }
                         ?>

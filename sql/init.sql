@@ -47,6 +47,7 @@ CREATE TABLE orders (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     ordersDate DATETIME NOT NULL ,
 	customersID INT UNSIGNED NOT NULL, 
+	shipping CHAR(1) NOT NULL,
     FOREIGN KEY orders(customersID) REFERENCES customers(id)
 );
 

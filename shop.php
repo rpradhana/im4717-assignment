@@ -2,7 +2,10 @@
 <html lang="en-GB">
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
-	<?php include './php/nav.php' ?>
+	<?php
+        session_start();
+        include './php/nav.php';
+    ?>
 	<div class="container">
 		<div class="row">
 			<div class="three column">

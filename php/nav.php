@@ -36,6 +36,10 @@
 							Shopping Bag
 							<div class="badge badge--empty button__badge">
                                 <?php
+                                    /*
+                                     * To-do:
+                                     * -String search
+                                     */
                                     $cart_size = sizeof($_SESSION["cart"]);
                                     echo $cart_size;
                                 ?>
