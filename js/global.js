@@ -237,17 +237,36 @@ var validateEmail = function(){
 	var email2 = document.getElementById("email").value;
 	var regExp2 = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
 	if(regExp2.test(email2) == false){
-			showErrorWithMessage(document.getElementById("email"), "Invalid input");
+			showErrorWithMessage($('#email'), "Invalid input");
 	}
 }
 
 var validatePrice = function(){
+	var priceTest = document.getElementById("price--min").value;
+	var regExp3 = /^[1-9]\d*$/;
+	if(regExp3.test(priceTest) == false){
+		showSimpleError($('#price--min'));
+	}
+	else if(regExp3.test(priceTest) == true){
+		hideSimpleError($('#price--min'));
+	}
+}
 
+var validatePrice2 = function(){
+	var priceTest = document.getElementById("price--max").value;
+	var regExp3 = /^[1-9]\d*$/;
+	if((regExp3.test(priceTest) == false) || (document.getElementById("price--max").value < document.getElementById("price--min").value)){
+		showSimpleError($('#price--max'));
+	}
+
+	else {
+		hideSimpleError($('#price--max'));
+	}
 }
 
 var showErrorWithMessage = function(target, message) {
 	if (target) {
-		target.parentNode.setAttribute('data-attr', "Input invalid");
+		target.parentNode.setAttribute('data-attr', message);
 		addClass(target.parentNode, 'input--invalid');
 	}
 	else console.log('No target found for showErrorWithMessage()');
@@ -270,12 +289,12 @@ var hideErrorWithMessage = function(target) {
 
 var showSimpleError = function(target) {
 	if (target) {
-		target.parentNode.addClass(target, 'u-is-invalid');
+		addClass(target.parentNode, 'u-is-invalid');
 	}
 }
 var hideSimpleError = function(target) {
 	if (target) {
-		target.parentNode.removeClass(target, 'u-is-invalid');
+		removeClass(target.parentNode, 'u-is-invalid');
 	}
 }
 

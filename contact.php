@@ -15,13 +15,13 @@
 								<label for="email" class="label--required label--top">
 									Email
 								</label>
-								<input type="text" name="email" id="email" onblur="validateEmail()" class="input--text u-fill" placeholder="name@email.com" required>
+								<span class="input"><input type="text" name="email" id="email" onblur="validateEmail()" class="input--text u-fill" placeholder="name@email.com" required></span>
 							</div>
 							<div class="u-m-large--bottom">
 								<label for="message" class="label--required label--top">
 									Message
 								</label>
-								<textarea name="message" id="message" class="input--text u-fill" rows="5" placeholder="Enter your message."></textarea>
+								<span class="input"><textarea name="message" id="message" class="input--text u-fill" rows="5" placeholder="Enter your message."></textarea></span>
 							</div>
 						</div>
 						<div>

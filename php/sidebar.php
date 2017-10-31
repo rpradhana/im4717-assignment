@@ -138,9 +138,9 @@
 				</div>
 			</div>
 			<div class="row price">
-				<span class="input--text price__input">$<input type="text" name="price--min" id="price--min" placeholder="Min"></span>
+				<span class="input--text price__input">$<input type="text" name="price--min" id="price--min" onchange="validatePrice()" placeholder="Min"></span>
 				<span>–</span>
-				<span class="input--text price__input">$<input type="text" name="price--max" id="price--max" placeholder="Max"></span>
+				<span class="input--text price__input">$<input type="text" name="price--max" id="price--max" onchange="validatePrice2()" placeholder="Max"></span>
 			</div>
 		</div>
 		<button type="submit" class="button button--primary option__button">
@@ -151,3 +151,5 @@
 		</button>
 	</form>
 </section>
+
+<script type='text/javascript' src='./js/global.js'></script>
