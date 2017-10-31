@@ -42,7 +42,6 @@
 
                     $query = "SELECT p.id, p.name, p.price, p.discount FROM products AS p, inventory AS i WHERE p.id=i.productsID";
 
-
                     foreach ($_GET as $category_name => $category_value_arr) {
                         if ($category_name != 'tag' && $category_name != 'price--min' && $category_name != 'price--max') {
                             $query = $query . ' AND (';
@@ -87,8 +86,19 @@
                         exit();
                     }
 
-
                 ?>
+                <div class="row">
+                    <div class="twelve column">
+                        <div class="pagination shop__pagination">
+                            <button><i class="material-icons">keyboard_arrow_left</i></button>
+                            <button class="u-is-active">1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>4</button>
+                            <button><i class="material-icons">keyboard_arrow_right</i></i></button>
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
