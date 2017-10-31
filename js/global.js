@@ -234,16 +234,20 @@ var spawnModal = function(content) {
  */
 
 var validateEmail = function(){
-	var name2 = document.getElementById("email").value;
+	var email2 = document.getElementById("email").value;
 	var regExp2 = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
-	if(regExp2.test(name2) == false){
+	if(regExp2.test(email2) == false){
 			showErrorWithMessage(document.getElementById("email"), "Invalid input");
 	}
 }
 
+var validatePrice = function(){
+
+}
+
 var showErrorWithMessage = function(target, message) {
 	if (target) {
-		target.parentNode.setAttribute('data-attr', message);
+		target.parentNode.setAttribute('data-attr', "Input invalid");
 		addClass(target.parentNode, 'input--invalid');
 	}
 	else console.log('No target found for showErrorWithMessage()');
@@ -266,12 +270,12 @@ var hideErrorWithMessage = function(target) {
 
 var showSimpleError = function(target) {
 	if (target) {
-		addClass(target, 'u-is-invalid');
+		target.parentNode.addClass(target, 'u-is-invalid');
 	}
 }
 var hideSimpleError = function(target) {
 	if (target) {
-		removeClass(target, 'u-is-invalid');
+		target.parentNode.removeClass(target, 'u-is-invalid');
 	}
 }
 
