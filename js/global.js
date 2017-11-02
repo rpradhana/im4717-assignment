@@ -317,6 +317,13 @@ var handleQuantityChange = function(element) {
 window.onload = function() {
 
 	/**
+	 * badge color handler
+	 */
+	if ($('.badge').innerHTML != 0) {
+		removeClass($('.badge'), 'badge--empty');
+	}
+
+	/**
 	 * #menu__button event handler
 	 */
 	if ($('#submenu__button--login')) {
