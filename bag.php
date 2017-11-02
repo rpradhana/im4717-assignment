@@ -15,14 +15,14 @@
                             session_start();
 
                             // Update session from AJAX
-                            if (isset($_POST['quantity'])) {
+                            if (isset($_POST['new_quantity'])) {
                                 $product_ids = array();
                                 foreach ($_SESSION['cart'] as $key=>$cart_item) {
                                     $id    = $cart_item->id;
                                     $size  = $cart_item->size;
                                     $color = $cart_item->color;
-                                    if ($id == $_POST['id'] && $color == $_POST['color']) {
-                                        $_SESSION['cart'][$key]->quantity = $_POST['quantity'];
+                                    if ($id == $_POST['cart_id'] && $color == $_POST['cart_color']) {
+                                        $_SESSION['cart'][$key]->quantity = $_POST['new_quantity'];
                                     }
                                 }
                             }

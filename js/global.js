@@ -305,7 +305,7 @@ var handleQuantityChange = function(element) {
 	}
 
 	// Send quantity to update, id and color of the cart item
-	xhr.send('quantity=' + quantity + '&id=' + id + '&color=' + color);
+	xhr.send('new_quantity=' + quantity + '&cart_id=' + id + '&cart_color=' + color);
 }
 
 /**
