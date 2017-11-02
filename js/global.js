@@ -289,23 +289,25 @@ var handleQuantityChange = function(element) {
 	var xhr = new XMLHttpRequest();
 
 	var quantity = (element.value),
-	    id       = (element.name).split('_').slice(0, 1),
-	    color    = (element.name).split('_').slice(1, 2);
+	    id       = (element.id).split('_').slice(0, 1),
+	    color    = (element.id).split('_').slice(1, 2),
+	    size     = (element.id).split('_').slice(2, 3);
 
 	xhr.open('POST', './bag.php', true);
 
 	// Send the proper header information along with the request
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Update', '1');
 
 	// Log in console when xhr succeed
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200) {
-			console.log('Cart session updated.');
+			console.log('Cart session updated.' + id + color + size);
 		}
 	}
 
 	// Send quantity to update, id and color of the cart item
-	xhr.send('new_quantity=' + quantity + '&cart_id=' + id + '&cart_color=' + color);
+	xhr.send('new_quantity=' + quantity + '&cart_id=' + id + '&cart_color=' + color + '&cart_size=' + size);
 }
 
 /**
