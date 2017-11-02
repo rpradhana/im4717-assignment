@@ -289,6 +289,7 @@ var handleQuantityChange = function(element) {
 	var xhr = new XMLHttpRequest();
 	var url = "./php/updateBag.php";
 	var quantity = element.value;
+	var cart = element.name;
 
 	xhr.open("POST", url, true);
 
@@ -303,7 +304,7 @@ var handleQuantityChange = function(element) {
 		}
 	}
 
-	xhr.send("quantity=" + parseInt(quantity));
+	xhr.send("quantity=" + quantity + "&cart=" + cart);
 }
 
 /**
@@ -315,17 +316,21 @@ window.onload = function() {
 	/**
 	 * #menu__button event handler
 	 */
-	$('#submenu__button--login').addEventListener("click", function() {
-		spawnModal(HTML_LOGIN);
-        var curUrl = window.location.href;
-        document.getElementById("form--login").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
-	});
+	if ($('#submenu__button--login')) {
+		$('#submenu__button--login').addEventListener("click", function() {
+			spawnModal(HTML_LOGIN);
+			var curUrl = window.location.href;
+			document.getElementById("form--login").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
+		});
+	}
 
-	$('#submenu__button--register').addEventListener("click", function() {
-		spawnModal(HTML_REGISTER);
-        var curUrl = window.location.href;
-        document.getElementById("form--register").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
-	});
+	if ($('#submenu__button--register')) {
+		$('#submenu__button--register').addEventListener("click", function() {
+			spawnModal(HTML_REGISTER);
+			var curUrl = window.location.href;
+			document.getElementById("form--register").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
+		});
+	}
 
 	/* Women */
 	$('#menu__button--women').addEventListener("mouseover", function() {
