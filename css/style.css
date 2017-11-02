@@ -196,6 +196,11 @@ button-moz-focusring,
 .button:hover {
   color: #f05;
 }
+.button:disabled,
+.button:disabled:hover {
+  color: #678;
+  background-color: #dddeef;
+}
 .button--large {
   padding: 1rem 1.5rem;
 }

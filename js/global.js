@@ -282,10 +282,36 @@ var hideSimpleError = function(target) {
 }
 
 /**
+ * Ajax: Bag.php
+ */
+
+var handleQuantityChange = function(element) {
+	var xhr = new XMLHttpRequest();
+	var url = "./php/updateBag.php";
+	var quantity = element.value;
+
+	xhr.open("POST", url, true);
+
+	// Send the proper header information along with the request
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	// Call a function when the state changes
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			console.log('xhr response = ' + xhr.responseText);
+			// $('input[name="'+element.name+'"]').value = xhr.responseText;
+		}
+	}
+
+	xhr.send("quantity=" + parseInt(quantity));
+}
+
+/**
  * Onload
  */
 
 window.onload = function() {
+
 	/**
 	 * #menu__button event handler
 	 */
