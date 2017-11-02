@@ -4,7 +4,16 @@
 <body class="debug o f h d">
 	<?php
         session_start();
-        include './php/nav.php';
+
+        //Connect to database
+        $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
+
+        if ($conn->connect_error) {
+            //Fallback if unable to connect to database
+            exit();
+        }
+
+    include './php/nav.php';
     ?>
 	<div class="container">
 		<div class="row">
@@ -32,14 +41,6 @@
 					</div>
 				</div>
                 <?php
-                    //Connect to database
-                    $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
-
-                    if ($conn->connect_error) {
-                        //Fallback if unable to connect to database
-                        exit();
-                    }
-
                     $query = "SELECT p.id, p.name, p.price, p.discount FROM products AS p, inventory AS i WHERE p.id=i.productsID";
 
                     foreach ($_GET as $category_name => $category_value_arr) {

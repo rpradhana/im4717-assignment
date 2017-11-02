@@ -5,8 +5,6 @@
     <?php
         //Navigation and main category
         session_start();
-        include './php/nav.php';
-        include './php/hero.php';
 
         //Connect to database
         $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
@@ -15,6 +13,9 @@
             //Fallback if unable to connect to database
             exit();
         }
+
+        include './php/nav.php';
+        include './php/hero.php';
 
         //Get popular items
         $query = "SELECT p.id, p.name, p.price, p.discount, COUNT(*) AS numberOfTimesBought FROM products AS p, 

@@ -171,13 +171,13 @@
                 $result = $conn->query($query);
                 if(!$result) {
                     //Unable to insert into customers table
-                    echo 'D';
+
                     $conn->query("ROLLBACK;");
                     exit();
                 }
 
                 if ($conn->affected_rows != 1) {
-                    echo 'A';
+
                     $conn->query("ROLLBACK;");
                     exit();
                 }
@@ -190,14 +190,13 @@
                     $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
                     $result = $conn->query($query);
                     if(!$result) {
-                        echo 'E';
+
                         //Unable to insert into accounts table
                         $conn->query("ROLLBACK;");
                         exit();
                     }
 
                     if ($conn->affected_rows != 1) {
-                        echo 'B';
                         $conn->query("ROLLBACK;");
                         exit();
                     }
@@ -206,14 +205,12 @@
                 $query = 'INSERT INTO orders (customersID, ordersDate, shipping) VALUES(' . $customer_id . ', NOW(),"' . strtoupper($shipping[0]) . '");';
                 $result = $conn->query($query);
                 if(!$result) {
-                    echo 'F';
                     //Unable to insert into orders table
                     $conn->query("ROLLBACK;");
                     exit();
                 }
 
                 if ($conn->affected_rows != 1) {
-                    echo 'C';
                     $conn->query("ROLLBACK;");
                     exit();
                 }
@@ -228,13 +225,11 @@
                         '" AND i.size = "' . $product_size[$i] . '";';
                     $result = $conn->query($query);
                     if(!$result) {
-                        echo 'H';
                         //Unable to get from inventory table
                         $conn->query("ROLLBACK;");
                         exit();
                     }
                     if ($result->num_rows != 1) { //Inconsistencies in database?
-                        echo 'G';
                         $conn->query("ROLLBACK;");
                         exit();
                     }
@@ -246,14 +241,12 @@
                         ',' . $product_prices[$id] . ',' . $product_qty[$i] . ');';
                     $result = $conn->query($query);
                     if(!$result) {
-                        echo 'J';
                         //Unable to insert into orders table
                         $conn->query("ROLLBACK;");
                         exit();
                     }
 
                     if ($conn->affected_rows != 1) {
-                        echo 'I';
                         $conn->query("ROLLBACK;");
                         exit();
                     }
@@ -262,14 +255,12 @@
                     . ';';
                     $result = $conn->query($query);
                     if(!$result) {
-                        echo 'K';
                         //Unable to insert into orders table
                         $conn->query("ROLLBACK;");
                         exit();
                     }
 
                     if ($conn->affected_rows != 1) {
-                        echo 'L';
                         $conn->query("ROLLBACK;");
                         exit();
                     }

@@ -14,6 +14,14 @@
                             include './php/cart-item.php';
                             session_start();
 
+                            //Connect to database
+                            $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
+
+                            if ($conn->connect_error) {
+                                //Fallback if unable to connect to database
+                                exit();
+                            }
+
                             include './php/nav.php';
                             echo '<section id="bag" class="bag">
                                     <form method="POST" action="checkout.php">
@@ -35,14 +43,6 @@
                             if (!isset($_SESSION["cart"]) || empty($_SESSION["cart"])) {
                                 echo '<tr class="table__row"><td colspan="7">You have no items in your cart.</td></tr>';
                             } else {
-                                //Connect to database
-                                $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
-
-                                if ($conn->connect_error) {
-                                    //Fallback if unable to connect to database
-                                    exit();
-                                }
-
                                 //Build an array of product IDs in the cart to facilitate single query only
                                 $product_ids = array();
                                 foreach ($_SESSION["cart"] as $cart_item) {

@@ -37,7 +37,6 @@ CREATE TABLE accounts (
 	email VARCHAR(50) NOT NULL,
 	password CHAR(41) NOT NULL,
 	role CHAR(4) NOT NULL,
-	cart BLOB,
 	customersID INT UNSIGNED NOT NULL,
 	UNIQUE KEY (email),
 	FOREIGN KEY accounts(customersID) REFERENCES customers(id)

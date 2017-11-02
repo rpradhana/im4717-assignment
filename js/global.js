@@ -8,7 +8,8 @@ var HTML_LOGIN = `
 			<i class="material-icons">close</i>
 		</div>
 		<h2 class="header u-m-large--bottom">Welcome back!</h2>
-		<form>
+		<form method="post" id="form--login">
+			<input type="hidden" name="login" value="true">
 			<div class="u-flex">
 				<div class="u-m-medium--bottom">
 					<label for="email" class="label--required label--top">
@@ -45,7 +46,8 @@ var HTML_REGISTER = `
 		<div id="modal__close" class="modal__close">
 			<i class="material-icons">close</i>
 		</div>
-		<form>
+		<form method="post" id="form--register">
+			<input type="hidden" name="register" value="true">
 			<div class="u-flex">
 				<div id="register--step-1">
 					<h2 class="header u-m-large--bottom">Create new account</h2>
@@ -114,11 +116,11 @@ var HTML_REGISTER = `
 								<td>
 									<label for="gender--men" class="label--radio u-inline-block u-m-medium--right">
 										<input type="radio" name="gender" value="men" id="gender--men" class="input--radio">
-										Women
+										Men
 									</label>
 									<label for="gender--women" class="label--radio u-inline-block">
 										<input type="radio" name="gender" value="women" id="gender--women" class="input--radio">
-										Men
+										Women
 									</label>
 								</td>
 							</tr>
@@ -206,12 +208,16 @@ var spawnModal = function(content) {
 		$('#register--switch').addEventListener("click", function() {
 			$('#modal').remove();
 			spawnModal(HTML_LOGIN);
+            var curUrl = window.location.href;
+            document.getElementById("form--login").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
 		});
 	}
 	if ($('#login--switch')) {
 		$('#login--switch').addEventListener("click", function() {
 			$('#modal').remove();
 			spawnModal(HTML_REGISTER);
+            var curUrl = window.location.href;
+            document.getElementById("form--register").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
 		});
 	}
 	if ($('#register__next')) {
@@ -285,10 +291,14 @@ window.onload = function() {
 	 */
 	$('#submenu__button--login').addEventListener("click", function() {
 		spawnModal(HTML_LOGIN);
+        var curUrl = window.location.href;
+        document.getElementById("form--login").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
 	});
 
 	$('#submenu__button--register').addEventListener("click", function() {
 		spawnModal(HTML_REGISTER);
+        var curUrl = window.location.href;
+        document.getElementById("form--register").action = curUrl.substr(curUrl.lastIndexOf("/")+1);
 	});
 
 	/* Women */

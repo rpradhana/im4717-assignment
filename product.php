@@ -15,6 +15,14 @@
         include './php/cart-item.php';
         session_start();
 
+        //Connect to database
+        $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
+
+        if ($conn->connect_error) {
+            //Fallback if unable to connect to database
+            exit();
+        }
+
         $product_id = $_GET["id"];
         $product_color = $_GET["color"];
         $product_size = $_GET["size"];
@@ -24,14 +32,6 @@
         if (!$product_id) {
             $product_id = 1;
             $add_to_cart = false;
-        }
-
-        //Connect to database
-        $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
-
-        if ($conn->connect_error) {
-            //Fallback if unable to connect to database
-            exit();
         }
 
         $query = 'SELECT p.name, p.price, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
