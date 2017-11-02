@@ -14,7 +14,20 @@
                             include './php/cart-item.php';
                             session_start();
 
-                            //Connect to database
+                            // Update session from AJAX
+                            if (isset($_POST['new_quantity'])) {
+                                $product_ids = array();
+                                foreach ($_SESSION['cart'] as $key=>$cart_item) {
+                                    $id    = $cart_item->id;
+                                    $color = $cart_item->color;
+                                    $size  = $cart_item->size;
+                                    if ($id == $_POST['cart_id'] && $color == $_POST['cart_color'] && $size == $_POST['cart_size']) {
+                                        $_SESSION['cart'][$key]->quantity = $_POST['new_quantity'];
+                                    }
+                                }
+                            }
+
+                            // Connect to database
                             $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
 
                             if ($conn->connect_error) {
@@ -110,7 +123,7 @@
                                               <td>' . $product_names[$id] . '</td>
                                               <td id="' . $id . '_' . $color . '_' . $size . '_price-single">$' . number_format($prices_per_item, 2) . '</td>
                                               <td><input type="text" id="' . $id . '_' . $color . '_' . $size . '_quantity" name="' . $id . '_' . $color .'_quantity" 
-                                              class="input--text" value="' . $qty . '" oninput="updateTotal(this)"></td>
+                                              class="input--text" value="' . $qty . '" oninput="updateTotal(this)" onchange="handleQuantityChange(this)"></td>
                                               <td class="u-align--right"><strong>$<span class="price-subtotal" id="' . $id . '_' . $color . '_' . $size . '_price-subtotal">' .
                                               number_format($subtotal,2) . '
                                               </span></strong></td>
