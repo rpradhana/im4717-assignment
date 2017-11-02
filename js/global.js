@@ -233,11 +233,35 @@ var spawnModal = function(content) {
  * message = error string
  */
 
+var validateForm = function(){
+	if (!validateEmail() || !validateMessage()){
+		return false;
+	}
+	else return true;
+}
+
 var validateEmail = function(){
 	var email2 = document.getElementById("email").value;
 	var regExp2 = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
 	if(regExp2.test(email2) == false){
 			showErrorWithMessage($('#email'), "Invalid input");
+			return false;
+	}
+	else{
+		hideErrorWithMessage($('#email'));
+		return true;
+	}
+}
+
+var validateMessage = function(){
+	var message = document.getElementById("message").value;
+	if(message == ''){
+		showErrorWithMessage($('#message'), "Invalid input");
+		return false;
+	}
+	else {
+		hideErrorWithMessage($('#message'));
+		return true;
 	}
 }
 
