@@ -109,7 +109,8 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                 include './php/nav.php';
 
                 //Product preview and thumbnails
-                echo '	<section id="product-details" class="product-details">
+                $section_id = 'product-details';
+                echo '	<section id="' . $section_id . '" class="product-details">
                             <div class="container">
                                 <div class="row">
                                     <div class="one column u-p-zero--right">';
@@ -121,7 +122,8 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                         echo '<div class="product-thumbnails">';
                     }
 
-                    echo '  <img src="./images/' . $product_id . '_' . $color_name . '.jpg" width="100%">
+                    $button_id = $section_id . '_button_' . $product_id . '_' . $color_name;
+                    echo '  <input type="image" id="' . $button_id . '" src="./images/' . $product_id . '_' . $color_name . '.jpg" width="100%" onclick="pickColor(this)">
                           </div>';
                 }
 
@@ -129,7 +131,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                 echo '  </div>
                         <div class="four column">
                             <div class="product-preview">
-                                 <img src="./images/' . $product_id . '_' . $product_color . '.jpg" width="100%">
+                                 <img id="' . $section_id . '_img_' . $product_id . '" src="./images/' . $product_id . '_' . $product_color . '.jpg" width="100%">
                             </div>
                         </div>
                         <div class="three column">
@@ -192,10 +194,12 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
 						</div>
 						<div class="option--quantity">
 							<div>Quantity</div>
-							<input type="text" name="quantity" class="input--text" id="quantity" value="' . $product_qty . '" placeholder="Quantity">
+							<input type="text" name="quantity" class="input--text" id="' . $product_id . '_' . $product_color . '_' . $product_size . '_quantity" value="' . $product_qty . '" placeholder="Quantity" oninput="updatePrice(this)">
 						</div>
 						<button type="submit" class="button button--primary button--large option__button">
-							Add to Bag ($' . $price_after_discount . ')
+							Add to Bag ($<span id="' . $product_id . '_' . $product_color . '_' . $product_size . '_price-subtotal"> ' .
+                            number_format($price_after_discount,2)
+                            . '</span>)
 						</button>
 					</form>
 				</div>';
@@ -210,7 +214,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                     Product ID: ' . $product_id . '
                                 </div>
                                 <div class="product-info__price">
-                                    <span class="product-info__price--current">$' . number_format($price_after_discount,2) . '</span>';
+                                    <span class="product-info__price--current" id="' . $product_id . '_' . $product_color . '_' . $product_size . '_price-single">$' . number_format($price_after_discount,2) . '</span>';
 
                 if ($product_discount > 0) {
                     echo ' <span class="product-info__price--pre-discount">$' . number_format($price,2) . '</span>';

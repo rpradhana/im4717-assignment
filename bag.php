@@ -42,6 +42,12 @@
 
                             if (!isset($_SESSION["cart"]) || empty($_SESSION["cart"])) {
                                 echo '<tr class="table__row"><td colspan="7">You have no items in your cart.</td></tr>';
+                                echo '  </table>
+                                        <div class="bag__review">
+                                            <button type="submit" class="button button--primary button--large">
+                                                Proceed to checkout
+                                            </button>
+                                        </div>';
                             } else {
                                 //Build an array of product IDs in the cart to facilitate single query only
                                 $product_ids = array();
@@ -70,6 +76,7 @@
                                 $product_names = array();
                                 $product_prices = array();
                                 $product_description = array();
+                                $total = 0;
                                 if($result) {
                                     $num_rows = $result->num_rows;
                                     if ($num_rows > 0) {
@@ -85,23 +92,28 @@
                                            $product_description[$id] = $description;
                                         }
 
+
                                         foreach ($_SESSION["cart"] as $cart_item) {
                                             $id = $cart_item->id;
                                             $color = $cart_item->color;
                                             $qty = $cart_item->quantity;
+                                            $size = $cart_item->size;
                                             $prices_per_item = $product_prices[$id];
+                                            $subtotal = $prices_per_item*$qty;
+                                            $total += $subtotal;
                                             echo '<tr class="table__row">
                                               <td>';
                                             echo '<img src="./images/' . $id . '_' . $color . '.jpg" class="bag__thumbnail">';
                                             echo '    </td>
                                               <td>' . ucfirst($color) . '</td>
-                                              <td>' . $cart_item->size . '</td>
+                                              <td>' . $size . '</td>
                                               <td>' . $product_names[$id] . '</td>
-                                              <td>$' . number_format($prices_per_item, 2) . '</td>
-                                              <td><input type="text" name="' . $id . '_' . $color .'_quantity" 
-                                              class="input--text" value="' . $qty . '"></td>
-                                              <td class="u-align--right"><strong>$' . number_format($prices_per_item*$qty,2) . '
-                                              </strong></td>
+                                              <td id="' . $id . '_' . $color . '_' . $size . '_price-single">$' . number_format($prices_per_item, 2) . '</td>
+                                              <td><input type="text" id="' . $id . '_' . $color . '_' . $size . '_quantity" name="' . $id . '_' . $color .'_quantity" 
+                                              class="input--text" value="' . $qty . '" oninput="updateTotal(this)"></td>
+                                              <td class="u-align--right"><strong>$<span class="price-subtotal" id="' . $id . '_' . $color . '_' . $size . '_price-subtotal">' .
+                                              number_format($subtotal,2) . '
+                                              </span></strong></td>
                                               <td class="bag__edit"><i class="material-icons">close</i></td>
                                           </tr>';
                                         }
@@ -110,17 +122,17 @@
                                     //Unable to query database for products information
                                     exit();
                                 }
+                                echo '  </table>
+                                        <div class="bag__review">
+                                            <div class="bag__subtotal">
+                                                <h4 class="header"><strong>Total $<span id="total-price">' . number_format($total,2) . '</span></strong></h4>
+                                            </div>
+                                            <button type="submit" class="button button--primary button--large">
+                                                Proceed to checkout
+                                            </button>
+                                        </div>';
                             }
                         ?>
-					</table>
-					<div class="bag__review">
-						<div class="bag__subtotal">
-							<h4 class="header"><strong>Total $39.80</strong></h4>
-						</div>
-						<button type="submit" class="button button--primary button--large">
-							Proceed to checkout
-						</button>
-					</div>
 				</div>
 			</div>
 		</form>
