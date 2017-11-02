@@ -1,5 +1,5 @@
 <section class="sidebar">
-	<form class="filter">
+	<form class="filter" onsubmit="return validateSidebar()">
 		<div class="u-m-medium--bottom">
 			<h2 class="header">Narrow your search</h2>
 		</div>
@@ -31,7 +31,7 @@
 				foreach($gender as $gender => $gender_string) {
 					echo '
 						<label for="gender--' . $gender . '" class="label label--checkbox">
-							<input type="checkbox" name="gender[]" value="' . $gender_string[0] . '" class="input--checkbox" id="gender--' . $gender . '">
+							<input type="checkbox" name="gender[]" value="' . $gender_string[0] . '" class="input--checkbox" id="gender--' . $gender . '" onclick="toggle'. $gender .'()">
 							' . $gender_string . '
 						</label>
 					';
@@ -59,10 +59,12 @@
 				 */
 				foreach($category as $category => $category_string) {
 					echo '
-						<label for="category--' . $category . '" class="label label--checkbox">
-							<input type="checkbox" name="category[]" value="' . $category . '" class="input--checkbox" id="category--' . $category . '">
-							' . $category_string . '
-						</label>
+						<div id="option--'. $category .'">
+							<label for="category--' . $category . '" class="label label--checkbox" id="label'.$category.'">
+								<input type="checkbox" name="category[]" value="' . $category . '" class="input--checkbox" id="category' . $category . '">
+								<span id= "inner'. $category .'">' . $category_string . '</span>
+							</label>
+						</div>
 					';
 				}
 			?>

@@ -265,14 +265,24 @@ var validateMessage = function(){
 	}
 }
 
+var validateSidebar = function(){
+	if(!validatePrice() || !validatePrice2()){
+		return false;
+	}
+
+	else return true;
+}
+
 var validatePrice = function(){
 	var priceTest = document.getElementById("price--min").value;
 	var regExp3 = /^[1-9]\d*$/;
 	if(regExp3.test(priceTest) == false){
 		showSimpleError($('#price--min'));
+		return false;
 	}
 	else if(regExp3.test(priceTest) == true){
 		hideSimpleError($('#price--min'));
+		return true;
 	}
 }
 
@@ -281,10 +291,12 @@ var validatePrice2 = function(){
 	var regExp3 = /^[1-9]\d*$/;
 	if((regExp3.test(priceTest) == false) || (document.getElementById("price--max").value < document.getElementById("price--min").value)){
 		showSimpleError($('#price--max'));
+		return false;
 	}
 
 	else {
 		hideSimpleError($('#price--max'));
+		return true;
 	}
 }
 
@@ -303,6 +315,68 @@ var hideErrorWithMessage = function(target) {
 	}
 	else console.log('No target found for hideErrorWithMessage()');
 };
+
+var togglemen = function(){
+	var checkedmen = document.getElementById("gender--men").checked;
+	var checkedwomen = document.getElementById("gender--women").checked;
+
+	if(checkedwomen){
+		var labelvar = document.getElementById("innerSHRT");
+		labelvar.innerHTML = "Shirts and Blouses";
+		var show2 = document.getElementById("option--DRSS");
+		show2.style.display = "block";
+		var show3 = document.getElementById("option--SKTS");
+		show3.style.display = "block";
+	}
+
+	else if(checkedmen){
+		// var hide1 = document.getElementById("option--SHRT");
+		// hide1.style.display = "none";
+		// categorySHRT.checked = false;
+		var labelvar = document.getElementById("innerSHRT");
+		labelvar.innerHTML = "Shirts";
+		var hide2 = document.getElementById("option--DRSS");
+		hide2.style.display = "none";
+		categoryDRSS.checked = false;
+		var hide3 = document.getElementById("option--SKTS");
+		hide3.style.display = "none";
+		categorySKTS.checked = false;
+	}
+
+	else{
+		var labelvar = document.getElementById("innerSHRT");
+		labelvar.innerHTML = "Shirts and Blouses";
+		var show2 = document.getElementById("option--DRSS");
+		show2.style.display = "block";
+		var show3 = document.getElementById("option--SKTS");
+		show3.style.display = "block";
+	}
+}
+
+var togglewomen = function(){
+	var checkedwomen = document.getElementById("gender--women").checked;
+	var checkedmen = document.getElementById("gender--men").checked;
+
+	if(checkedwomen){
+		var labelvar = document.getElementById("innerSHRT");
+		labelvar.innerHTML = "Shirts and Blouses";
+		var show2 = document.getElementById("option--DRSS");
+		show2.style.display = "block";
+		var show3 = document.getElementById("option--SKTS");
+		show3.style.display = "block";
+	}
+
+	else if(checkedmen){
+		var labelvar = document.getElementById("innerSHRT");
+		labelvar.innerHTML = "Shirts";
+		var hide2 = document.getElementById("option--DRSS");
+		hide2.style.display = "none";
+		categoryDRSS.checked = false;
+		var hide3 = document.getElementById("option--SKTS");
+		hide3.style.display = "none";
+		categorySKTS.checked = false;
+	}
+}
 
 /**
  * Simple error
