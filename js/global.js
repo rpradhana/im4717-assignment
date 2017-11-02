@@ -287,24 +287,25 @@ var hideSimpleError = function(target) {
 
 var handleQuantityChange = function(element) {
 	var xhr = new XMLHttpRequest();
-	var url = "./php/updateBag.php";
-	var quantity = element.value;
-	var cart = element.name;
 
-	xhr.open("POST", url, true);
+	var quantity = (element.value),
+	    id       = (element.name).split('_').slice(0, 1),
+	    color    = (element.name).split('_').slice(1, 2);
+
+	xhr.open('POST', './bag.php', true);
 
 	// Send the proper header information along with the request
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-	// Call a function when the state changes
+	// Log in console when xhr succeed
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200) {
-			console.log('xhr response = ' + xhr.responseText);
-			// $('input[name="'+element.name+'"]').value = xhr.responseText;
+			console.log('Cart session updated.');
 		}
 	}
 
-	xhr.send("quantity=" + quantity + "&cart=" + cart);
+	// Send quantity to update, id and color of the cart item
+	xhr.send('quantity=' + quantity + '&id=' + id + '&color=' + color);
 }
 
 /**

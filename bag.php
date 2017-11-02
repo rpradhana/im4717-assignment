@@ -14,7 +14,20 @@
                             include './php/cart-item.php';
                             session_start();
 
-                            //Connect to database
+                            // Update session from AJAX
+                            if (isset($_POST['quantity'])) {
+                                $product_ids = array();
+                                foreach ($_SESSION['cart'] as $key=>$cart_item) {
+                                    $id    = $cart_item->id;
+                                    $size  = $cart_item->size;
+                                    $color = $cart_item->color;
+                                    if ($id == $_POST['id'] && $color == $_POST['color']) {
+                                        $_SESSION['cart'][$key]->quantity = $_POST['quantity'];
+                                    }
+                                }
+                            }
+
+                            // Connect to database
                             $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
 
                             if ($conn->connect_error) {
