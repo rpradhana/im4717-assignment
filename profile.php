@@ -18,6 +18,27 @@
         include_once ('./php/countries-list.php');
 
         if (isset($_SESSION["username"]) && !empty(trim($_SESSION["username"]))&& isset($_SESSION["email"]) && !empty(trim($_SESSION["email"]))) {
+            //Update profile here
+//            if (isset($_POST["update"])) {
+//                $address = $_POST["address"];
+//                $phone = $_POST["phone"];
+//                $country = $_POST["country"];
+//                $birthday = trim($_POST["birthday"]);
+//
+//                //Consider password
+//                preg_match('/^\+?[\d-]+$/', $phone, $matches_phone);
+//
+//                $validInput = true;
+//                //Validate name, address, phone, country
+//                if (empty(trim($address)) || empty(trim($country)) || empty(trim($phone))
+//                    || empty($matches_phone) || !in_array($country, $countries) || empty()) {
+//                    $validInput = false;
+//                }
+//
+//            }
+
+
+
             $query = 'SELECT gender, address, phone, birthday, country FROM accounts AS a, customers AS c WHERE c.id = a.customersID AND a.email="' . $_SESSION["email"] . '" AND c.fullName="' . $_SESSION["username"] . '";';
             $result = $conn->query($query);
             $num_rows = $result->num_rows;
@@ -40,11 +61,19 @@
                                             </a>
                                             <a href="./past-orders.php" class="button button--large profile__menu">
                                                 Past Orders
-                                            </a>
-                                        </aside>
+                                            </a>' ;
+
+                if ($_SESSION["role"] == "ADMN") {
+                    echo '                  <a href="./add.php" class="button button--large profile__menu">
+                                                Add Product
+                                            </a>';
+                }
+
+                echo '                  </aside>
                                     </div>
                                     <div class="six column">
-                                        <form id="profile__edit">
+                                        <form method="post" id="profile__edit">
+                                            <input type="hidden" name="update">
                                             <h2 class="header u-m-large--bottom">My Profile</h2>
                                             <div class="u-flex">
                                                <div class="u-m-medium--bottom">
@@ -94,23 +123,27 @@
                                                </div>
                                                 <div class="u-m-large--bottom">
                                                     <!-- Replace button with password fields on click -->
-                                                    <button type="button" class="button button--tertiary u-m-medium--top">
+                                                    <button type="button" class="button button--tertiary u-m-medium--top" id="profile-change-password" onclick="toggleAccountProfile()">
                                                         Change Password
                                                     </button>
-                                                    <!--
-                                                    <div class="u-m-medium--bottom">
+                                                     <div class="u-m-medium--bottom u-is-hidden" id="profile-oldpassword">
+                                                        <label for="oldpassword" class="label--required label--top">
+                                                            Old Password
+                                                        </label>
+                                                        <input type="password" name="password--old" id="oldpassword" class="input--text u-fill" placeholder="Enter old password">
+                                                    </div>
+                                                    <div class="u-m-medium--bottom u-is-hidden" id="profile-password">
                                                         <label for="password" class="label--required label--top">
                                                             Password
                                                         </label>
-                                                        <input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
+                                                        <input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter new password">
                                                     </div>
-                                                    <div class="u-m-medium--bottom">
+                                                    <div class="u-m-medium--bottom u-is-hidden"  id="profile-verifypassword">
                                                         <label for="password--verify" class="label--required label--top">
                                                             Verify Password
                                                         </label>
-                                                        <input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
+                                                        <input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password">
                                                     </div>
-                                                -->
                                                 </div>
                                                 <div>
                                                     <button type="submit" class="button button--primary button--large">

@@ -438,7 +438,7 @@
                                                     <tr class="checkout__row">
                                                         <td colspan="2">
                                                             <label for="create-account" class="label--checkbox">
-                                                                <input type="checkbox" name="create-account" id="create-account" class="input--checkbox" onchange="toggleAccountForm(this)">
+                                                                <input type="checkbox" name="create-account" id="create-account" class="input--checkbox" onchange="toggleAccountCheckout(this)">
                                                                 Create account for later use.
                                                             </label>
                                                         </td>
@@ -552,7 +552,7 @@
                                                     <td>
                                                         <span class="input">
                                                             <div id="payment__expiry" class="payment__expiry">
-                                                                <select class="select u-m-medium--right u-flex-2">
+                                                                <select name="month" class="select u-m-medium--right u-flex-2">
                                                                     <option value="January" selected="selected">January</option>
                                                                     <option value="February">February</option>
                                                                     <option value="March">March</option>
@@ -566,11 +566,7 @@
                                                                     <option value="November">November</option>
                                                                     <option value="December">December</option>
                                                                 </select>
-                                                                <select class="select u-flex-1">';
-            for ($i=1; $i < 32; $i++) {
-                echo '                                            <option value="' . $i . '" selected="selected">' . $i . '</option>';
-            }
-            echo '                                              </select>
+                                                                <input type="text" class="input--text" name="year" size="5" maxlength="4" placeholder="Year">
                                                             </div>
                                                         </span>
                                                     </td>
@@ -580,7 +576,7 @@
                                                         <label class="label--required">CVV</label>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="vcc" id="vcc" class="input--text" required>
+                                                        <input type="text" name="cvv" id="cvv"  maxlength="4" class="input--text" required>
                                                     </td>
                                                 </tr>
                                             </tbody>

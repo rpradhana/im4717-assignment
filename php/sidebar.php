@@ -80,13 +80,26 @@
 			</div>
 			<div class="row">
 				<?php
-					$size = array('xxs' => 'XXS',
-					              'xs'  => 'XS',
-					              's'   => 'S',
-					              'm'   => 'M',
-					              'l'   => 'L',
-					              'xl'  => 'XL',
-					              'xxl' => 'XXL');
+                    $query = "SELECT DISTINCT size FROM inventory;";
+                    $result = $conn->query($query);
+                    $size = array();
+                    if ($result) {
+                        $num_rows = $result->num_rows;
+                        if ($num_rows > 0) {
+                            for ($i = 0 ; $i < $num_rows; $i++) {
+                                $row = $result->fetch_assoc();
+                                $size[strtolower($row["size"])] = $row["size"];
+                            }
+                        }
+                    } else {
+                        $size = array('xxs' => 'XXS',
+                            'xs'  => 'XS',
+                            's'   => 'S',
+                            'm'   => 'M',
+                            'l'   => 'L',
+                            'xl'  => 'XL',
+                            'xxl' => 'XXL');
+                    }
 					foreach($size as $size => $size_string) {
 						echo '
 							<div class="four column u-p-zero">
@@ -110,17 +123,31 @@
 			</div>
 			<div class="row">
 				<?php
-					$color = array('beige'  => 'Beige',
-					               'black'  => 'Black',
-					               'blue'   => 'Blue',
-					               'brown'  => 'Brown',
-					               'green'  => 'Green',
-					               'grey'   => 'Grey',
-					               'yellow' => 'Yellow',
-					               'orange' => 'Orange',
-					               'pink'   => 'Pink',
-					               'red'    => 'Red',
-					               'white'  => 'White');
+                    $query = "SELECT DISTINCT color FROM inventory;";
+                    $result = $conn->query($query);
+                    $color = array();
+                    if ($result) {
+                        $num_rows = $result->num_rows;
+                        if ($num_rows > 0) {
+                            for ($i = 0 ; $i < $num_rows; $i++) {
+                                $row = $result->fetch_assoc();
+                                $color[lcfirst($row["color"])] = $row["color"];
+                            }
+                        }
+                    } else {
+                        $color = array('beige'  => 'Beige',
+                            'black'  => 'Black',
+                            'blue'   => 'Blue',
+                            'brown'  => 'Brown',
+                            'green'  => 'Green',
+                            'grey'   => 'Grey',
+                            'yellow' => 'Yellow',
+                            'orange' => 'Orange',
+                            'pink'   => 'Pink',
+                            'red'    => 'Red',
+                            'white'  => 'White');
+                    }
+
 					foreach($color as $color => $color_string) {
 						echo '
 							<div class="six column u-p-zero">

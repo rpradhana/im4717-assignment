@@ -156,8 +156,8 @@
 						<a href="./index.php" class="nav__logo"><img src="./images/logo.svg" width="7.5rem"></a>
 						<a href="./shop.php?gender[]=W" id="menu__button--women" class="button menu__button">Women</a>
 						<a href="./shop.php?gender[]=M" id="menu__button--men" class="button menu__button">Men</a>
-						<form class="menu__search">
-							<input type="text" class="input--text search__input u-flex-1" placeholder="Search collection">
+						<form class="menu__search" method="get" action="shop.php">
+							<input type="text" name="searchstring" class="input--text search__input u-flex-1" placeholder="Search collection">
 							<button type="submit" class="button button--secondary search__button">
 								<div class="icon">
 									<i class="material-icons">search</i>

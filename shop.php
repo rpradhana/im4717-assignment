@@ -87,6 +87,10 @@
             }
         }
 
+        if (isset($_GET["searchstring"]) && !empty(trim($_GET["searchstring"]))) {
+            $query .= ' AND p.name LIKE "%' . $_GET["searchstring"] . '%"';
+        }
+
         $query = $query . ' GROUP BY p.id';
 
         if ($sortby == "popular") {
@@ -147,8 +151,9 @@
                 echo '           </div>
                             </div>
                         </div>';
-            } else { //No products correspond to search result
-
+            } else {
+                //No products correspond to search result
+                echo 'No result found';
             }
         } else {
             //Unable to query database for search results

@@ -29,8 +29,15 @@
                                     </a>
                                     <a href="./past-orders.php" class="button button--large profile__menu profile__menu--active">
                                         Past Orders
-                                    </a>
-                                </aside>
+                                    </a>';
+
+            if ($_SESSION["role"] == "ADMN") {
+                echo '              <a href="./add.php" class="button button--large profile__menu">
+                                            Add Product
+                                    </a>';
+            }
+
+            echo '            </aside>
                             </div>
                             <div class="eight column">
                                 <form id="profile__past-orders">
