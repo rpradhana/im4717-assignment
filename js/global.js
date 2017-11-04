@@ -9,7 +9,7 @@ var HTML_LOGIN = `
 		</div>
 		<h2 class="header u-m-large--bottom">Welcome back!</h2>
 		<form method="post" id="form--login">
-			<input type="hidden" name="login" value="true">
+			<input type="hidden" name="todo" value="login">
 			<div class="u-flex">
 				<div class="u-m-medium--bottom">
 					<label for="email" class="label--required label--top">
@@ -47,7 +47,7 @@ var HTML_REGISTER = `
 			<i class="material-icons">close</i>
 		</div>
 		<form method="post" id="form--register">
-			<input type="hidden" name="register" value="true">
+			<input type="hidden" name="todo" value="register">
 			<div class="u-flex">
 				<div id="register--step-1">
 					<h2 class="header u-m-large--bottom">Create new account</h2>
@@ -140,7 +140,9 @@ var HTML_REGISTER = `
 								</td>
 								<td>
 									<span class="input">
-										<input type="text" name="country" id="country" class="input--text u-fill" placeholder="Country of residence">
+										<select name="country" id="country" class="input--text u-fill">` +
+											country_options +
+										`</select>
 									</span>
 								</td>
 							</tr>
@@ -279,35 +281,6 @@ var hideSimpleError = function(target) {
 	if (target) {
 		removeClass(target, 'u-is-invalid');
 	}
-}
-
-/**
- * Ajax: Bag.php
- */
-
-var handleQuantityChange = function(element) {
-	var xhr = new XMLHttpRequest();
-
-	var quantity = (element.value),
-	    id       = (element.id).split('_').slice(0, 1),
-	    color    = (element.id).split('_').slice(1, 2),
-	    size     = (element.id).split('_').slice(2, 3);
-
-	xhr.open('POST', './bag.php', true);
-
-	// Send the proper header information along with the request
-	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xhr.setRequestHeader('Update', '1');
-
-	// Log in console when xhr succeed
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState == 4 && xhr.status == 200) {
-			console.log('Cart session updated.' + id + color + size);
-		}
-	}
-
-	// Send quantity to update, id and color of the cart item
-	xhr.send('new_quantity=' + quantity + '&cart_id=' + id + '&cart_color=' + color + '&cart_size=' + size);
 }
 
 /**

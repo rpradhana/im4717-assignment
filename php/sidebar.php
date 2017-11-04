@@ -1,17 +1,18 @@
 <section class="sidebar">
-	<form class="filter">
 		<div class="u-m-medium--bottom">
 			<h2 class="header">Narrow your search</h2>
 		</div>
 		<div id="option--tag" class="option-group">
 			<?php
-				$tag = array('popular'   => 'Popular',
-				             'new'       => 'New',
-				             'promotion' => 'Promotion');
+//				$tag = array('popular'   => 'Popular',
+//				             'new'       => 'New',
+//				             'promotion' => 'Promotion');
+                $tag = array('promotion' => 'Promotion');
 				foreach($tag as $tag => $tag_string) {
 					echo '
 						<label for="tag--' . $tag . '" class="label label--checkbox">
-							<input type="checkbox" name="tag[]" class="input--checkbox" id="tag--' . $tag . '">
+							<input type="checkbox" name="tag[]" value="' . $tag_string . '" class="input--checkbox" id="tag--' . $tag . '"' .
+                            (in_array($tag_string, $_GET["tag"]) ? ' checked' : '') .'>
 							' . $tag_string . '
 						</label>
 					';
@@ -31,7 +32,8 @@
 				foreach($gender as $gender => $gender_string) {
 					echo '
 						<label for="gender--' . $gender . '" class="label label--checkbox">
-							<input type="checkbox" name="gender[]" value="' . $gender_string[0] . '" class="input--checkbox" id="gender--' . $gender . '">
+							<input type="checkbox" name="gender[]" value="' . $gender_string[0] . '" class="input--checkbox" id="gender--' . $gender . '"' .
+                        (in_array($gender_string[0], $_GET["gender"]) ? ' checked' : '') . '>
 							' . $gender_string . '
 						</label>
 					';
@@ -60,7 +62,8 @@
 				foreach($category as $category => $category_string) {
 					echo '
 						<label for="category--' . $category . '" class="label label--checkbox">
-							<input type="checkbox" name="category[]" value="' . $category . '" class="input--checkbox" id="category--' . $category . '">
+							<input type="checkbox" name="category[]" value="' . $category . '" class="input--checkbox" id="category--' . $category . '"' .
+                            (in_array($category, $_GET["category"]) ? ' checked' : '') .'>
 							' . $category_string . '
 						</label>
 					';
@@ -88,7 +91,8 @@
 						echo '
 							<div class="four column u-p-zero">
 								<label for="size--' . $size . '" class="label label--checkbox">
-									<input type="checkbox" name="size[]" value="' . $size_string . '" class="input--checkbox" id="size--' . $size . '">
+									<input type="checkbox" name="size[]" value="' . $size_string . '" class="input--checkbox" id="size--' . $size . '"' .
+                                    (in_array($size_string, $_GET["size"]) ? ' checked' : '') .'>
 									' . $size_string . '
 								</label>
 							</div>
@@ -121,7 +125,8 @@
 						echo '
 							<div class="six column u-p-zero">
 								<label for="color--' . $color . '" class="label label--checkbox">
-									<input type="checkbox" name="color[]"  value="' . $color_string . '" class="input--checkbox" id="color--' . $color . '">
+									<input type="checkbox" name="color[]"  value="' . $color_string . '" class="input--checkbox" id="color--' . $color . '"' .
+                                    (in_array($color_string, $_GET["color"]) ? ' checked' : '') .'>
 									' . $color_string . '
 								</label>
 							</div>
@@ -138,9 +143,17 @@
 				</div>
 			</div>
 			<div class="row price">
-				<span class="input--text price__input">$<input type="text" name="price--min" id="price--min" placeholder="Min"></span>
-				<span>–</span>
-				<span class="input--text price__input">$<input type="text" name="price--max" id="price--max" placeholder="Max"></span>
+                <?php
+                    echo '  <span class="input--text price__input">$
+                                <input type="text" name="price--min" id="price--min" placeholder="Min"' .
+                                (isset($_GET["price--min"]) && ($_GET["price--min"] > 0) ? (' value="' . $_GET["price--min"] . '"') : '') . '>
+                            </span>
+                            <span>–</span>
+                            <span class="input--text price__input">$
+                                <input type="text" name="price--max" id="price--max" placeholder="Max"' .
+                                (isset($_GET["price--max"]) && ($_GET["price--max"] > 0) ? (' value="' . $_GET["price--max"] . '"') : '') . '>
+                            </span>'
+                ?>
 			</div>
 		</div>
 		<button type="submit" class="button button--primary option__button">
@@ -149,5 +162,4 @@
 		<button type="reset" class="button button--secondary option__button">
 			Clear All
 		</button>
-	</form>
 </section>

@@ -13,95 +13,152 @@
             exit();
         }
 
-    include './php/nav.php';
-    ?>
-	<div class="container">
-		<div class="row">
-			<div class="three column">
-				<?php include './php/sidebar.php' ?>
-			</div>
-			<div class="nine column u-p-zero">
-				<div class="row">
-					<div class="twelve column">
-						<div class="search-result">
-							<div class="search-result__info">
-								Displaying all products
-							</div>
-							<div>
-								Sort by
-								<select class="select select--with-label">
-									<option value="relevance">Relevance</option>
-									<option value="popular">Popularity</option>
-									<option value="new">Newest arrivals</option>
-									<option value="price--ascending">Price (lowest)</option>
-									<option value="price--descending">Price (highest)</option>
-								</select>
-							</div>
-						</div>
-					</div>
-				</div>
-                <?php
-                    $query = "SELECT p.id, p.name, p.price, p.discount FROM products AS p, inventory AS i WHERE p.id=i.productsID";
+        include './php/nav.php';
 
-                    foreach ($_GET as $category_name => $category_value_arr) {
-                        if ($category_name != 'tag' && $category_name != 'price--min' && $category_name != 'price--max') {
-                            $query = $query . ' AND (';
-                            $first = true;
-                            foreach ($category_value_arr as $category_value) {
-                                if ($first) {
-                                    $query = $query . $category_name . '="' . $category_value . '"';
-                                    $first = false;
-                                } else {
-                                    $query = $query . ' OR ' . $category_name . '="' . $category_value . '"';
-                                }
-                            }
-                            $query = $query . ')';
-                        }
+        echo '  <div class="container">
+                    <form class="filter">
+                        <div class="row">
+                            <div class="three column">';
+        include './php/sidebar.php' ;
+        echo '              </div>
+                            <div class="nine column u-p-zero">
+                                <div class="row">
+                                    <div class="twelve column">
+                                        <div class="search-result">
+                                            <div class="search-result__info">
+                                                Displaying all products
+                                            </div>';
+        $sortby = "relevance";
+        if (isset($_GET["sortby"])) {
+            $sortby = $_GET["sortby"];
+        }
 
-                    }
-                    $query = $query . ' GROUP BY p.id;';
-                    //echo $query;
-                    $result = $conn->query($query);
+        echo '                              <div>
+                                                Sort by
+                                                <select class="select select--with-label" name="sortby">
+                                                    <option value="relevance"' . ($sortby == "relevance" ? ' selected' : '') . '>Relevance</option>
+                                                    <option value="popular"' . ($sortby == "popular" ? ' selected' : '') . '>Popularity</option>
+                                                    <option value="newest"' . ($sortby == "newest" ? ' selected' : '') . '>Newest arrivals</option>
+                                                    <option value="price--ascending"' . ($sortby == "price--ascending" ? ' selected' : '') . '>Price (lowest)</option>
+                                                    <option value="price--descending"' . ($sortby == "price--descending" ? ' selected' : '') . '>Price (highest)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
 
-                    if ($result) {
-                        $num_rows = $result->num_rows;
-                        if ($num_rows > 0) {
-                            echo '<div class="row">';
-                            $section_id = "collection--search";
-                            for ($i = 0; $i < $num_rows; $i++) {
-                                $row = $result->fetch_assoc();
-                                $product_id = $row["id"];
-                                $product_name = $row["name"];
-                                $product_price = $row["price"];
-                                $product_discount = $row["discount"];
-                                echo '<div class="four column">';
-                                include './php/product.php';
-                                echo '</div>';
-                            }
-                            echo '</div>';
-                        } else { //No products correspond to search result
 
-                        }
+
+        if (isset($_GET["sortby"]) && $_GET["sortby"] == "popular") {
+            $query = 'SELECT p.id, p.name, p.price, p.discount, COUNT(*) AS numberOfTimesBought FROM products AS p, inventory AS i, 
+            orders_inventory AS oi WHERE p.id = i.productsID AND i.id = oi.inventoryID';
+        } else {
+            $query = 'SELECT p.id, p.name, p.price, p.discount FROM products AS p, inventory AS i WHERE p.id = i.productsID';
+        }
+
+
+        $pageNo = 0;
+        //Parse parameters
+        foreach ($_GET as $param_name => $param_value) {
+            if ($param_name == 'gender' || $param_name == 'category' || $param_name == 'size' || $param_name == 'color') {
+                $query = $query . ' AND (';
+                $first = true;
+                foreach ($param_value as $param_value_inner) {
+                    if ($first) {
+                        $query = $query . $param_name . '="' . $param_value_inner . '"';
+                        $first = false;
                     } else {
-                        //Unable to query database for search results
-                        exit();
+                        $query = $query . ' OR ' . $param_name . '="' . $param_value_inner . '"';
+                    }
+                }
+                $query = $query . ')';
+            } else if ($param_name == 'tag') {
+                foreach ($param_value as $param_value_inner) {
+                    if ($param_value_inner == "Promotion") {
+                        $query .= ' AND discount > 0';
+                    }
+                }
+            } else if ($param_name == 'price--min' && $param_value > 0) {
+                $query .= ' AND price > ' . $param_value;
+            } else if ($param_name == 'price--max' && $param_value > 0) {
+                $query .= ' AND price < ' . $_GET["price--max"];
+            } else if ($param_name == 'pageno' && $param_value > 0) {
+                $pageNo = $param_value-1;
+            }
+        }
+
+        $query = $query . ' GROUP BY p.id';
+
+        if ($sortby == "popular") {
+            $query .= ' ORDER BY numberOfTimesBought DESC';
+        } else if ($sortby == "newest") {
+            $query .= ' ORDER BY p.id DESC';
+        } else if ($sortby == "price--ascending") {
+            $query .= ' ORDER BY p.price ASC';
+        } else if ($sortby == "price--descending") {
+            $query .= ' ORDER BY p.price DESC';
+        }
+
+
+        $query .= ' LIMIT ' . ($pageNo * 6) . ',6;';
+        //echo $query;
+        $result = $conn->query($query);
+
+        if ($result) {
+            $num_rows = $result->num_rows;
+            if ($num_rows > 0) {
+                echo '<div class="row">';
+                $section_id = "collection--search";
+                for ($i = 0; $i < $num_rows; $i++) {
+                    $row = $result->fetch_assoc();
+                    $product_id = $row["id"];
+                    $product_name = $row["name"];
+                    $product_price = $row["price"];
+                    $product_discount = $row["discount"];
+                    echo '<div class="four column">';
+                    include './php/product.php';
+                    echo '</div>';
+                }
+                echo '</div>';
+                $param_arr = $_GET;
+                unset($param_arr["pageno"]);
+                $param_string = http_build_query($param_arr);
+
+                echo '  <div class="row">
+                            <div class="twelve column">
+                                <div class="pagination shop__pagination">';
+
+                $num_pages = floor($num_rows/6) + 1;
+
+                if ($num_pages > 1) {
+                    if ($pageNo > 0) {
+                        echo '          <a href="./shop.php?' . $param_string . '&pageno=' . $pageNo . '"><i class="material-icons">keyboard_arrow_left</i></a>';
                     }
 
-                ?>
-                <div class="row">
-                    <div class="twelve column">
-                        <div class="pagination shop__pagination">
-                            <button><i class="material-icons">keyboard_arrow_left</i></button>
-                            <button class="u-is-active">1</button>
-                            <button>2</button>
-                            <button>3</button>
-                            <button>4</button>
-                            <button><i class="material-icons">keyboard_arrow_right</i></i></button>
-                        </div>
-                    </div>
+                    for ($i = 0; $i < $num_pages; $i++) {
+                        echo '          <a href="./shop.php?' . $param_string . '&pageno=' . ($i+1) . '"' . ($i == $pageNo ? ' class="u-is-active"' : '') . '>' . ($i+1) . '</a>';
+                    }
+
+                    if ($pageNo < ($num_pages - 1)) {
+                        echo '          <a href="./shop.php?' . $param_string . '&pageno=' . ($pageNo+2) . '"><i class="material-icons">keyboard_arrow_right</i></a>';
+                    }
+                }
+
+                echo '           </div>
+                            </div>
+                        </div>';
+            } else { //No products correspond to search result
+
+            }
+        } else {
+            //Unable to query database for search results
+            exit();
+        }
+
+    ?>
                 </div>
-			</div>
-		</div>
+            </div>
+        </form>
 	</div>
 	<?php include './php/footer.php' ?>
 	<script type="text/javascript" src='./js/global.js'></script>

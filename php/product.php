@@ -8,10 +8,10 @@
             echo '<a href="./product.php?id=' . $product_id .'" class="u-flex">';
             echo '<img id="' . $section_id . '_img_' . $product_id .'"></a>';
         ?>
-        <div class="product__label">
-            <div class="product__label--popular">Popular</div>
-            <div class="product__label--new">New</div>
-        </div>
+<!--        <div class="product__label">-->
+<!--            <div class="product__label--popular">Popular</div>-->
+<!--            <div class="product__label--new">New</div>-->
+<!--        </div>-->
     </div>
     <div class="row product__name">
         <?php
@@ -47,7 +47,7 @@
                 $inner_row = $inner_result->fetch_assoc();
                 $color = strtolower($inner_row["color"]);
                 $button_id = $section_id . '_button_' . $product_id . '_' . $color;
-                echo '<button class="product__color--' . $color . '" onclick="pickColor(this)" id="' . $button_id . '"></button>';
+                echo '<span class="product__color--' . $color . '" onclick="pickColor(this)" id="' . $button_id . '"></span>';
                 if ($j == 0) {
                     echo '<script>initProductImage("' . $button_id .'");</script>';
                 }

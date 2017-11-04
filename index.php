@@ -19,7 +19,7 @@
 
         //Get popular items
         $query = "SELECT p.id, p.name, p.price, p.discount, COUNT(*) AS numberOfTimesBought FROM products AS p, 
-inventory AS i, orders_inventory AS o WHERE i.id = o.inventoryID AND p.id = i.productsID GROUP BY(p.id) 
+inventory AS i, orders_inventory AS oi WHERE i.id = oi.inventoryID AND p.id = i.productsID GROUP BY(p.id) 
 ORDER BY numberOfTimesBought LIMIT 0,4;";
         $result = $conn->query($query);
 

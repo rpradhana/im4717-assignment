@@ -4,12 +4,8 @@
 <body class="debug o f h d">
 	<?php
         /* To-do:
-            -onclick change product-preview
             -addclass remove class for active styling
-            -check quantity vs stock
-            -click thumbnail changes image preview
             -recommended items
-            -increase quantity increase price in button
         */
 
         include './php/cart-item.php';
@@ -41,7 +37,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
         if ($result) {
             $num_rows = $result->num_rows;
             if ($num_rows > 0) {
-                global $row;
+                $row;
                 $inventory_arr = array();
                 $distinct_color = array();
                 $distinct_size = array();
@@ -65,8 +61,8 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                         $inventory_arr[$color] = array();
                     }
                     $inventory_arr[$color][$size] = $stock;
-
                 }
+
 
                 //Get product information
                 $name = $row["name"];
@@ -86,10 +82,25 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                     $add_to_cart = false;
                 }
 
-                if (!$product_qty || $product_qty < 1 ||$product_qty > $inventory_arr[$product_color][$product_size]) {
+                if (!$product_qty || $product_qty < 1) {
                     $product_qty = 1;
                     $add_to_cart = false;
                 }
+
+                $outofstock = false;
+
+                if ($product_qty > $inventory_arr[$product_color][$product_size]) {
+                    $product_qty = $inventory_arr[$product_color][$product_size];
+                    if ($product_qty < 1) {
+                        $outofstock = true;
+                    }
+                }
+
+                echo '  <script type="text/javascript">
+                            var inventory_arr = ' . json_encode($inventory_arr ) . ';
+                            var selectedColor = "' . $product_color . '";
+                            var selectedSize = "' . $product_size . '";
+                        </script>';
 
                 //Add selected product to cart
                 if ($add_to_cart) {
@@ -149,9 +160,9 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                 <label for="color--' . $color_name . '" class="label label--checkbox">';
 
                     if ($color_name == $product_color) {
-                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '" checked>';
+                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '" checked onchange="updateStock(this, \'color\')">';
                     } else {
-                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '">';
+                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '" onchange="updateStock(this, \'color\')">';
                     }
 
                     echo ucfirst($color_name) .
@@ -178,29 +189,29 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                 <label for="size--' . $size . '" class="label label--checkbox">';
 
                     if ($size == $product_size) {
-                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '" checked>';
+                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '" checked onchange="updateStock(this, \'size\')">';
                     } else {
-                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '">';
+                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '" onchange="updateStock(this, \'size\')">';
                     }
 
                     echo strtoupper($size) .
                                 '</label>
                             </div>
-                        ';
+                        </div>
+                    </div>';
                 }
 
                 //Container for quantity input + submit button
-                echo '    </div>
-						</div>
-						<div class="option--quantity">
+                echo ' <div class="option--quantity" id="option--quantity"'. ($outofstock ? ' style="display:none;"' : '') .'>
 							<div>Quantity</div>
-							<input type="text" name="quantity" class="input--text" id="' . $product_id . '_' . $product_color . '_' . $product_size . '_quantity" value="' . $product_qty . '" placeholder="Quantity" oninput="updatePrice(this)">
+							<input type="number" min="1" max="' . $inventory_arr[$product_color][$product_size] . '" name="quantity" class="input--text" id="product-quantity" value="' . $product_qty . '" placeholder="Quantity" oninput="updatePriceProduct(this)">
 						</div>
-						<button type="submit" class="button button--primary button--large option__button">
-							Add to Bag ($<span id="' . $product_id . '_' . $product_color . '_' . $product_size . '_price-subtotal"> ' .
+						<button type="submit" class="button button--primary button--large option__button" id="button--addtobag"'. ($outofstock ? ' style="display:none;"' : '') . '>
+							Add to Bag ($<span id="product-price-subtotal"> ' .
                             number_format($price_after_discount,2)
                             . '</span>)
 						</button>
+						<span class="button button--primary button--large option__button" id="button--outofstock"' . ($outofstock ? '' : ' style="display:none;"') .'>Out of Stock</span>
 					</form>
 				</div>';
 
@@ -214,7 +225,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                     Product ID: ' . $product_id . '
                                 </div>
                                 <div class="product-info__price">
-                                    <span class="product-info__price--current" id="' . $product_id . '_' . $product_color . '_' . $product_size . '_price-single">$' . number_format($price_after_discount,2) . '</span>';
+                                    <span class="product-info__price--current" id="product-price-single">$' . number_format($price_after_discount,2) . '</span>';
 
                 if ($product_discount > 0) {
                     echo ' <span class="product-info__price--pre-discount">$' . number_format($price,2) . '</span>';

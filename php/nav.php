@@ -3,135 +3,124 @@
 
     }
 
-    if (isset($_POST["register"])) {
-        $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola",
-            "Anguilla", "Antarctica", "Antigua and Brarbuda", "Argentina", "Armenia", "Aruba", "Australia",
-            "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium",
-            "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island",
-            "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi",
-            "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile",
-            "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the",
-            "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti",
-            "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia",
-            "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana",
-            "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland",
-            "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands",
-            "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)",
-            "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati",
-            "Korea, Democratic People's Republic of", "Korea, Republic of",
-            "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya",
-            "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia",
-            "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico",
-            "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique",
-            "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua",
-            "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama",
-            "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania",
-            "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino",
-            "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia",
-            "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena",
-            "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland",
-            "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo",
-            "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda",
-            "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan",
-            "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara",
-            "Yemen", "Yugoslavia", "Zambia", "Zimbabwe");
+    include_once('./php/countries-list.php') ;
+    $country_options = '';
+    foreach ($countries as $country) {
+        $country_options .= '<option value=\"' . $country . '\">' . $country . '</option>';
+    }
 
-        $name = $_POST["name"];
-        $address = $_POST["address"];
-        $phone = $_POST["phone"];
-        $country = $_POST["country"];
-        $validinput = true;
-
-        preg_match('/[a-zA-Z\s]+/', $name, $matches_name);
-        preg_match('/^\+?[\d-]+$/', $phone, $matches_phone);
-
-        //Validate name, address, phone, country, shipping
-        if (empty(trim($name)) || empty(trim($address)) || empty(trim($country)) || empty(trim($phone)) ||
-            empty($matches_name) || empty($matches_phone) || !in_array($country, $countries)) {
-            $validinput = false;
-        }
+    echo '  <script type="text/javascript">
+                var country_options = "' . $country_options . '";
+            </script>';
 
 
-        if (!$validinput) {
-            //Input is not valid
-            exit();
-        }
-        $query = "START TRANSACTION;";
-        $conn->query($query);
+    if (isset($_POST["todo"])) {
+        if ($_POST["todo"] == "register") {
 
-        $gender = ucfirst(trim($_POST["gender"]));
-        $birthday = trim($_POST["birthday"]);
 
-        $query = "INSERT INTO customers (fullName, address, country, phone";
+            $name = $_POST["name"];
+            $address = $_POST["address"];
+            $phone = $_POST["phone"];
+            $country = $_POST["country"];
+            $validinput = true;
 
-        $insert_gender = false;
-        if ($gender[0] == 'M' || $gender[0] == 'W') {
-            $query .= ', gender';
-            $insert_gender = true;
-        }
+            preg_match('/[a-zA-Z\s]+/', $name, $matches_name);
+            preg_match('/^\+?[\d-]+$/', $phone, $matches_phone);
 
-        $insert_birthday = false;
-        if (!empty($birthday)) {
-            $query .= ', birthday';
-            $insert_birthday = true;
-        }
-
-        $query .= ') VALUES ("' . $name . '","' . $address . '","' . $country . '","' . $phone;
-        if ($insert_gender) {
-            $query .= '","' . $gender[0];
-        }
-
-        if ($insert_birthday) {
-            $query .= '","' . $birthday;
-        }
-
-        $query .= '");';
-        $result = $conn->query($query);
-        if(!$result) {
-            //Unable to insert into customers table
-            $conn->query("ROLLBACK;");
-            exit();
-        }
-
-        if ($conn->affected_rows != 1) {
-            $conn->query("ROLLBACK;");
-            exit();
-        }
-
-        $customer_id = $conn->insert_id;
-
-        $email = trim($_POST["email"]);
-        $password = $_POST["password"];
-        $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
-        $result = $conn->query($query);
-        if(!$result) {
-            //Unable to insert into accounts table
-            $conn->query("ROLLBACK;");
-            exit();
-        }
-
-        if ($conn->affected_rows != 1) {
-            $conn->query("ROLLBACK;");
-            exit();
-        }
-
-        $query = "COMMIT;";
-        $conn->query($query);
-        echo 'Success!';
-    } else if (isset($_POST["login"])) {
-        if (isset($_POST["email"]) && isset($_POST["password"])) {
-            $email = trim($_POST["email"]);
-            $password = $_POST["password"];
-            $query = 'SELECT c.fullName, a.cart, a.role FROM accounts AS a, customers AS c WHERE c.id = a.customersID AND a.email="' . $email . '" AND password="' . $password . '";';
-            $result = $conn->query($query);
-            $num_rows = $result->num_rows;
-            if ($num_rows != 1) {
-                //Email not found or wrong password
-            } else {
-                $row = $result->fetch_assoc();
-                $_SESSION["username"] = $row["fullName"];
-                //Get cart, get role, etc
+            //Validate name, address, phone, country, shipping
+            if (empty(trim($name)) || empty(trim($address)) || empty(trim($country)) || empty(trim($phone)) ||
+                empty($matches_name) || empty($matches_phone) || !in_array($country, $countries)) {
+                $validinput = false;
             }
+
+
+            if (!$validinput) {
+                //Input is not valid
+            } else {
+                $query = "START TRANSACTION;";
+                $conn->query($query);
+
+                $gender = ucfirst(trim($_POST["gender"]));
+                $birthday = trim($_POST["birthday"]);
+
+                $query = "INSERT INTO customers (fullName, address, country, phone";
+
+                $insert_gender = false;
+                if ($gender[0] == 'M' || $gender[0] == 'W') {
+                    $query .= ', gender';
+                    $insert_gender = true;
+                }
+
+                $insert_birthday = false;
+                if (!empty($birthday)) {
+                    $query .= ', birthday';
+                    $insert_birthday = true;
+                }
+
+                $query .= ') VALUES ("' . $name . '","' . $address . '","' . $country . '","' . $phone;
+                if ($insert_gender) {
+                    $query .= '","' . $gender[0];
+                }
+
+                if ($insert_birthday) {
+                    $query .= '","' . $birthday;
+                }
+
+                $query .= '");';
+                $result = $conn->query($query);
+                if(!$result) {
+                    //Unable to insert into customers table
+                    $conn->query("ROLLBACK;");
+                    exit();
+                }
+
+                if ($conn->affected_rows != 1) {
+                    $conn->query("ROLLBACK;");
+                    exit();
+                }
+
+                $customer_id = $conn->insert_id;
+
+                $email = trim($_POST["email"]);
+                $password = $_POST["password"];
+                $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
+                $result = $conn->query($query);
+                if(!$result) {
+                    //Unable to insert into accounts table
+                    $conn->query("ROLLBACK;");
+                    exit();
+                }
+
+                if ($conn->affected_rows != 1) {
+                    $conn->query("ROLLBACK;");
+                    exit();
+                }
+
+                $query = "COMMIT;";
+                $conn->query($query);
+                echo 'Success!';
+            }
+
+        } else if ($_POST["todo"] == "login") {
+            if (isset($_POST["email"]) && isset($_POST["password"])) {
+                $email = trim($_POST["email"]);
+                $password = $_POST["password"];
+                $query = 'SELECT c.fullName, a.email, a.role FROM accounts AS a, customers AS c WHERE c.id = a.customersID AND a.email="' . $email . '" AND password="' . $password . '";';
+                $result = $conn->query($query);
+                $num_rows = $result->num_rows;
+                if ($num_rows != 1) {
+                    //Email not found or wrong password
+                } else {
+                    $row = $result->fetch_assoc();
+                    $_SESSION["username"] = $row["fullName"];
+                    $_SESSION["email"] = $row["email"];
+                    $_SESSION["role"] = $row["role"];
+                }
+            }
+        } else if ($_POST["todo"] == "logout") {
+            unset($_SESSION["username"]);
+            unset($_SESSION["email"]);
+            unset($_SESSION["role"]);
         }
     }
 
@@ -144,8 +133,10 @@
                                 <a href="./contact.php" class="button submenu__button">Contact</a>
                                 <a href="./support.php" class="button submenu__button">Support</a>';
     if (isset($_SESSION["username"])) {
-        echo '<span><strong>Welcome, '. $_SESSION["username"]. '</strong></span>
-              <span class="button submenu__button" id="submenu__button--logout"><strong>Sign Out</strong></span>';
+        echo '<a href="profile.php" class="button submenu__button"><strong>Welcome, '.
+            $_SESSION["username"] .
+            '</strong></a>
+             <form name="form-signout" method="post"><input type="hidden" name="todo" value="logout"><span class="button submenu__button" id="submenu__button--logout" onclick="document.forms[\'form-signout\'].submit();"><strong>Sign Out</strong></span></form>';
     } else {
         echo '<span class="button submenu__button" id="submenu__button--register"><strong>Register</strong></span>
               <span class="button submenu__button" id="submenu__button--login"><strong>Sign In</strong></span>';
