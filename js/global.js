@@ -242,10 +242,33 @@ var spawnModal = function(content) {
  */
 
 var validateEmail = function(){
-	var name2 = document.getElementById("email").value;
+	var email2 = document.getElementById("email").value;
 	var regExp2 = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/;
-	if(regExp2.test(name2) == false){
-			showErrorWithMessage(document.getElementById("email"), "Invalid input");
+	if(regExp2.test(email2) == false){
+			showErrorWithMessage($('#email'), "Invalid input");
+	}
+}
+
+var validatePrice = function(){
+	var priceTest = document.getElementById("price--min").value;
+	var regExp3 = /^[1-9]\d*$/;
+	if(regExp3.test(priceTest) == false){
+		showSimpleError($('#price--min'));
+	}
+	else if(regExp3.test(priceTest) == true){
+		hideSimpleError($('#price--min'));
+	}
+}
+
+var validatePrice2 = function(){
+	var priceTest = document.getElementById("price--max").value;
+	var regExp3 = /^[1-9]\d*$/;
+	if((regExp3.test(priceTest) == false) || (document.getElementById("price--max").value < document.getElementById("price--min").value)){
+		showSimpleError($('#price--max'));
+	}
+
+	else {
+		hideSimpleError($('#price--max'));
 	}
 }
 
@@ -274,12 +297,12 @@ var hideErrorWithMessage = function(target) {
 
 var showSimpleError = function(target) {
 	if (target) {
-		addClass(target, 'u-is-invalid');
+		addClass(target.parentNode, 'u-is-invalid');
 	}
 }
 var hideSimpleError = function(target) {
 	if (target) {
-		removeClass(target, 'u-is-invalid');
+		removeClass(target.parentNode, 'u-is-invalid');
 	}
 }
 

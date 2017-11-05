@@ -173,12 +173,12 @@
                 <?php
                     echo '  <span class="input--text price__input">$
                                 <input type="text" name="price--min" id="price--min" placeholder="Min"' .
-                                (isset($_GET["price--min"]) && ($_GET["price--min"] > 0) ? (' value="' . $_GET["price--min"] . '"') : '') . '>
+                                (isset($_GET["price--min"]) && ($_GET["price--min"] > 0) ? (' value="' . $_GET["price--min"] . '"') : '') . ' onchange="validatePrice()">
                             </span>
                             <span>–</span>
                             <span class="input--text price__input">$
                                 <input type="text" name="price--max" id="price--max" placeholder="Max"' .
-                                (isset($_GET["price--max"]) && ($_GET["price--max"] > 0) ? (' value="' . $_GET["price--max"] . '"') : '') . '>
+                                (isset($_GET["price--max"]) && ($_GET["price--max"] > 0) ? (' value="' . $_GET["price--max"] . '"') : '') . ' onchange="validatePrice2()">
                             </span>'
                 ?>
 			</div>
@@ -190,3 +190,5 @@
 			Clear All
 		</button>
 </section>
+<script type='text/javascript' src='./js/global.js'></script>
+
