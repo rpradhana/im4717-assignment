@@ -48,109 +48,123 @@
                                 </div>';
 
 
-
-        if (isset($_GET["sortby"]) && $_GET["sortby"] == "popular") {
-            $query = 'SELECT p.id, p.name, p.price, p.discount, COUNT(*) AS numberOfTimesBought FROM products AS p, inventory AS i, 
-            orders_inventory AS oi WHERE p.id = i.productsID AND i.id = oi.inventoryID';
-        } else {
-            $query = 'SELECT p.id, p.name, p.price, p.discount FROM products AS p, inventory AS i WHERE p.id = i.productsID';
-        }
-
-
-        $pageNo = 0;
+        $condition = ' p.id = i.productsID';
+        $pageIndex = 0;
         //Parse parameters
         foreach ($_GET as $param_name => $param_value) {
             if ($param_name == 'gender' || $param_name == 'category' || $param_name == 'size' || $param_name == 'color') {
-                $query = $query . ' AND (';
+                $condition = $condition . ' AND (';
                 $first = true;
                 foreach ($param_value as $param_value_inner) {
                     if ($first) {
-                        $query = $query . $param_name . '="' . $param_value_inner . '"';
+                        $condition = $condition . $param_name . '="' . $param_value_inner . '"';
                         $first = false;
                     } else {
-                        $query = $query . ' OR ' . $param_name . '="' . $param_value_inner . '"';
+                        $condition = $condition . ' OR ' . $param_name . '="' . $param_value_inner . '"';
                     }
                 }
-                $query = $query . ')';
+                $condition = $condition . ')';
             } else if ($param_name == 'tag') {
                 foreach ($param_value as $param_value_inner) {
                     if ($param_value_inner == "Promotion") {
-                        $query .= ' AND discount > 0';
+                        $condition .= ' AND discount > 0';
                     }
                 }
             } else if ($param_name == 'price--min' && $param_value > 0) {
-                $query .= ' AND price > ' . $param_value;
+                $condition .= ' AND price > ' . $param_value;
             } else if ($param_name == 'price--max' && $param_value > 0) {
-                $query .= ' AND price < ' . $_GET["price--max"];
+                $condition .= ' AND price < ' . $_GET["price--max"];
             } else if ($param_name == 'pageno' && $param_value > 0) {
-                $pageNo = $param_value-1;
+                $pageIndex = $param_value-1;
             }
         }
 
         if (isset($_GET["searchstring"]) && !empty(trim($_GET["searchstring"]))) {
-            $query .= ' AND p.name LIKE "%' . $_GET["searchstring"] . '%"';
+            $condition .= ' AND p.name LIKE "%' . $_GET["searchstring"] . '%"';
         }
 
-        $query = $query . ' GROUP BY p.id';
-
-        if ($sortby == "popular") {
-            $query .= ' ORDER BY numberOfTimesBought DESC';
-        } else if ($sortby == "newest") {
-            $query .= ' ORDER BY p.id DESC';
-        } else if ($sortby == "price--ascending") {
-            $query .= ' ORDER BY p.price ASC';
-        } else if ($sortby == "price--descending") {
-            $query .= ' ORDER BY p.price DESC';
-        }
-
-
-        $query .= ' LIMIT ' . ($pageNo * 6) . ',6;';
-        //echo $query;
+        $query = 'SELECT COUNT(DISTINCT p.id) AS totalRows FROM products AS p, inventory AS i WHERE ' . $condition . ';';
         $result = $conn->query($query);
-
         if ($result) {
             $num_rows = $result->num_rows;
             if ($num_rows > 0) {
-                echo '<div class="row">';
-                $section_id = "collection--search";
-                for ($i = 0; $i < $num_rows; $i++) {
-                    $row = $result->fetch_assoc();
-                    $product_id = $row["id"];
-                    $product_name = $row["name"];
-                    $product_price = $row["price"];
-                    $product_discount = $row["discount"];
-                    echo '<div class="four column">';
-                    include './php/product.php';
-                    echo '</div>';
-                }
-                echo '</div>';
-                $param_arr = $_GET;
-                unset($param_arr["pageno"]);
-                $param_string = http_build_query($param_arr);
+                $row = $result->fetch_assoc();
+                $total_rows = $row["totalRows"];
 
-                echo '  <div class="row">
+                if (isset($_GET["sortby"]) && $_GET["sortby"] == "popular") {
+                    $query = 'SELECT p.id, p.name, p.price, p.discount, COUNT(*) AS numberOfTimesBought FROM products AS p, inventory AS i, 
+                    orders_inventory AS oi WHERE i.id = oi.inventoryID AND';
+                } else {
+                    $query = 'SELECT p.id, p.name, p.price, p.discount FROM products AS p, inventory AS i WHERE ';
+                }
+
+                $query .= $condition . ' GROUP BY p.id';
+
+                if ($sortby == "popular") {
+                    $query .= ' ORDER BY numberOfTimesBought DESC';
+                } else if ($sortby == "newest") {
+                    $query .= ' ORDER BY p.id DESC';
+                } else if ($sortby == "price--ascending") {
+                    $query .= ' ORDER BY p.price ASC';
+                } else if ($sortby == "price--descending") {
+                    $query .= ' ORDER BY p.price DESC';
+                }
+
+                $query .= ' LIMIT ' . ($pageIndex * 6) . ',6;';
+                //echo $query;
+                $result = $conn->query($query);
+
+                if ($result) {
+                    $num_rows = $result->num_rows;
+                    if ($num_rows > 0) {
+                        echo '<div class="row">';
+                        $section_id = "collection--search";
+                        for ($i = 0; $i < $num_rows; $i++) {
+                            $row = $result->fetch_assoc();
+                            $product_id = $row["id"];
+                            $product_name = $row["name"];
+                            $product_price = $row["price"];
+                            $product_discount = $row["discount"];
+                            echo '<div class="four column">';
+                            include './php/product.php';
+                            echo '</div>';
+                        }
+                        echo '</div>';
+                        $param_arr = $_GET;
+                        unset($param_arr["pageno"]);
+                        $param_string = http_build_query($param_arr);
+
+                        echo '  <div class="row">
                             <div class="twelve column">
                                 <div class="pagination shop__pagination">';
 
-                $num_pages = floor($num_rows/6) + 1;
+                        $num_pages = floor($total_rows/6) + 1;
 
-                if ($num_pages > 1) {
-                    if ($pageNo > 0) {
-                        echo '          <a href="./shop.php?' . $param_string . '&pageno=' . $pageNo . '"><i class="material-icons">keyboard_arrow_left</i></a>';
-                    }
+                        if ($num_pages > 1) {
+                            if ($pageIndex > 0) {
+                                echo '          <a href="./shop.php?' . $param_string . '&pageno=' . $pageIndex . '"><i class="material-icons">keyboard_arrow_left</i></a>';
+                            }
 
-                    for ($i = 0; $i < $num_pages; $i++) {
-                        echo '          <a href="./shop.php?' . $param_string . '&pageno=' . ($i+1) . '"' . ($i == $pageNo ? ' class="u-is-active"' : '') . '>' . ($i+1) . '</a>';
-                    }
+                            for ($i = 0; $i < $num_pages; $i++) {
+                                echo '          <a href="./shop.php?' . $param_string . '&pageno=' . ($i+1) . '"' . ($i == $pageIndex ? ' class="u-is-active"' : '') . '>' . ($i+1) . '</a>';
+                            }
 
-                    if ($pageNo < ($num_pages - 1)) {
-                        echo '          <a href="./shop.php?' . $param_string . '&pageno=' . ($pageNo+2) . '"><i class="material-icons">keyboard_arrow_right</i></a>';
-                    }
-                }
+                            if ($pageIndex < ($num_pages - 1)) {
+                                echo '          <a href="./shop.php?' . $param_string . '&pageno=' . ($pageIndex+2) . '"><i class="material-icons">keyboard_arrow_right</i></a>';
+                            }
+                        }
 
-                echo '           </div>
+                        echo '           </div>
                             </div>
                         </div>';
+                    } else {
+                        //No products correspond to search result
+                        echo 'No result found';
+                    }
+                } else {
+                    //Unable to query database for search results
+                    exit();
+                }
             } else {
                 //No products correspond to search result
                 echo 'No result found';
@@ -159,7 +173,6 @@
             //Unable to query database for search results
             exit();
         }
-
     ?>
                 </div>
             </div>

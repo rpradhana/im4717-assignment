@@ -67,7 +67,7 @@ CREATE TABLE bank_simulation (
 	expiry DATE NOT NULL,
 	CVV VARCHAR(4) NOT NULL,
 	name VARCHAR(50) NOT NULL
-)
+);
 
 INSERT INTO products (name, category, gender, description, price, discount) VALUES ("J.W. Anderson Striped Short Sleeve", "TSHT", "M",
                               "A t-shirt with vibrant stripes featuring JW Anderson's distinctive colors.\n

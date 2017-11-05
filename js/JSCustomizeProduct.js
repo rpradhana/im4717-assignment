@@ -25,7 +25,13 @@ function updateStock (e, inputType) {
     } else if (inputType == "size") {
         selectedSize = e.value;
     }
-    var stock = inventory_arr[selectedColor][selectedSize];
+
+    var stock;
+    if (typeof inventory_arr[selectedColor][selectedSize] === 'undefined') {
+        stock = 0;
+    } else {
+        stock = inventory_arr[selectedColor][selectedSize];
+    }
     var qtyInputElement = document.getElementById("product-quantity");
     if (stock < 1) {
         document.getElementById("option--quantity").style.display = "none";

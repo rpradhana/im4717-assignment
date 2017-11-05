@@ -89,7 +89,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
 
                 $outofstock = false;
 
-                if ($product_qty > $inventory_arr[$product_color][$product_size]) {
+                if (!isset($inventory_arr[$product_color][$product_size]) || $product_qty > $inventory_arr[$product_color][$product_size]) {
                     $product_qty = $inventory_arr[$product_color][$product_size];
                     if ($product_qty < 1) {
                         $outofstock = true;
@@ -196,15 +196,16 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
 
                     echo strtoupper($size) .
                                 '</label>
-                            </div>
-                        </div>
-                    </div>';
+                            </div>';
                 }
+
+                echo '  </div>
+                    </div>';
 
                 //Container for quantity input + submit button
                 echo ' <div class="option--quantity" id="option--quantity"'. ($outofstock ? ' style="display:none;"' : '') .'>
 							<div>Quantity</div>
-							<input type="number" min="1" max="' . $inventory_arr[$product_color][$product_size] . '" name="quantity" class="input--text" id="product-quantity" value="' . $product_qty . '" placeholder="Quantity" oninput="updatePriceProduct(this)">
+							<input type="number" min="1" max="' . $inventory_arr[$product_color][$product_size] . '" name="quantity" class="input--text" id="product-quantity" value="' . ($product_qty > 0 ? $product_qty : 1) . '" oninput="updatePriceProduct(this)">
 						</div>
 						<button type="submit" class="button button--primary button--large option__button" id="button--addtobag"'. ($outofstock ? ' style="display:none;"' : '') . '>
 							Add to Bag ($<span id="product-price-subtotal"> ' .

@@ -1,4 +1,4 @@
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("2Way Short Sleeve Ruffle Off Shoulder T-shirt", "TSHT", "F",
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (16, "2Way Short Sleeve Ruffle Off Shoulder T-shirt", "TSHT", "W",
                              "Our feminine ruffled top can be worn off the shoulder or as a round-neck t-shirt.\n
 - Large ruffles flutter elegantly.\n
 - Featuring a loose, easy cut.",
@@ -8,9 +8,8 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (16, "Red", "XS", 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (16, "Pink", "XXS", 2);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (16, "Black", "S", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (16, "White", "XS", 3);
-<!--next-->
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("AIRism Scoop Neck Short Sleeve T-Shirt", "TSHT", "F",
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (17, "AIRism Scoop Neck Short Sleeve T-Shirt", "TSHT", "W",
                              "Dry, fresh feel in sweaty situations. This short sleeve scoop-neck tee stays hidden.\n
 - AIRism fabric provides light, refreshing comfort even in the warmest weather.\n
 - Microfibers create a feel so smooth you'll forget it's there.\n
@@ -25,9 +24,9 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (17, "Blue", "XXS"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (17, "Black", "S", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (17, "White", "XS", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (17, "Gray", "XL", 3);
-<!--next-->
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cotton Scoop Neck Short Sleeve T-Shirt", "TSHT", "F",
+
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (18, "Cotton Scoop Neck Short Sleeve T-Shirt", "TSHT", "W",
                              "100% cotton innerwear with a gentle, comfortable feel against the skin.\n
 - Designed with no side seams.\n
 - A daily essential, in a handy 3-pack so you'll always have one clean.",
@@ -35,9 +34,9 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (18, "White", "XXS", 2);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (18, "Black", "S", 1);
-<!--next-->
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry REFLECTIVE PRINT Short Sleeve T", "TSHT", "F",
+
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (19, "Dry REFLECTIVE PRINT Short Sleeve T Women", "TSHT", "W",
                              "Our reflective print t-shirt dries fast for long-lasting, smooth comfort.\n
 - Featuring quick-drying DRY technology.\n
 - Keeps you comfortable with a smooth, dry, cling-free feel.\n
@@ -49,9 +48,9 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (19, "Gray", "XXS"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (19, "Blue", "S", 1);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (19, "Red", "XS", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (19, "White", "XL", 3);
-<!--next-->
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry-EX Crew Neck Short Sleeve T-shirt", "TSHT", "F",
+
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (20, "Dry-EX Crew Neck Short Sleeve T-shirt", "TSHT", "W",
                              "Amazingly quick-drying DRY-EX! Our performance t-shirt with breathable mesh panels.\n
 - Quick-drying DRY-EX material for a smooth, dry, cling-free feel.\n
 - Also dries quickly after washing.\n
@@ -65,9 +64,8 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (20, "Red", "XXS",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (20, "Black", "S", 1);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (20, "Gray", "XXL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (20, "White", "XL", 3);
-<!--next-->
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry-EX Printed Crew Neck Short Sleeve T-shirt", "TSHT", "F",
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (21, "Dry-EX Printed Crew Neck Short Sleeve T-shirt Women", "TSHT", "W",
                              "This incredibly quick-drying DRY-EX t-shirt is great for active sports.\n
 - DRY-EX material provides a smooth, cling-free feel even in sweaty situations.\n
 - Also dries quickly after washing.\n
@@ -78,9 +76,8 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (21, "Pink", "L", 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (21, "White", "XXL", 2);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (21, "Black", "S", 1);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (21, "Blue", "XS", 3);
-<!--next-->
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Frill Blouse Short Sleeve T Shirt", "TSHT", "F",
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (22, "Frill Blouse Short Sleeve T Shirt", "TSHT", "W",
                              "Airy frilled sleeves for an elegant style. Our light, cool blouse-like t-shirt.\n
 - Trendy frilled sleeves create a light, airy style.\n
 - Feminine frills flutter elegantly with movement.\n
@@ -92,9 +89,8 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 INSERT INTO inventory (productsID, color, size, stock) VALUES (22, "Beige", "L", 2);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (22, "White", "XXL", 2);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (22, "Black", "S", 1);
-<!--next-->
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Mercerized Cotton Flare Short Sleeve T", "TSHT", "F",
+INSERT INTO products (id, name, category, gender, description, price, discount) VALUES (23, "Mercerized Cotton Flare Short Sleeve T", "TSHT", "W",
                              "A lovely feel and cut create a wardrobe star in our ruffled t-shirt.\n
 - Ruffled sleeves designed to create an arm-slimming effect.\n
 - A simple, feminine, and stylish look suitable for the office.\n
@@ -106,4 +102,3 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (23, "White", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (23, "Black", "S", 1);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (23, "Red", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (23, "Green", "XL", 3);
-<!--next-->
