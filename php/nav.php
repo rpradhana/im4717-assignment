@@ -16,32 +16,38 @@
 
     if (isset($_POST["todo"])) {
         if ($_POST["todo"] == "register") {
+            $name = trim($_POST["name"]);
+            $address = trim($_POST["address"]);
+            $phone = trim($_POST["phone"]);
+            $country = trim($_POST["country"]);
+            $gender = ucfirst(trim($_POST["gender"]));
+            $birthday = trim($_POST["birthday"]);
 
+            $shouldProcessFurther = true;
+            preg_match('/^[A-Za-z]+(\s[A-Za-z]*)*$/', $name, $matches_name);
+            preg_match('/\+?(\d-?){8,16}/', $phone, $matches_phone);
 
-            $name = $_POST["name"];
-            $address = $_POST["address"];
-            $phone = $_POST["phone"];
-            $country = $_POST["country"];
-            $validinput = true;
-
-            preg_match('/[a-zA-Z\s]+/', $name, $matches_name);
-            preg_match('/^\+?[\d-]+$/', $phone, $matches_phone);
-
-            //Validate name, address, phone, country, shipping
-            if (empty(trim($name)) || empty(trim($address)) || empty(trim($country)) || empty(trim($phone)) ||
-                empty($matches_name) || empty($matches_phone) || !in_array($country, $countries)) {
-                $validinput = false;
+            //Validate name, address, phone, country
+            if ( empty($name) || empty($address) || empty($country) || empty($phone)
+                || empty($matches_name) || empty($matches_phone) || !in_array($country, $countries)) {
+                $shouldProcessFurther = false;
             }
 
+            $email = trim($_POST["email"]);
+            $password = $_POST["password"];
 
-            if (!$validinput) {
+            preg_match('/^[\w-_\.]+@[\w_-]+(\.[\w_-]+){0,2}\.\w{2,3}$/', $email, $matches_email);
+
+            //Validate email
+            if (empty($matches_email)) {
+                $shouldProcessFurther = false;
+            }
+
+            if (!$shouldProcessFurther) {
                 //Input is not valid
             } else {
                 $query = "START TRANSACTION;";
                 $conn->query($query);
-
-                $gender = ucfirst(trim($_POST["gender"]));
-                $birthday = trim($_POST["birthday"]);
 
                 $query = "INSERT INTO customers (fullName, address, country, phone";
 
@@ -53,6 +59,11 @@
 
                 $insert_birthday = false;
                 if (!empty($birthday)) {
+                    preg_match('/^\d{4,4}-\d{1,2}-\d{1,2}$/', $birthday, $matches_birthday);
+                    if (empty($matches_birthday)) {
+                        $shouldProcessFurther = false;
+                    }
+
                     $query .= ', birthday';
                     $insert_birthday = true;
                 }
@@ -67,38 +78,53 @@
                 }
 
                 $query .= '");';
-                $result = $conn->query($query);
-                if(!$result) {
-                    //Unable to insert into customers table
-                    $conn->query("ROLLBACK;");
-                    exit();
+
+                $result;
+                if ($shouldProcessFurther) {
+                    $result = $conn->query($query);
                 }
 
-                if ($conn->affected_rows != 1) {
-                    $conn->query("ROLLBACK;");
-                    exit();
+                if(!$result) {
+                    //Unable to insert into customers table
+                    $shouldProcessFurther = false;
                 }
 
                 $customer_id = $conn->insert_id;
 
-                $email = trim($_POST["email"]);
-                $password = $_POST["password"];
-                $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
-                $result = $conn->query($query);
-                if(!$result) {
-                    //Unable to insert into accounts table
-                    $conn->query("ROLLBACK;");
-                    exit();
+                if($shouldProcessFurther){
+                    $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
+                    $result = $conn->query($query);
+                    if(!$result) {
+                        //Unable to insert into accounts table
+                        $shouldProcessFurther = false;
+                        $emailregistered = true;
+                    }
                 }
 
-                if ($conn->affected_rows != 1) {
-                    $conn->query("ROLLBACK;");
-                    exit();
-                }
+                if ($shouldProcessFurther) {
+                    //Passed all checks
+                    $query = 'COMMIT;';
+                    $conn->query($query);
+                    echo 'SUCCESS!';
+                    //Auto login
+                    $_SESSION["username"] = $name;
+                    $_SESSION["email"] = $email;
+                    $_SESSION["role"] = "USER";
 
-                $query = "COMMIT;";
-                $conn->query($query);
-                echo 'Success!';
+                    //Send email to notify success registration
+                    $msg = "We have received your application for membership at PRALLIE. We hope you enjoy your stay.\n\n*** This is an automatically generated email, please do not reply ***";
+                    $msg = wordwrap($msg,70);
+                    mail($email,"Registration at PRALLIE Successful",$msg);
+                } else {
+                    $query = 'ROLLBACK;';
+                    $conn->query($query);
+                    if ($emailregistered) {
+                        echo 'Email Registered';
+                    } else {
+                        echo 'Facing problem';
+                    }
+                    echo 'FAILED!';
+                }
             }
 
         } else if ($_POST["todo"] == "login") {
@@ -190,10 +216,10 @@
 			<div class="row">
 				<div class="twelve column u-p-zero">
 					<div class="row nav__category">
-						<a href="./shop.php?gender[]=W&tag=popular"
-						   class="button category__button">Popular</a>
-						<a href="./shop.php?gender[]=W&tag=new"
-						   class="button category__button">New</a>
+<!--						<a href="./shop.php?gender[]=W&tag=popular"-->
+<!--						   class="button category__button">Popular</a>-->
+<!--						<a href="./shop.php?gender[]=W&tag=new"-->
+<!--						   class="button category__button">New</a>-->
 						<a href="./shop.php?gender[]=W&category[]=SHRT"
 						   class="button category__button">Shirts &amp; Blouses</a>
 						<a href="./shop.php?gender[]=W&category[]=TSHT"
@@ -218,10 +244,10 @@
 			<div class="row">
 				<div class="twelve column u-p-zero">
 					<div class="row nav__category">
-						<a href="./shop.php?gender[]=M&tag=popular"
-						   class="button category__button">Popular</a>
-						<a href="./shop.php?gender[]=M&tag=new"
-						   class="button category__button">New</a>
+<!--						<a href="./shop.php?gender[]=M&tag=popular"-->
+<!--						   class="button category__button">Popular</a>-->
+<!--						<a href="./shop.php?gender[]=M&tag=new"-->
+<!--						   class="button category__button">New</a>-->
 						<a href="./shop.php?gender[]=M&category[]=SHRT"
 						   class="button category__button">Shirts</a>
 						<a href="./shop.php?gender[]=M&category[]=TSHT"

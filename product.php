@@ -3,11 +3,6 @@
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
 	<?php
-        /* To-do:
-            -addclass remove class for active styling
-            -recommended items
-        */
-
         include './php/cart-item.php';
         session_start();
 
@@ -30,7 +25,7 @@
             $add_to_cart = false;
         }
 
-        $query = 'SELECT p.name, p.price, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
+        $query = 'SELECT p.name, p.price, p.gender, p.category, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
 WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
         $result = $conn->query($query);
 
@@ -70,6 +65,8 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                 $price = $row["price"];
                 $price_after_discount = (1 - $product_discount/(float)100) * $price;
                 $description = $row["description"];
+                $gender = $row["gender"];
+                $category = $row["category"];
 
 
                 if (!$product_color || !in_array($product_color, $distinct_color)) {
@@ -242,6 +239,38 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                 </div>
             </section>';
 
+                //Recommended items: related items in gender and category sorted randomly
+                $query = 'SELECT products.id, products.name, products.price, products.discount FROM products WHERE gender = "' . $gender . '" AND
+                category = "' . $category . '" AND products.id != ' . $product_id . ' ORDER BY RAND() LIMIT 0, 4;';
+                $result = $conn->query($query);
+                if ($result) {
+                    $num_rows = $result->num_rows;
+                    if ($num_rows > 0) {
+                        echo '  <section id="collection--recommended">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="twelve column">
+                                                <div class="collection__signifier"></div>
+                                                <h2 class="header collection__header"><a href="#">Recommended For You</a></h2>
+                                            </div>
+                                        </div>
+                                        <div class="row">';
+                        for ($i = 0; $i < $num_rows; $i++) {
+                            $row = $result->fetch_assoc();
+                            $product_id = $row["id"];
+                            $product_name = $row["name"];
+                            $product_price = $row["price"];
+                            $product_discount = $row["discount"];
+                            echo '          <div class="three column">';
+                            include './php/product.php';
+                            echo '          </div>';
+                        }
+                        echo '          </div>
+                                    </div>
+                                </section>';
+                    }
+                }
+
             } else {
                 //ProductID does not belong to database
                 include './php/nav.php';
@@ -252,32 +281,10 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
             include './php/nav.php';
             exit();
         }
+        
+        
 
 	?>
-<!--	<section id="collection--recommended">-->
-<!--		<div class="container">-->
-<!--			<div class="row">-->
-<!--				<div class="twelve column">-->
-<!--					<div class="collection__signifier"></div>-->
-<!--					<h2 class="header collection__header"><a href="#">Recommended For You</a></h2>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--			<div class="row">-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</section>-->
 	<?php include './php/footer.php' ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>

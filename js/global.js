@@ -46,7 +46,7 @@ var HTML_REGISTER = `
 		<div id="modal__close" class="modal__close">
 			<i class="material-icons">close</i>
 		</div>
-		<form method="post" id="form--register">
+		<form method="post" id="form--register" onsubmit="return validateRegistration();">
 			<input type="hidden" name="todo" value="register">
 			<div class="u-flex">
 				<div id="register--step-1">
@@ -56,15 +56,15 @@ var HTML_REGISTER = `
 							Email
 						</label>
 						<span class="input">
-							<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" required>
+							<input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" onblur="validateEmail()" required>
 						</span>
 					</div>
 					<div class="u-m-medium--bottom">
 						<label for="password" class="label--required label--top">
 							Password
 						</label>
-						<span>
-							<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" required>
+						<span class="input">
+							<input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" onblur="validatePassword()" required>
 						</span>
 					</div>
 					<div class="u-m-large--bottom">
@@ -72,7 +72,7 @@ var HTML_REGISTER = `
 							Verify Password
 						</label>
 						<span class="input">
-							<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" required>
+							<input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" onblur="verifyPassword()" required>
 						</span>
 					</div>
 					<div class="register__action">
@@ -95,7 +95,7 @@ var HTML_REGISTER = `
 								</td>
 								<td>
 									<span class="input">
-										<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>
+										<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" onblur="validateName()" required>
 									</span>
 								</td>
 							</tr>
@@ -124,19 +124,19 @@ var HTML_REGISTER = `
 									</label>
 								</td>
 							</tr>
-							<tr class="checkout__row" class="label--required">
+							<tr class="checkout__row">
 								<td>
-									<label>Phone No.</label>
+									<label class="label--required">Phone No.</label>
 								</td>
 								<td>
 									<span class="input">
-										<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" required>
+										<input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" onblur="validatePhone()" required>
 									</span>
 								</td>
 							</tr>
 							<tr class="checkout__row">
 								<td>
-									<label>Country</label>
+									<label class="label--required">Country</label>
 								</td>
 								<td>
 									<span class="input">
@@ -152,7 +152,7 @@ var HTML_REGISTER = `
 								</td>
 								<td>
 									<span class="input">
-										<input type="date" name="birthday" id="birthday" class="input--date u-fill">
+										<input type="text" name="birthday" id="birthday" class="input--date u-fill" onblur="validateBirthday()">
 									</span>
 								</td>
 							</tr>
@@ -224,7 +224,7 @@ var spawnModal = function(content) {
 	}
 	if ($('#register__next')) {
 		$('#register__next').addEventListener("click", function() {
-			if(true /* manual validation of 1st step */ ) {
+			if(validateAccount()) {
 				addClass($('#register--step-1'), 'u-is-hidden');
 				removeClass($('#register--step-2'), 'u-is-hidden');
 				console.log('click: register next');
@@ -307,3 +307,4 @@ function removeClass(el, className) {
 	if (el.classList) el.classList.remove(className);
 	else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
 }
+

@@ -16,7 +16,7 @@
         include './php/nav.php';
 
         echo '  <div class="container">
-                    <form class="filter">
+                    <form class="filter" onsubmit="return validateSidebar();">
                         <div class="row">
                             <div class="three column">';
         include './php/sidebar.php' ;

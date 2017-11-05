@@ -32,8 +32,8 @@
 				foreach($gender as $gender => $gender_string) {
 					echo '
 						<label for="gender--' . $gender . '" class="label label--checkbox">
-							<input type="checkbox" name="gender[]" value="' . $gender_string[0] . '" class="input--checkbox" id="gender--' . $gender . '"' .
-                        (in_array($gender_string[0], $_GET["gender"]) ? ' checked' : '') . '>
+							<input type="checkbox" name="gender[]" value="' . $gender_string[0] . '" class="input--checkbox" id="gender--' . $gender . '" ' .
+                        (in_array($gender_string[0], $_GET["gender"]) ? ' checked' : '') . ' onchange="toggleGender(this)">
 							' . $gender_string . '
 						</label>
 					';
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<?php
-				$category = array('SHRT'     => 'Shirts and Blouses',
+                $categories = array('SHRT'     => 'Shirts and Blouses',
 				              'TSHT'   => 'T-Shirts',
 				              'DRSS'     => 'Dresses',
 				              'PNTS'     => 'Pants',
@@ -59,14 +59,16 @@
 				 * adjust key value pair and checkbox visibility
 				 * depending on option--gender
 				 */
-				foreach($category as $category => $category_string) {
-					echo '
-						<label for="category--' . $category . '" class="label label--checkbox">
-							<input type="checkbox" name="category[]" value="' . $category . '" class="input--checkbox" id="category--' . $category . '"' .
-                            (in_array($category, $_GET["category"]) ? ' checked' : '') .'>
-							' . $category_string . '
-						</label>
-					';
+                $men_selected = in_array('m', $_GET["gender"]);
+                $women_selected = in_array('w', $_GET["gender"]);
+				foreach($categories as $category => $category_string) {
+					echo '  <label for="category--' . $category . '" class="label label--checkbox">
+                                <div id="option--'. $category .'"' . (($category == 'DRSS' || $category == 'SKTS') ? (($women_selected || !$men_selected) ? '' : ' style="display:none;"') : '') . '>
+                                    <input type="checkbox" name="category[]" value="' . $category . '" class="input--checkbox" id="category--' . $category . '"' .
+                                    (($category == 'DRSS' || $category == 'SKTS') ? (($women_selected || !$men_selected) ? (in_array($category, $_GET["category"]) ? ' checked' : '') : '') : (in_array($category, $_GET["category"]) ? ' checked' : '')) .'>
+                                    <span id= "inner' . $category . '">' . ($category == 'SHRT' ? (($women_selected || !$men_selected) ? $category_string : 'Shirts') : $category_string) . '</span>
+                                </div>
+						    </label>';
 				}
 			?>
 		</div>
@@ -75,7 +77,7 @@
 			<div class="option__header">
 				<h4>Size</h4>
 				<div class="header__button">
-					Any Size
+					Any Sizez
 				</div>
 			</div>
 			<div class="row">

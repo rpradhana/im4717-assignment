@@ -3,10 +3,6 @@
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
 	<?php
-        /* To-do:
-         * -Input validation
-         * -Create account for later use
-         */
         include './php/cart-item.php';
         session_start();
         //Connect to database
@@ -46,27 +42,29 @@
                 if ($num_rows != 1) {
                     //Email not found or name not correct
                     $shouldProcessFurther = false;
+                    echo 'a';
                 } else {
                     $row = $result->fetch_assoc();
                     $customer_id = $row["id"];
                 }
             } else {
                 //Not logged in, add record into customers (and accounts if needed)
-                $name = $_POST["name"];
-                $address = $_POST["address"];
-                $phone = $_POST["phone"];
-                $country = $_POST["country"];
+                $name = trim($_POST["name"]);
+                $address = trim($_POST["address"]);
+                $phone = trim($_POST["phone"]);
+                $country = trim($_POST["country"]);
                 $create_account = $_POST["create-account"];
                 $gender = ucfirst(trim($_POST["gender"]));
                 $birthday = trim($_POST["birthday"]);
 
-                preg_match('/[a-zA-Z\s]+/', $name, $matches_name);
-                preg_match('/^\+?[\d-]+$/', $phone, $matches_phone);
+                preg_match('/^[A-Za-z]+(\s[A-Za-z]*)*$/', $name, $matches_name);
+                preg_match('/\+?(\d-?){8,16}/', $phone, $matches_phone);
 
                 //Validate name, address, phone, country
-                if (!isset($items) || empty(trim($name)) || empty(trim($address)) || empty(trim($country)) || empty(trim($phone))
+                if (!isset($items) || empty($name) || empty($address) || empty($country) || empty($phone)
                    || empty($matches_name) || empty($matches_phone) || !in_array($country, $countries)) {
                     $shouldProcessFurther = false;
+                    echo 'b';
                 }
 
 
@@ -81,6 +79,12 @@
 
                     $insert_birthday = false;
                     if (!empty($birthday)) {
+                        preg_match('/^\d{4,4}-\d{1,2}-\d{1,2}$/', $birthday, $matches_birthday);
+                        if (empty($matches_birthday)) {
+                            $shouldProcessFurther = false;
+                            echo 'c';
+                        }
+
                         $query .= ', birthday';
                         $insert_birthday = true;
                     }
@@ -95,10 +99,14 @@
                     }
 
                     $query .= '");';
-                    $result = $conn->query($query);
+                    $result;
+                    if ($shouldProcessFurther) {
+                        $result = $conn->query($query);
+                    }
                     if(!$result) {
                         //Unable to insert into customers table
                         $shouldProcessFurther = false;
+                        echo 'd';
                     }
 
                     $customer_id = $conn->insert_id;
@@ -107,21 +115,34 @@
                 if($shouldProcessFurther && $create_account){
                     $email = trim($_POST["email"]);
                     $password = $_POST["password"];
-                    $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
-                    $result = $conn->query($query);
-                    if(!$result) {
-                        //Unable to insert into accounts table
+
+                    preg_match('/^[\w-_\.]+@[\w_-]+(\.[\w_-]+){0,2}\.\w{2,3}$/', $email, $matches_email);
+
+                    //Validate email
+                    if (empty($matches_email)) {
                         $shouldProcessFurther = false;
-                        $emailregistered = true;
+                        echo 'e';
+                    }
+
+                    if ($shouldProcessFurther) {
+                        $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
+                        $result = $conn->query($query);
+                        if(!$result) {
+                            //Unable to insert into accounts table
+                            $shouldProcessFurther = false;
+                            echo 'g';
+                            $emailregistered = true;
+                        }
                     }
                 }
             }
 
             if ($shouldProcessFurther) {
                 //Validate shipping
-                $shipping = $_POST["shipping"];
+                $shipping = trim($_POST["shipping"]);
                 if  ($shipping != "standard" && $shipping != "express") {
                     $shouldProcessFurther = false;
+                    echo 'h';
                 }
             }
 
@@ -136,6 +157,7 @@
                     preg_match('/^(\d+)_([a-z]+)_([A-Z]+)_(\d+)/', $item, $matches_item);
                     if (empty($matches_item)) {
                         $shouldProcessFurther = false;
+                        echo 'i';
                         break;
                     } else {
                         $id = $matches_item[1];
@@ -182,19 +204,43 @@
                         }
                     } else {
                         $shouldProcessFurther = false;
+                        echo 'j';
                     }
                 } else {
                     //Unable to query for price
                     $shouldProcessFurther = false;
+                    echo 'k';
                 }
             }
 
-            $query = 'INSERT INTO orders (customersID, ordersDate, shipping) VALUES(' . $customer_id . ', NOW(),"' . strtoupper($shipping[0]) . '");';
-            $result = $conn->query($query);
-            if(!$result) {
-                //Unable to insert into orders table
+            //Simulation for bank verification
+            if (!isset($_POST["card-type"]) || !isset($_POST["card-number"]) || !isset($_POST["card-month"]) || !isset($_POST["card-year"]) ||
+                !isset($_POST["card-cvv"])) {
                 $shouldProcessFurther = false;
+                echo 'l';
+            } else {
+                $query = 'SELECT name FROM bank_simulation WHERE type = ' . $_POST["card-type"] . ' AND number = "' . $_POST["card-number"] . '" AND 
+                CVV = "' . $_POST["card-cvv"] . '" AND YEAR(expiry) = "' . $_POST["card-year"] . '" AND MONTH (expiry) = "' . $_POST["card-month"] . '" AND
+                YEAR(expiry) > YEAR(CURRENT_TIMESTAMP) OR (YEAR(expiry) = YEAR(CURRENT_TIMESTAMP) AND MONTH(expiry) >= MONTH(CURRENT_TIMESTAMP));';
+                $result = $conn->query($query);
+                echo $query;
+                if (!$result || $result->num_rows != 1) {
+                    $shouldProcessFurther = false;
+                    echo 'm';
+                }
             }
+
+
+            if ($shouldProcessFurther) {
+                $query = 'INSERT INTO orders (customersID, ordersDate, shipping) VALUES(' . $customer_id . ', NOW(),"' . strtoupper($shipping[0]) . '");';
+                $result = $conn->query($query);
+                if(!$result) {
+                    //Unable to insert into orders table
+                    $shouldProcessFurther = false;
+                    echo 'n';
+                }
+            }
+
 
             $order_id = $conn->insert_id;
 
@@ -208,10 +254,12 @@
                     $result = $conn->query($query);
                     if(!$result) {
                         $shouldProcessFurther = false;
+                        echo 'o';
                         break;
                     }
                     if ($result->num_rows != 1) { //Inconsistencies in database?
                         $shouldProcessFurther = false;
+                        echo 'p';
                         break;
                     }
                     $row = $result->fetch_assoc();
@@ -224,6 +272,7 @@
                     if(!$result) {
                         //Unable to insert into orders_inventory table
                         $shouldProcessFurther = false;
+                        echo 'q';
                         break;
                     }
 
@@ -234,6 +283,7 @@
                         //Unable to update inventory table
                         $outofstock = true;
                         $shouldProcessFurther = false;
+                        echo 'r';
                         break;
                     }
                 }
@@ -244,21 +294,36 @@
                 $query = 'COMMIT;';
                 $conn->query($query);
                 echo 'SUCCESS!';
+
+                if ($create_account) {
+                    //Send email to notify success orders
+                    $msg = "We have received your transaction at PRALLIE. Thank you for shopping with us.\r\n\r\n*** This is an automatically generated email, please do not reply ***";
+                    $msg = wordwrap($msg,70);
+                    mail($email,"Transaction at PRALLIE Successful",$msg);
+                }
+
+                $msg = "A customer (ID:" . $customer_id . ") has made a transaction (ID:" . $order_id . ").\r\n\r\n*** This is an automatically generated email, please do not reply ***";
+                $msg = wordwrap($msg,70);
+                mail( "f36im@EE-IM-4717","New Transaction at PRALLIE",$msg);
+
                 //Remove cart items that are purchased
                 array_splice($_SESSION["cart"],0,sizeof($items));
+
                 //Auto login if account is created
-                $_SESSION["username"] = $name;
-                $_SESSION["email"] = $email;
-                $_SESSION["role"] = "USER";
+                if ($create_account) {
+                    $_SESSION["username"] = $name;
+                    $_SESSION["email"] = $email;
+                    $_SESSION["role"] = "USER";
+                }
             } else {
                 $query = 'ROLLBACK;';
                 $conn->query($query);
                 if ($emailregistered) {
-
+                    echo 'Email Registered';
                 } else if ($outofstock) {
-
+                    echo 'Item out of stock';
                 } else {
-
+                    echo 'Facing problem';
                 }
                 echo 'FAILED!';
             }
@@ -329,7 +394,7 @@
                 }
 
                 if ($result->num_rows != 1) {
-                    echo $query;
+                    //echo $query;
                     $is_logged_in = false;
                 } else {
                     $row = $result->fetch_assoc();
@@ -337,7 +402,7 @@
             }
             echo '  <section class="checkout">
                     <div class="container">
-                        <form id="checkout" method="post" action="checkout.php">
+                        <form id="checkout" method="post" action="checkout.php" onsubmit="return validateCheckout();">
                             <input type="hidden" name="buy">
                             <div class="row">
                                 <div class="four column">
@@ -361,7 +426,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name"' . ($is_logged_in ? (' value="' . $_SESSION["username"] . '" disabled') : '') . ' required>
+                                                                <input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name"' . ($is_logged_in ? (' value="' . $_SESSION["username"] . '" disabled') : '') . ' onblur="validateName()" required>
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -392,19 +457,19 @@
                                                             </span>
                                                         </td>
                                                     </tr>
-                                                    <tr class="checkout__row" class="label--required">
+                                                    <tr class="checkout__row">
                                                         <td>
-                                                            <label>Phone No.</label>
+                                                            <label class="label--required">Phone No.</label>
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number"' . ($is_logged_in ? (' value="' . $row["phone"] . '" disabled') : '') . ' required>
+                                                                <input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number"' . ($is_logged_in ? (' value="' . $row["phone"] . '" disabled') : '') . ' onblur="validatePhone()" required>
                                                             </span>
                                                         </td>
                                                     </tr>
-                                                    <tr class="checkout__row" class="label--required">
+                                                    <tr class="checkout__row">
                                                         <td>
-                                                            <label>Country</label>
+                                                            <label class="label--required">Country</label>
                                                         </td>
                                                         <td>
                                                             <span class="input">';
@@ -412,9 +477,11 @@
             if ($is_logged_in ) {
                 echo '                                          <input type="text" name="country" id="country" class="input--text u-fill" placeholder="Country of residence" value="' . $row["country"] . '" disabled>';
             } else {
-                echo '                                          <select name="country" id="country" class="input--text u-fill">' .
-                                                                    $country_options .
-                                                                '</select>';
+                echo '                                          <select name="country" id="country" class="input--text u-fill">';
+                foreach ($countries as $country) {
+                    echo '                                          <option value="' . $country . '">' . $country . '</option>';
+                }
+                echo '                                          </select>';
             }
 
 
@@ -427,7 +494,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="date" name="birthday" id="birthday" class="input--date u-fill"' . ($is_logged_in ? (' value="' . $row["birthday"] . '" disabled') : '') . '>
+                                                                <input type="text" name="birthday" id="birthday" onblur="validateBirthday()" class="input--date u-fill"' . ($is_logged_in ? (' value="' . $row["birthday"] . '" disabled') : '') . '>
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -453,7 +520,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com">
+                                                                <input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" onblur="validateEmail()">
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -463,7 +530,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password">
+                                                                <input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter password" onblur="validatePassword()">
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -473,7 +540,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password">
+                                                                <input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" onblur="verifyPassword()">
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -528,9 +595,9 @@
                                                     </td>
                                                     <td>
                                                         <span class="input">
-                                                            <select class="select u-fill">
-                                                                <option value="visa">VISA</option>
-                                                                <option value="mastercard">MasterCard</option>
+                                                            <select name="card-type" class="select u-fill">
+                                                                <option value="0">VISA</option>
+                                                                <option value="1">MasterCard</option>
                                                             </select>
                                                         </span>
                                                     </td>
@@ -541,7 +608,7 @@
                                                     </td>
                                                     <td>
                                                         <span class="input">
-                                                            <input type="text" name="card-number" id="card-number" class="input--text u-fill" required>
+                                                            <input type="text" onblur="validateCardNumber()" name="card-number" id="card-number" class="input--text u-fill" required>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -552,21 +619,21 @@
                                                     <td>
                                                         <span class="input">
                                                             <div id="payment__expiry" class="payment__expiry">
-                                                                <select name="month" class="select u-m-medium--right u-flex-2">
-                                                                    <option value="January" selected="selected">January</option>
-                                                                    <option value="February">February</option>
-                                                                    <option value="March">March</option>
-                                                                    <option value="April">April</option>
-                                                                    <option value="May">May</option>
-                                                                    <option value="June">June</option>
-                                                                    <option value="July">July</option>
-                                                                    <option value="August">August</option>
-                                                                    <option value="September">September</option>
-                                                                    <option value="October">October</option>
-                                                                    <option value="November">November</option>
-                                                                    <option value="December">December</option>
+                                                                <select name="card-month" class="select u-m-medium--right u-flex-2">
+                                                                    <option value="1" selected="selected">January</option>
+                                                                    <option value="2">February</option>
+                                                                    <option value="3">March</option>
+                                                                    <option value="4">April</option>
+                                                                    <option value="5">May</option>
+                                                                    <option value="6">June</option>
+                                                                    <option value="7">July</option>
+                                                                    <option value="8">August</option>
+                                                                    <option value="9">September</option>
+                                                                    <option value="10">October</option>
+                                                                    <option value="11">November</option>
+                                                                    <option value="12">December</option>
                                                                 </select>
-                                                                <input type="text" class="input--text" name="year" size="5" maxlength="4" placeholder="Year">
+                                                                <input type="text" onblur="validateCardYear()" id="card-year" class="input--text" name="card-year" size="5" maxlength="4" placeholder="Year">
                                                             </div>
                                                         </span>
                                                     </td>
@@ -576,7 +643,7 @@
                                                         <label class="label--required">CVV</label>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="cvv" id="cvv"  maxlength="4" class="input--text" required>
+                                                        <input type="text" onblur="validateCardCVV()" name="card-cvv" id="card-cvv"  maxlength="4" class="input--text" required>
                                                     </td>
                                                 </tr>
                                             </tbody>

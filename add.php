@@ -18,6 +18,89 @@
         include_once ('./php/countries-list.php');
 
         if (isset($_SESSION["username"]) && !empty(trim($_SESSION["username"]))&& isset($_SESSION["email"]) && !empty(trim($_SESSION["email"])) && $_SESSION["role"] == "ADMN") {
+                if (isset($_POST["add"])) {
+                    $query = "START TRANSACTION";
+                    $conn->query($query);
+
+                    $shouldProgress = true;
+
+                    $query = 'INSERT INTO products (name, category, gender, description, price, discount) VALUES ("' . $_POST["name"] . '", "' . $_POST["category"] .
+                        '","' . $_POST["gender"] . '","' . $_POST["description"] . '",' . $_POST["price"] . ', ' . $_POST["discount"] . ');';
+                    $result = $conn->query($query);
+
+                    if (!result || $conn->affected_rows != 1) {
+                        //Fail in inserting product
+                        $shouldProgress = false;
+                    }
+
+                    $product_id = $conn->insert_id;
+                    $target_dir = "./images/";
+
+                    if ($shouldProgress) {
+                        for ($i = 0; $i < sizeof($_POST["color"]); $i++) {
+                            $color = $_POST["color"][$i];
+                            $size = $_POST["size"][$i];
+                            $stock = $_POST["stock"][$i];
+
+                            //Insert into inventory
+                            $query = 'INSERT INTO inventory (productsID, color, size, stock) VALUES("' . $product_id . '", "' . $color . '","' . $size . '",' . $stock . ');';
+                            $result = $conn->query($query);
+                            if (!result || $conn->affected_rows != 1) {
+                                //Fail in inserting inventory
+                                $shouldProgress = false;
+                                break;
+                            }
+
+                            //Upload image if not already done
+                            $target_file = $target_dir . $product_id . '_' . lcfirst($color) . '.jpg';
+                            $imageFileType = pathinfo($_FILES["image"]["name"][$i], PATHINFO_EXTENSION);
+
+                             // Check if image file is a actual image or fake image
+                            if (isset($_POST["submit"])) {
+                                $check = getimagesize($_FILES["image"]["tmp_name"][$i]);
+                                if (!$check) {
+                                    $shouldProgress = false;
+                                    break;
+                                }
+                            }
+
+                            // Check if file already exists
+                            if (file_exists($target_file)) {
+                                continue;
+                            }
+
+                             // Check file size
+                            if ($_FILES["image"]["size"][$i] > 500000) {
+                                $shouldProgress = false;
+                                break;
+                            }
+
+                             // Allow only jpg
+                            if ($imageFileType != "jpg") {
+                                $shouldProgress = false;
+                                break;
+                            }
+
+
+                             if (!move_uploaded_file($_FILES["image"]["tmp_name"][$i],  $target_file)) {
+                                 $shouldProgress = false;
+                                 break;
+                             }
+                        }
+                    }
+
+                    if ($shouldProgress) {
+                        $query = "COMMIT;";
+                        $conn->query($query);
+                        echo 'SUCCESS!';
+                    } else {
+                        $query = "ROLLBACK;";
+                        $conn->query($query);
+                        echo 'FAILED!';
+                    }
+                }
+
+                echo '<script src="./js/JSAddItem.js" type="text/javascript"></script>';
                 echo '  <section class="profile">
                             <div class="container">
                                 <div class="row">
@@ -39,8 +122,8 @@
                                             </aside>
                                     </div>
                                     <div class="six column">
-                                        <form method="post" id="profile__edit">
-                                            <input type="hidden" name="update">
+                                        <form method="post" action="add.php" enctype="multipart/form-data">
+                                            <input type="hidden" name="add">
                                             <h2 class="header u-m-large--bottom">Add New Product</h2>
                                             <div class="u-flex">
                                                <div class="u-m-medium--bottom">
@@ -88,11 +171,11 @@
                                                         Gender
                                                     </label>
                                                     <label for="gender--men" class="label--radio u-inline-block u-m-medium--right">
-                                                        <input type="radio" name="gender" value="men" id="gender--men" class="input--radio" required>
+                                                        <input type="radio" name="gender" value="M" id="gender--men" class="input--radio" required>
                                                         Men
                                                     </label>
                                                     <label for="gender--women" class="label--radio u-inline-block">
-                                                        <input type="radio" name="gender" value="women" id="gender--women" class="input--radio">
+                                                        <input type="radio" name="gender" value="W" id="gender--women" class="input--radio">
                                                         Women
                                                     </label>
                                                </div>
@@ -115,8 +198,19 @@
                                                     </label>
                                                     <input type="text" min="0" name="discount" id="discount" class="input--text u-fill" placeholder="Discount in percentage" required>
                                                </div>
-                                               <button>+</button>
-                                               <div>
+                                               <div class="u-m-medium--bottom">
+                                                   <label class="label--top">
+                                                        Inventory
+                                                    </label>
+                                                    <div id="inventories">
+                                                    </div>
+                                                   
+                                                </div>     
+                                               <div class="u-m-medium--bottom">
+                                                    <span class="button button--tertiary button--inventory" id="button--add" onclick="addInventory()">+</span>
+                                                    <span class="button button--tertiary button--inventory" id="button--remove" onclick="removeInventory()">-</span>
+                                               </div>
+                                               <div class="u-m-medium--bottom">
                                                     <button type="submit" class="button button--primary button--large">
                                                        Publish
                                                     </button>

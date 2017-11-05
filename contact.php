@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="three column"></div>
 				<div class="six column">
-					<form>
+					<form onsubmit="return validateEmail();">
 						<h2 class="header u-m-large--bottom">Contact Us</h2>
 						<div class="u-flex">
 							<div class="u-m-medium--bottom">
@@ -35,7 +35,7 @@
 								<label for="message" class="label--required label--top">
 									Message
 								</label>
-								<span class="input"><textarea name="message" id="message" class="input--text u-fill" rows="5" placeholder="Enter your message."></textarea></span>
+								<span class="input"><textarea name="message" id="message" class="input--text u-fill" rows="5" placeholder="Enter your message." required></textarea></span>
 							</div>
 						</div>
 						<div>

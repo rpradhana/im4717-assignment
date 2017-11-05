@@ -42,15 +42,173 @@ function hideSimpleError(target) {
 }
 
 function validateEmail() {
-    var email = document.getElementById("email").value;
-    var regExp = /^[\w-_\.]+@[\w_-]+(\.[\w_-]+){0,2}\.[A-Za-z]{2,3}$/;
+    var email = document.getElementById("email").value.trim();
+    var regExp = /^[\w-_\.]+@[\w_-]+(\.[\w_-]+){0,2}\.\w{2,3}$/;
     if(regExp.test(email) == false){
         showErrorWithMessage($('#email'), "Invalid input");
         return false;
     } else {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './php/check-email.php', false);
+
+        // Send the proper header information along with the request
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        var getEmailRegistered = xhr.onreadystatechange=function() {
+            if (xhr.readyState==4 && xhr.status==200) {
+                return (xhr.responseText === 'true');
+            }
+        }
+        // Send email
+        xhr.send('email=' + email);
+
+        if (getEmailRegistered()) {
+            showErrorWithMessage($('#email'), "Email already registered");
+            return false;
+        }
         hideErrorWithMessage($('#email'));
         return true;
     }
+}
+
+function validateOldPassword() {
+    var passwordElement = document.getElementById("oldpassword");
+    if (passwordElement.value.length < 6) {
+        showErrorWithMessage($('#oldpassword'), "Old password should be > 6 characters");
+        return false;
+    }
+
+    hideErrorWithMessage($('#oldpassword'));
+    return true;
+}
+
+function validatePassword() {
+    var passwordElement = document.getElementById("password");
+    if (passwordElement.value.length < 6) {
+        showErrorWithMessage($('#password'), "Password < 6 characters");
+        return false;
+    }
+
+    hideErrorWithMessage($('#password'));
+
+    if (document.getElementById("password--verify").value) {
+        verifyPassword();
+    }
+    return true;
+}
+
+function verifyPassword() {
+    var passwordElement = document.getElementById("password");
+    var passwordVerifyElement = document.getElementById("password--verify");
+    if (!passwordElement.value) {
+        showErrorWithMessage($('#password'), "Enter your password");
+        return false;
+    } else if (passwordElement.value != passwordVerifyElement.value) {
+        showErrorWithMessage($('#password--verify'), "Password mismatch");
+        return false;
+    }
+
+    hideErrorWithMessage($('#password--verify'));
+    return true;
+}
+
+function validateAccount() {
+    return validateEmail() && validatePassword() && verifyPassword();
+}
+
+function validateName() {
+    var regexp = /^[A-Za-z]+(\s[A-Za-z]*)*$/;
+    if (!regexp.test(document.getElementById("name").value.trim())) {
+        showErrorWithMessage($('#name'), "Name should contain only alphabets or spaces");
+        return false;
+    }
+    hideErrorWithMessage($('#name'));
+    return true;
+}
+
+function validatePhone() {
+    var regexp = /^\+?(\d-?){8,16}$/;
+    if (!regexp.test(document.getElementById("phone").value.trim())) {
+        showErrorWithMessage($('#phone'), "Invalid phone number");
+        return false;
+    }
+    hideErrorWithMessage($('#phone'));
+    return true;
+}
+
+function validateBirthday() {
+    var birthday = document.getElementById("birthday").value.trim();
+    var regex = /^\d{4,4}-\d{1,2}-\d{1,2}$/;
+    if (birthday && birthday.length !== 0) {
+
+        if (!regex.test(birthday)) {
+            showErrorWithMessage($('#birthday'), "Please format in YYYY-MM-DD");
+            return false;
+        }
+
+        var currTime = (new Date()).getTime();
+        var birthdayTime = Date.parse(birthday);
+        if (isNaN(birthdayTime) || birthdayTime >= currTime) {
+            showErrorWithMessage($('#birthday'), "Invalid birthday");
+            return false;
+        }
+
+
+    }
+    hideErrorWithMessage($('#birthday'));
+    return true;
+
+}
+
+function validateRegistration() {
+    return validateAccount() && validateName() && validatePhone() && validateBirthday();
+}
+
+function validateAccountUpdate() {
+    return validatePhone() && validateBirthday() && validateEmail();
+}
+
+function validateCheckout() {
+    var isValid = validateName() && validatePhone() && validateBirthday();
+    if (document.getElementById("create-account").checked) {
+        isValid = isValid && validateAccount();
+    }
+    return isValid && validateCard();
+}
+
+function validateCardNumber() {
+    var regex = /\d{9,19}/;
+    if (!regex.test(document.getElementById("card-number").value.trim())) {
+        showErrorWithMessage($('#card-number'), "Invalid card");
+        return false;
+    }
+    hideErrorWithMessage($('#card-number'));
+    return true;
+}
+
+function validateCardYear() {
+    var regex = /\d{4,4}/;
+    var year = document.getElementById("card-year").value.trim();
+    if (!regex.test(year) || (new Date(year)).getFullYear() < (new Date()).getFullYear()) {
+        showErrorWithMessage($('#card-year'), "Invalid year");
+        return false;
+    }
+    hideErrorWithMessage($('#card-year'));
+    return true;
+}
+
+function validateCardCVV() {
+    var regex = /\d{3,4}/;
+    if (!regex.test(document.getElementById("card-cvv").value.trim())) {
+        showErrorWithMessage($('#card-cvv'), "Invalid CVV");
+        return false;
+    }
+    hideErrorWithMessage($('#card-cvv'));
+    return true;
+}
+
+function validateCard () {
+    return validateCardNumber() && validateCardYear() && validateCardCVV();
 }
 
 function validatePrice(e){
@@ -88,16 +246,8 @@ function validatePrice(e){
     return isvalid;
 }
 
-var validatePriceMax = function(){
-    var priceTest = document.getElementById("price--max").value;
-    var regExp3 = /^[1-9]\d*$/;
-    if((regExp3.test(priceTest) == false) || (document.getElementById("price--max").value < document.getElementById("price--min").value)){
-        showSimpleError($('#price--max'));
-    }
-
-    else {
-        hideSimpleError($('#price--max'));
-    }
+function validateSidebar() {
+    return validatePrice(document.getElementById("price--min")) && validatePrice(document.getElementById("price--max"));
 }
 
 function toggleAccountCheckout(e) {
@@ -136,5 +286,47 @@ function toggleAccountProfile() {
     document.getElementsByName("password--old")[0].required = true;
     document.getElementsByName("password")[0].required = true;
     document.getElementsByName("password--verify")[0].required = true;
+}
+
+
+function toggleGender(e){
+    var genderToggled = e.id.substr(8);
+    if(genderToggled == "women"){
+        if (e.checked || !document.getElementById("gender--men").checked) {
+            var labelvar = document.getElementById("innerSHRT");
+            labelvar.innerHTML = "Shirts and Blouses";
+            var show2 = document.getElementById("option--DRSS");
+            show2.style.display = "block";
+            var show3 = document.getElementById("option--SKTS");
+            show3.style.display = "block";
+        } else {
+            var labelvar = document.getElementById("innerSHRT");
+            labelvar.innerHTML = "Shirts";
+            var hide2 = document.getElementById("option--DRSS");
+            hide2.style.display = "none";
+            document.getElementById("category--DRSS").checked = false;
+            var hide3 = document.getElementById("option--SKTS");
+            hide3.style.display = "none";
+            document.getElementById("category--SKTS").checked = false;
+        }
+    } else  {
+        if (e.checked && !document.getElementById("gender--women").checked) {
+            var labelvar = document.getElementById("innerSHRT");
+            labelvar.innerHTML = "Shirts";
+            var hide2 = document.getElementById("option--DRSS");
+            hide2.style.display = "none";
+            document.getElementById("category--DRSS").checked = false;
+            var hide3 = document.getElementById("option--SKTS");
+            hide3.style.display = "none";
+            document.getElementById("category--SKTS").checked = false;
+        } else  {
+            var labelvar = document.getElementById("innerSHRT");
+            labelvar.innerHTML = "Shirts and Blouses";
+            var show2 = document.getElementById("option--DRSS");
+            show2.style.display = "block";
+            var show3 = document.getElementById("option--SKTS");
+            show3.style.display = "block";
+        }
+    }
 }
 

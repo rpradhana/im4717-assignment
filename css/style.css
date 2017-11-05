@@ -271,8 +271,6 @@ button-moz-focusring,
   appearance: none;
   -webkit-appearance: none;
   font-family: 'Open Sans';
-  cursor: pointer;
-  font-family: 'Open Sans';
   display: inline-block !important;
   visibility: visible !important;
   -webkit-box-shadow: inset 0 0 1px 1px rgba(0,17,34,0.125);
@@ -1026,6 +1024,13 @@ section[id^=collection] {
 .profile__name {
   margin: 0 0 1.5rem;
 }
+
+.button--inventory {
+  width:3rem;
+  display:inline-block;
+  text-align: center;
+}
+
 .support {
   margin: 3rem 0;
   min-height: calc(100vh - 92px - 80px - 48px - 48px);

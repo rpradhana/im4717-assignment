@@ -19,23 +19,71 @@
 
         if (isset($_SESSION["username"]) && !empty(trim($_SESSION["username"]))&& isset($_SESSION["email"]) && !empty(trim($_SESSION["email"]))) {
             //Update profile here
-//            if (isset($_POST["update"])) {
-//                $address = $_POST["address"];
-//                $phone = $_POST["phone"];
-//                $country = $_POST["country"];
-//                $birthday = trim($_POST["birthday"]);
-//
-//                //Consider password
-//                preg_match('/^\+?[\d-]+$/', $phone, $matches_phone);
-//
-//                $validInput = true;
-//                //Validate name, address, phone, country
-//                if (empty(trim($address)) || empty(trim($country)) || empty(trim($phone))
-//                    || empty($matches_phone) || !in_array($country, $countries) || empty()) {
-//                    $validInput = false;
-//                }
-//
-//            }
+            if (isset($_POST["update"])) {
+                $address = trim($_POST["address"]);
+                $phone = trim($_POST["phone"]);
+                $country = trim($_POST["country"]);
+                $gender = ucfirst(trim($_POST["gender"]));
+                $birthday = trim($_POST["birthday"]);
+
+                $oldPassword = $_POST["password--old"];
+                $password = $_POST["password"];
+
+                $shouldProcessFurther = true;
+                preg_match('/\+?(\d-?){8,16}/', $phone, $matches_phone);
+
+                //Validate address, phone, country
+                if (empty($address) || empty($country) || empty($phone) || empty($matches_phone) || !in_array($country, $countries)) {
+                    $shouldProcessFurther = false;
+                }
+
+                $query = "START TRANSACTION;";
+                $conn->query($query);
+
+                if (isset($oldPassword) && isset($password) && !empty($oldPassword) && !empty($password)) {
+                    $query = 'UPDATE accounts SET password = "' . $password . '" WHERE email = "' . $_SESSION["username"] . '" AND password = "' .
+                        $oldPassword . '";';
+                    $result = $conn->query($query);
+                    if (!$result || $conn->affected_rows != 1) {
+                        $shouldProcessFurther = false;
+                    }
+                }
+
+                if ($shouldProcessFurther) {
+                    $query = 'UPDATE customers SET address = "' . $address . '" , phone = "' . $phone .'" , country = "' . $country . '"';
+
+                    if ($gender[0] == 'M' || $gender[0] == 'W') {
+                        $query .= ', gender = "' . $gender[0] . '"';
+                    }
+
+                    if (!empty($birthday)) {
+                        preg_match('/^\d{4,4}-\d{1,2}-\d{1,2}$/', $birthday, $matches_birthday);
+                        if (empty($matches_birthday)) {
+                            $shouldProcessFurther = false;
+                        }
+
+                        $query .= ', birthday = "' . $birthday . '"';
+                    }
+
+                    $subquery = 'SELECT customersID FROM accounts WHERE email = "' . $_SESSION["email"] . '"';
+                    $query .= ' WHERE fullName = "' . $_SESSION["username"] . '" AND id = (' . $subquery . ');';
+                    $result = $conn->query($query);
+                    if (!$result || $conn->affected_rows != 1)  {
+                        $shouldProcessFurther = false;
+                    }
+                }
+
+                if ($shouldProcessFurther) {
+                    //Passed all checks
+                    $query = 'COMMIT;';
+                    $conn->query($query);
+                    echo 'SUCCESS!';
+                } else {
+                    $query = 'ROLLBACK;';
+                    $conn->query($query);
+                    echo 'FAILED!';
+                }
+            }
 
 
 
@@ -72,7 +120,7 @@
                 echo '                  </aside>
                                     </div>
                                     <div class="six column">
-                                        <form method="post" id="profile__edit">
+                                        <form method="post" id="profile__edit" onsubmit="return validateAccountUpdate();">
                                             <input type="hidden" name="update">
                                             <h2 class="header u-m-large--bottom">My Profile</h2>
                                             <div class="u-flex">
@@ -93,11 +141,12 @@
                                                         Gender
                                                     </label>
                                                     <label for="gender--men" class="label--radio u-inline-block u-m-medium--right">
-                                                        <input type="radio" name="gender" value="men" id="gender--men" class="input--radio"' . ($gender == "M" ? " checked" : "") . ' disabled>
+                                                        <input type="radio" name="gender" value="Men" id="gender--men" class="input--radio"' . (empty($gender) ? '' : ($gender == "M" ? " checked disabled" : " disabled")) . '>
+                    
                                                         Men
                                                     </label>
                                                     <label for="gender--women" class="label--radio u-inline-block">
-                                                        <input type="radio" name="gender" value="women" id="gender--women" class="input--radio"' . ($gender == "W" ? " checked" : "") . ' disabled>
+                                                        <input type="radio" name="gender" value="Women" id="gender--women" class="input--radio"' . (empty($gender) ? '' : ($gender == "W" ? " checked disabled" : " disabled")) . '>
                                                         Women
                                                     </label>
                                                </div>
@@ -105,21 +154,23 @@
                                                     <label for="phone" class="label--required label--top">
                                                         Phone No.
                                                     </label>
-                                                    <input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" value="' . $row["phone"] . '"required>
+                                                    <input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number" value="' . $row["phone"] . '" onblur="validatePhone()" required>
                                                </div>
                                                <div class="u-m-medium--bottom">
                                                     <label for="country" class="label--required label--top">
                                                         Country
                                                     </label>
-                                                    <select name="country" id="country" class="input--text u-fill"> ' .
-                                                        $country_options .
-                                                    '</select>
+                                                    <select name="country" id="country" class="input--text u-fill"> ';
+                foreach ($countries as $country) {
+                    echo '                              <option' . ($country == $row["country"] ? ' selected' : '') . ' value="' . $country . '">' . $country . '</option>';
+                }
+                echo '                              </select>
                                                </div>
                                                <div class="u-m-medium--bottom">
                                                     <label for="birthday" class="label--top">
                                                         Birthday
                                                     </label>
-                                                    <input type="date" name="birthday" id="birthday" class="input--date u-fill" value="' . $row["birthday"] . '">
+                                                    <input type="text" onblur="validateBirthday()" name="birthday" id="birthday" class="input--date u-fill"' . (empty($row["birthday"]) ? '' : ' value="' . $row["birthday"] . '" disabled') . '>
                                                </div>
                                                 <div class="u-m-large--bottom">
                                                     <!-- Replace button with password fields on click -->
@@ -130,19 +181,19 @@
                                                         <label for="oldpassword" class="label--required label--top">
                                                             Old Password
                                                         </label>
-                                                        <input type="password" name="password--old" id="oldpassword" class="input--text u-fill" placeholder="Enter old password">
+                                                        <input type="password" name="password--old" id="oldpassword" class="input--text u-fill" placeholder="Enter old password" onblur="validateOldPassword()">
                                                     </div>
                                                     <div class="u-m-medium--bottom u-is-hidden" id="profile-password">
                                                         <label for="password" class="label--required label--top">
                                                             Password
                                                         </label>
-                                                        <input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter new password">
+                                                        <input type="password" name="password" id="password" class="input--text u-fill" placeholder="Enter new password" onblur="validatePassword()">
                                                     </div>
                                                     <div class="u-m-medium--bottom u-is-hidden"  id="profile-verifypassword">
                                                         <label for="password--verify" class="label--required label--top">
                                                             Verify Password
                                                         </label>
-                                                        <input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password">
+                                                        <input type="password" name="password--verify" id="password--verify" class="input--text u-fill" placeholder="Re-enter password" onblur="verifyPassword()">
                                                     </div>
                                                 </div>
                                                 <div>
