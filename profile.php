@@ -11,6 +11,7 @@
 
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
         }
 
@@ -19,6 +20,8 @@
 
         if (isset($_SESSION["username"]) && !empty(trim($_SESSION["username"]))&& isset($_SESSION["email"]) && !empty(trim($_SESSION["email"]))) {
             //Update profile here
+            $passwordupdated = false;
+            $detailsupdated = false;
             if (isset($_POST["update"])) {
                 $address = trim($_POST["address"]);
                 $phone = trim($_POST["phone"]);
@@ -37,51 +40,82 @@
                     $shouldProcessFurther = false;
                 }
 
-                $query = "START TRANSACTION;";
-                $conn->query($query);
+                $query = 'SELECT customersID FROM accounts WHERE email = "' . $_SESSION["email"] . '";';
+                $result = $conn->query($query);
+                $num_rows = $result->num_rows;
+                if (!$result || $num_rows != 1) { //Email not in database but user is logged in?
+                    include_once ('./php/error.php');
+                    exit();
+                } else {
+                    $row = $result->fetch_assoc();
+                    $customer_id = $row["customersID"];
+                    $result->free();
 
-                if (isset($oldPassword) && isset($password) && !empty($oldPassword) && !empty($password)) {
-                    $query = 'UPDATE accounts SET password = "' . $password . '" WHERE email = "' . $_SESSION["username"] . '" AND password = "' .
-                        $oldPassword . '";';
-                    $result = $conn->query($query);
-                    if (!$result || $conn->affected_rows != 1) {
-                        $shouldProcessFurther = false;
-                    }
-                }
+                    $query = "START TRANSACTION;";
+                    $conn->query($query);
 
-                if ($shouldProcessFurther) {
-                    $query = 'UPDATE customers SET address = "' . $address . '" , phone = "' . $phone .'" , country = "' . $country . '"';
+                    if (isset($oldPassword) && isset($password) && !empty($oldPassword) && !empty($password)) {
+                        $password_verify = $_POST["password--verify"];
 
-                    if ($gender[0] == 'M' || $gender[0] == 'W') {
-                        $query .= ', gender = "' . $gender[0] . '"';
-                    }
-
-                    if (!empty($birthday)) {
-                        preg_match('/^\d{4,4}-\d{1,2}-\d{1,2}$/', $birthday, $matches_birthday);
-                        if (empty($matches_birthday)) {
+                        //Validate password
+                        if ($password != $password_verify) {
                             $shouldProcessFurther = false;
                         }
 
-                        $query .= ', birthday = "' . $birthday . '"';
+                        //Generate salt
+                        $salt = $customer_id . $_SESSION["username"];
+
+                        $password_salted = hash('sha256',$salt.$password);
+                        $old_password_salted = hash('sha256',$salt.$oldPassword);
+
+                        if ($shouldProcessFurther) {
+                            $query = 'UPDATE accounts SET password = "' . $password_salted . '" WHERE email = "' . $_SESSION["email"] . '" AND password = "' .
+                                $old_password_salted . '";';
+                            $result = $conn->query($query);
+                            if (!$result) {
+                                $shouldProcessFurther = false;
+                            } else if ($conn->affected_rows == 1) {
+                                $passwordupdated = true;
+                            }
+                        }
                     }
 
-                    $subquery = 'SELECT customersID FROM accounts WHERE email = "' . $_SESSION["email"] . '"';
-                    $query .= ' WHERE fullName = "' . $_SESSION["username"] . '" AND id = (' . $subquery . ');';
-                    $result = $conn->query($query);
-                    if (!$result || $conn->affected_rows != 1)  {
-                        $shouldProcessFurther = false;
-                    }
-                }
 
-                if ($shouldProcessFurther) {
-                    //Passed all checks
-                    $query = 'COMMIT;';
-                    $conn->query($query);
-                    echo 'SUCCESS!';
-                } else {
-                    $query = 'ROLLBACK;';
-                    $conn->query($query);
-                    echo 'FAILED!';
+                    if ($shouldProcessFurther) {
+                        $query = 'UPDATE customers SET address = "' . $address . '" , phone = "' . $phone .'" , country = "' . $country . '"';
+
+                        if ($gender[0] == 'M' || $gender[0] == 'W') {
+                            $query .= ', gender = "' . $gender[0] . '"';
+                        }
+
+                        if (!empty($birthday)) {
+                            echo 'AAA';
+                            preg_match('/^\d{4,4}-\d{1,2}-\d{1,2}$/', $birthday, $matches_birthday);
+                            if (empty($matches_birthday)) {
+                                $shouldProcessFurther = false;
+                            }
+
+                            $query .= ', birthday = "' . $birthday . '"';
+                        }
+
+                        $query .= ' WHERE fullName = "' . $_SESSION["username"] . '" AND id = '. $customer_id . ';';
+                        $result = $conn->query($query);
+                        if (!$result)  {
+                            $shouldProcessFurther = false;
+                        } else if ($conn->affected_rows == 1) {
+                            $detailsupdated = true;
+                        }
+                    }
+
+                    if ($shouldProcessFurther && ($passwordupdated || $detailsupdated)) {
+                        //Passed all checks
+                        $query = 'COMMIT;';
+                        $conn->query($query);
+                    } else {
+                        $query = 'ROLLBACK;';
+                        $conn->query($query);
+                    }
+
                 }
             }
 
@@ -92,6 +126,7 @@
             $num_rows = $result->num_rows;
             if ($num_rows != 1) {
                 //Email not found or name not correct
+                include_once ('./php/error.php');
             } else {
                 $row = $result->fetch_assoc();
                 $gender = $row["gender"];
@@ -128,7 +163,7 @@
                                                     <label for="email" class="label--top">
                                                         Email
                                                     </label>
-                                                    <input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" value="' . $_SESSION["email"] . '" disabled required>
+                                                    <input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" value="' . $_SESSION["email"] . '" disabled>
                                                </div>
                                                <div class="u-m-medium--bottom">
                                                     <label for="address" class="label--required label--top">
@@ -209,25 +244,14 @@
                             </div>
                         </section>';
             }
+            $result->free();
         } else {
             //Not logged in
         }
+
+        $conn->close();
+        include './php/footer.php';
     ?>
-
-
-<!--							<div class="u-m-medium--bottom">-->
-<!--								<label for="name" class="label--required label--top">-->
-<!--									Full Name-->
-<!--								</label>-->
-<!--								<input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name" required>-->
-<!--							</div>-->
-<!--							<div class="u-m-medium--bottom">-->
-<!--								<label for="postal-code" class="label--required label--top">-->
-<!--									Postal Code-->
-<!--								</label>-->
-<!--								<input type="text" name="postal-code" id="postal-code" class="input--text u-fill" placeholder="Postal code" required>-->
-<!--							</div>-->
-	<?php include './php/footer.php' ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

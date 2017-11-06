@@ -10,7 +10,14 @@
 
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
+        }
+
+        if (isset($_POST["send"])) {
+            $msg = $_POST["message"];
+            $email = $_POST["email"];
+            mail( "f36im@EE-IM-4717","From " . $email ,$msg);
         }
 
 
@@ -22,7 +29,8 @@
 			<div class="row">
 				<div class="three column"></div>
 				<div class="six column">
-					<form onsubmit="return validateEmail();">
+					<form onsubmit="return validateEmail();" method="post">
+                        <input type="hidden" name="send">
 						<h2 class="header u-m-large--bottom">Contact Us</h2>
 						<div class="u-flex">
 							<div class="u-m-medium--bottom">
@@ -61,7 +69,7 @@
 						Singapore 639798
 					</p>
 					<p>
-						contact@company.com<br>
+						contact@prallie.com<br>
 						+65 9876 5432
 					</p>
 					<p>
@@ -76,7 +84,10 @@
 			</div>
 		</div>
 	</section>
-	<?php include './php/footer.php' ?>
+	<?php
+        $conn->close();
+        include './php/footer.php';
+    ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

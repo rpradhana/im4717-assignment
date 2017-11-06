@@ -1,6 +1,6 @@
 <?php
     if ($conn->connect_error) {
-
+        include_once ('./php/error.php');
     }
 
     include_once('./php/countries-list.php') ;
@@ -35,6 +35,7 @@
 
             $email = trim($_POST["email"]);
             $password = $_POST["password"];
+            $password_verify = $_POST["password--verify"];
 
             preg_match('/^[\w-_\.]+@[\w_-]+(\.[\w_-]+){0,2}\.\w{2,3}$/', $email, $matches_email);
 
@@ -43,9 +44,12 @@
                 $shouldProcessFurther = false;
             }
 
-            if (!$shouldProcessFurther) {
-                //Input is not valid
-            } else {
+            //Validate password
+            if ($password != $password_verify) {
+                $shouldProcessFurther = false;
+            }
+
+            if ($shouldProcessFurther) {
                 $query = "START TRANSACTION;";
                 $conn->query($query);
 
@@ -84,7 +88,7 @@
                     $result = $conn->query($query);
                 }
 
-                if(!$result) {
+                if(!$result || $conn->affected_rows != 1) {
                     //Unable to insert into customers table
                     $shouldProcessFurther = false;
                 }
@@ -92,20 +96,25 @@
                 $customer_id = $conn->insert_id;
 
                 if($shouldProcessFurther){
-                    $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
+                    //Generate salt
+                    $salt = $customer_id . $name;
+                    $password_salted = hash('sha256',$salt.$password);
+
+                    $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES (' . $customer_id . ',"' . $email . '","' . $password_salted . '","USER");';
                     $result = $conn->query($query);
-                    if(!$result) {
+                    if(!$result || $conn->affected_rows != 1) {
                         //Unable to insert into accounts table
                         $shouldProcessFurther = false;
-                        $emailregistered = true;
+
                     }
+
                 }
 
                 if ($shouldProcessFurther) {
                     //Passed all checks
                     $query = 'COMMIT;';
                     $conn->query($query);
-                    echo 'SUCCESS!';
+
                     //Auto login
                     $_SESSION["username"] = $name;
                     $_SESSION["email"] = $email;
@@ -118,29 +127,45 @@
                 } else {
                     $query = 'ROLLBACK;';
                     $conn->query($query);
-                    if ($emailregistered) {
-                        echo 'Email Registered';
-                    } else {
-                        echo 'Facing problem';
-                    }
-                    echo 'FAILED!';
+                    include_once ('./php/error.php');
                 }
             }
 
         } else if ($_POST["todo"] == "login") {
             if (isset($_POST["email"]) && isset($_POST["password"])) {
                 $email = trim($_POST["email"]);
-                $password = $_POST["password"];
-                $query = 'SELECT c.fullName, a.email, a.role FROM accounts AS a, customers AS c WHERE c.id = a.customersID AND a.email="' . $email . '" AND password="' . $password . '";';
+                $query = 'SELECT c.fullName, c.id FROM customers AS c, accounts AS a WHERE c.id = a.customersID AND a.email ="' . $email . '";';
                 $result = $conn->query($query);
-                $num_rows = $result->num_rows;
-                if ($num_rows != 1) {
-                    //Email not found or wrong password
+                $isvalid = true;
+
+                if (!$result || $result->num_rows != 1 ) {
+                    //Wrong email
+
                 } else {
                     $row = $result->fetch_assoc();
-                    $_SESSION["username"] = $row["fullName"];
-                    $_SESSION["email"] = $row["email"];
-                    $_SESSION["role"] = $row["role"];
+                    $name = $row["fullName"];
+                    $customer_id = $row["id"];
+                    $result->free();
+
+                    $password = $_POST["password"];
+
+                    //Generate salt
+                    $salt = $customer_id . $name;
+                    $password_salted = hash('sha256',$salt.$password);
+
+                    $query = 'SELECT a.role FROM accounts AS a WHERE a.email="' . $email . '" AND password="' . $password_salted . '";';
+                    $result = $conn->query($query);
+                    $num_rows = $result->num_rows;
+                    if (!$result || $num_rows != 1) {
+                        //Wrong password
+
+                    } else {
+                        $row = $result->fetch_assoc();
+                        $_SESSION["username"] = $name;
+                        $_SESSION["email"] = $email;
+                        $_SESSION["role"] = $row["role"];
+                    }
+                    $result->free();
                 }
             }
         } else if ($_POST["todo"] == "logout") {
@@ -197,10 +222,6 @@
 							Shopping Bag
 							<div class="badge badge--empty button__badge">
                                 <?php
-                                    /*
-                                     * To-do:
-                                     * -String search
-                                     */
                                     $cart_size = sizeof($_SESSION["cart"]);
                                     echo $cart_size;
                                 ?>

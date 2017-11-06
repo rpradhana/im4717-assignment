@@ -9,13 +9,19 @@
         //Connect to database
         $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
 
+
+        include './php/nav.php';
+
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
         }
 
-        include './php/nav.php';
         include './php/hero.php';
+
+
+
 
         //Get popular items
         $query = "SELECT p.id, p.name, p.price, p.discount, COUNT(*) AS numberOfTimesBought FROM products AS p, 
@@ -39,7 +45,7 @@ ORDER BY numberOfTimesBought LIMIT 0,4;";
                 for ($i = 0; $i < $num_rows; $i++) {
                     $row = $result->fetch_assoc();
                     $product_id = $row["id"];
-                    $product_name = $row["name"];
+                    $product_name = stripslashes($row["name"]);
                     $product_price = $row["price"];
                     $product_discount = $row["discount"];
                     echo '<div class="three column">';
@@ -50,8 +56,10 @@ ORDER BY numberOfTimesBought LIMIT 0,4;";
                         </div>
                     </section>';
             }
+            $result->free();
         } else {
             //Unable to query database for popular items
+            include_once ('./php/error.php');
             exit();
         }
 
@@ -76,7 +84,7 @@ ORDER BY numberOfTimesBought LIMIT 0,4;";
                 for ($i = 0; $i < $num_rows; $i++) {
                     $row = $result->fetch_assoc();
                     $product_id = $row["id"];
-                    $product_name = $row["name"];
+                    $product_name = stripslashes($row["name"]);
                     $product_price = $row["price"];
                     $product_discount = $row["discount"];
                     echo '<div class="three column">';
@@ -88,10 +96,14 @@ ORDER BY numberOfTimesBought LIMIT 0,4;";
                         </div>
                     </section>';
             }
+            $result->free();
         } else {
             //Unable to query database for newest arrivals
+            include_once ('./php/error.php');
             exit();
         }
+
+        $conn->close();
 
         include './php/footer.php';
         echo '<script type="text/javascript" src="./js/global.js"></script>';

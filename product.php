@@ -11,6 +11,7 @@
 
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
         }
 
@@ -57,14 +58,15 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                     }
                     $inventory_arr[$color][$size] = $stock;
                 }
+                $result->free();
 
 
                 //Get product information
-                $name = $row["name"];
+                $name = stripslashes($row["name"]);
                 $discount = $row["discount"];
                 $price = $row["price"];
                 $price_after_discount = (1 - $product_discount/(float)100) * $price;
-                $description = $row["description"];
+                $description = stripslashes($row["description"]);
                 $gender = $row["gender"];
                 $category = $row["category"];
 
@@ -269,6 +271,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                     </div>
                                 </section>';
                     }
+                    $result->free();
                 }
 
             } else {
@@ -279,13 +282,14 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
         } else {
             //Unable to query database for product information
             include './php/nav.php';
+            include_once ('./php/error.php');
             exit();
         }
         
         
-
-	?>
-	<?php include './php/footer.php' ?>
+        $conn->close();
+	    include './php/footer.php';
+    ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

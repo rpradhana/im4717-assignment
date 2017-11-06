@@ -11,11 +11,13 @@
 
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
         }
 
         include './php/nav.php';
         include_once ('./php/countries-list.php');
+
 
         if (isset($_SESSION["username"]) && !empty(trim($_SESSION["username"]))&& isset($_SESSION["email"]) && !empty(trim($_SESSION["email"])) && $_SESSION["role"] == "ADMN") {
                 if (isset($_POST["add"])) {
@@ -34,6 +36,7 @@
                     }
 
                     $product_id = $conn->insert_id;
+                    //Need to chown ./images/ to allow uploads
                     $target_dir = "./images/";
 
                     if ($shouldProgress) {
@@ -225,6 +228,8 @@
         } else {
             //Not logged in
         }
+
+        $conn->close();
     ?>
 	<?php include './php/footer.php' ?>
 	<script type="text/javascript" src='./js/global.js'></script>

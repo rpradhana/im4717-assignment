@@ -10,6 +10,7 @@
 
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
         }
         include_once('./php/nav.php');
@@ -86,8 +87,10 @@
                                             <td colspan="4">No previous transactions found.</td>
                                         </tr>';
                 }
+                $result->free();
             } else {
                 //Failed to query
+                include_once ('./php/error.php');
             }
             echo '	                </table>
                                 </form>
@@ -99,13 +102,10 @@
         } else {
             //Not logged in
         }
-	?>
 
-
-
-
-
-	<?php include './php/footer.php' ?>
+        $conn->close();
+	    include './php/footer.php';
+    ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

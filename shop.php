@@ -10,6 +10,7 @@
 
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
         }
 
@@ -90,7 +91,7 @@
             if ($num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $total_rows = $row["totalRows"];
-
+                $result->free();
                 if (isset($_GET["sortby"]) && $_GET["sortby"] == "popular") {
                     $query = 'SELECT p.id, p.name, p.price, p.discount, COUNT(*) AS numberOfTimesBought FROM products AS p, inventory AS i, 
                     orders_inventory AS oi WHERE i.id = oi.inventoryID AND';
@@ -122,13 +123,15 @@
                         for ($i = 0; $i < $num_rows; $i++) {
                             $row = $result->fetch_assoc();
                             $product_id = $row["id"];
-                            $product_name = $row["name"];
+                            $product_name = stripslashes($row["name"]);
                             $product_price = $row["price"];
                             $product_discount = $row["discount"];
                             echo '<div class="four column">';
                             include './php/product.php';
                             echo '</div>';
                         }
+                        $result->free();
+
                         echo '</div>';
                         $param_arr = $_GET;
                         unset($param_arr["pageno"]);
@@ -163,6 +166,7 @@
                     }
                 } else {
                     //Unable to query database for search results
+                    include_once ('./php/error.php');
                     exit();
                 }
             } else {
@@ -171,8 +175,10 @@
             }
         } else {
             //Unable to query database for search results
+            include_once ('./php/error.php');
             exit();
         }
+        $conn->close();
     ?>
                 </div>
             </div>

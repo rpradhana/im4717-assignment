@@ -9,10 +9,9 @@
 
         if ($conn->connect_error) {
             //Fallback if unable to connect to database
+            include_once ('./php/error.php');
             exit();
         }
-
-
 
         include './php/nav.php' ;
     ?>
@@ -105,7 +104,10 @@
 			<div class="two column"></div>
 		</div>
 	</div>
-	<?php include './php/footer.php' ?>
+	<?php
+        $conn->close();
+        include './php/footer.php';
+    ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

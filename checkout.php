@@ -15,6 +15,11 @@
 
         include_once ('./php/countries-list.php');
 
+        $outofstock = array();
+        $emailregistered = false;
+        $isvalidcard = true;
+        $isSuccessTransaction = false;
+
         if (isset($_POST["buy"])) {
             //After checkout form is submitted
             $items = $_POST["items"];
@@ -26,8 +31,7 @@
 
             $shouldProcessFurther = true;
             $customer_id = -1;
-            $outofstock = false;
-            $emailregistered = false;
+
 
             //Begin transaction. Commit to database only if all queries are successful.
             $query = "START TRANSACTION;";
@@ -42,11 +46,11 @@
                 if ($num_rows != 1) {
                     //Email not found or name not correct
                     $shouldProcessFurther = false;
-                    echo 'a';
                 } else {
                     $row = $result->fetch_assoc();
                     $customer_id = $row["id"];
                 }
+                $result->free();
             } else {
                 //Not logged in, add record into customers (and accounts if needed)
                 $name = trim($_POST["name"]);
@@ -64,7 +68,6 @@
                 if (!isset($items) || empty($name) || empty($address) || empty($country) || empty($phone)
                    || empty($matches_name) || empty($matches_phone) || !in_array($country, $countries)) {
                     $shouldProcessFurther = false;
-                    echo 'b';
                 }
 
 
@@ -82,7 +85,6 @@
                         preg_match('/^\d{4,4}-\d{1,2}-\d{1,2}$/', $birthday, $matches_birthday);
                         if (empty($matches_birthday)) {
                             $shouldProcessFurther = false;
-                            echo 'c';
                         }
 
                         $query .= ', birthday';
@@ -103,10 +105,9 @@
                     if ($shouldProcessFurther) {
                         $result = $conn->query($query);
                     }
-                    if(!$result) {
+                    if(!$result || $conn->affected_rows != 1) {
                         //Unable to insert into customers table
                         $shouldProcessFurther = false;
-                        echo 'd';
                     }
 
                     $customer_id = $conn->insert_id;
@@ -115,23 +116,33 @@
                 if($shouldProcessFurther && $create_account){
                     $email = trim($_POST["email"]);
                     $password = $_POST["password"];
+                    $password_verify = $_POST["password--verify"];
 
                     preg_match('/^[\w-_\.]+@[\w_-]+(\.[\w_-]+){0,2}\.\w{2,3}$/', $email, $matches_email);
 
                     //Validate email
                     if (empty($matches_email)) {
                         $shouldProcessFurther = false;
-                        echo 'e';
+                    }
+
+                    //Validate password
+                    if ($password != $password_verify) {
+                        $shouldProcessFurther = false;
                     }
 
                     if ($shouldProcessFurther) {
-                        $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password . '","USER");';
+                        //Generate salt
+                        $salt = $customer_id . $name;
+                        $password_salted = hash('sha256',$salt.$password);
+
+                        $query = 'INSERT INTO accounts (customersID, email, password, role) VALUES(' . $customer_id . ',"' . $email . '","' . $password_salted . '","USER");';
                         $result = $conn->query($query);
                         if(!$result) {
                             //Unable to insert into accounts table
                             $shouldProcessFurther = false;
-                            echo 'g';
+                        } else if ($conn->affected_rows != 1) {
                             $emailregistered = true;
+                            $shouldProcessFurther = false;
                         }
                     }
                 }
@@ -142,7 +153,6 @@
                 $shipping = trim($_POST["shipping"]);
                 if  ($shipping != "standard" && $shipping != "express") {
                     $shouldProcessFurther = false;
-                    echo 'h';
                 }
             }
 
@@ -157,7 +167,6 @@
                     preg_match('/^(\d+)_([a-z]+)_([A-Z]+)_(\d+)/', $item, $matches_item);
                     if (empty($matches_item)) {
                         $shouldProcessFurther = false;
-                        echo 'i';
                         break;
                     } else {
                         $id = $matches_item[1];
@@ -204,12 +213,11 @@
                         }
                     } else {
                         $shouldProcessFurther = false;
-                        echo 'j';
                     }
+                    $result->free();
                 } else {
                     //Unable to query for price
                     $shouldProcessFurther = false;
-                    echo 'k';
                 }
             }
 
@@ -217,27 +225,25 @@
             if (!isset($_POST["card-type"]) || !isset($_POST["card-number"]) || !isset($_POST["card-month"]) || !isset($_POST["card-year"]) ||
                 !isset($_POST["card-cvv"])) {
                 $shouldProcessFurther = false;
-                echo 'l';
             } else {
                 $query = 'SELECT name FROM bank_simulation WHERE type = ' . $_POST["card-type"] . ' AND number = "' . $_POST["card-number"] . '" AND 
                 CVV = "' . $_POST["card-cvv"] . '" AND YEAR(expiry) = "' . $_POST["card-year"] . '" AND MONTH (expiry) = "' . $_POST["card-month"] . '" AND
                 YEAR(expiry) > YEAR(CURRENT_TIMESTAMP) OR (YEAR(expiry) = YEAR(CURRENT_TIMESTAMP) AND MONTH(expiry) >= MONTH(CURRENT_TIMESTAMP));';
                 $result = $conn->query($query);
-                echo $query;
                 if (!$result || $result->num_rows != 1) {
+                    $isvalidcard = false;
                     $shouldProcessFurther = false;
-                    echo 'm';
                 }
+                $result->free();
             }
 
 
             if ($shouldProcessFurther) {
                 $query = 'INSERT INTO orders (customersID, ordersDate, shipping) VALUES(' . $customer_id . ', NOW(),"' . strtoupper($shipping[0]) . '");';
                 $result = $conn->query($query);
-                if(!$result) {
+                if(!$result || $conn->affected_rows != 1) {
                     //Unable to insert into orders table
                     $shouldProcessFurther = false;
-                    echo 'n';
                 }
             }
 
@@ -252,39 +258,33 @@
                     $query = 'SELECT i.id FROM inventory AS i WHERE i.productsID = '. $id . ' AND i.color = "' . $product_color[$i] .
                         '" AND i.size = "' . $product_size[$i] . '";';
                     $result = $conn->query($query);
-                    if(!$result) {
+                    if(!$result || $result->num_rows != 1) {
                         $shouldProcessFurther = false;
-                        echo 'o';
-                        break;
-                    }
-                    if ($result->num_rows != 1) { //Inconsistencies in database?
-                        $shouldProcessFurther = false;
-                        echo 'p';
                         break;
                     }
                     $row = $result->fetch_assoc();
                     $inventory_id = $row["id"];
-
+                    $result->free();
                     //Populate orders_inventory table
                     $query = 'INSERT INTO orders_inventory (inventoryID, ordersID, pricePerItem, quantity) VALUES (' . $inventory_id . ',' . $order_id .
                         ',' . $product_prices[$id] . ',' . $product_qty[$i] . ');';
                     $result = $conn->query($query);
-                    if(!$result) {
+                    if(!$result || $conn->affected_rows != 1) {
                         //Unable to insert into orders_inventory table
                         $shouldProcessFurther = false;
-                        echo 'q';
                         break;
                     }
-
                     $query = 'UPDATE inventory SET stock = stock - ' . $product_qty[$i] . ' WHERE id=' . $inventory_id .' AND stock >= ' . $product_qty[$i]
                         . ';';
                     $result = $conn->query($query);
                     if(!$result) {
                         //Unable to update inventory table
-                        $outofstock = true;
                         $shouldProcessFurther = false;
-                        echo 'r';
                         break;
+                    } else if ($conn->affected_rows != 1) {
+                        //Stock is exhausted, check for all 0 stocks to show in form
+                        $shouldProcessFurther = false;
+                        array_push($outofstock, $id . '_' . lcfirst($product_color[$i]) . '_' . $product_size[$i]);
                     }
                 }
             }
@@ -293,7 +293,6 @@
                 //Passed all checks
                 $query = 'COMMIT;';
                 $conn->query($query);
-                echo 'SUCCESS!';
 
                 if ($create_account) {
                     //Send email to notify success orders
@@ -315,20 +314,19 @@
                     $_SESSION["email"] = $email;
                     $_SESSION["role"] = "USER";
                 }
+
+                $isSuccessTransaction = true;
             } else {
                 $query = 'ROLLBACK;';
                 $conn->query($query);
-                if ($emailregistered) {
-                    echo 'Email Registered';
-                } else if ($outofstock) {
-                    echo 'Item out of stock';
-                } else {
-                    echo 'Facing problem';
+                if (!$emailregistered && empty($outofstock) && $isvalidcard) {
+                  include_once ('./php/error.php');
+                  exit();
                 }
-                echo 'FAILED!';
             }
-            include_once('./php/nav.php') ;
-        } else {
+        }
+
+        if (!isset($_POST["buy"]) || $emailregistered || !empty($outofstock) || !$isvalidcard || $isSuccessTransaction) {
             //Before checkout form is submitted
             include_once('./php/nav.php') ;
             $empty_cart = false;
@@ -374,8 +372,10 @@
                             $product_names[$id] = $name;
                         }
                     }
+                    $result->free();
                 } else {
                     //Unable to query database for products price
+                    include_once ('./php/error.php');
                     exit();
                 }
             }
@@ -399,6 +399,7 @@
                 } else {
                     $row = $result->fetch_assoc();
                 }
+                $result->free();
             }
             echo '  <section class="checkout">
                     <div class="container">
@@ -426,7 +427,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name"' . ($is_logged_in ? (' value="' . $_SESSION["username"] . '" disabled') : '') . ' onblur="validateName()" required>
+                                                                <input type="text" name="name" id="name" class="input--text u-fill" placeholder="Your full name"' . ($is_logged_in ? (' value="' . $_SESSION["username"] . '" disabled') : (!empty(trim($_POST["name"])) ? ' value="' . $_POST["name"] . '"' : '')) . ' onblur="validateName()" required>
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -436,7 +437,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="text" name="address" id="address" class="input--text u-fill" placeholder="Delivery address"' . ($is_logged_in ? (' value="' . $row["address"] . '" disabled') : '') . ' required>
+                                                                <input type="text" name="address" id="address" class="input--text u-fill" placeholder="Delivery address"' . ($is_logged_in ? (' value="' . $row["address"] . '" disabled') : (!empty(trim($_POST["address"])) ? ' value="' . $_POST["address"] . '"' : '')) . ' required>
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -447,11 +448,11 @@
                                                         <td>
                                                             <span class="input">
                                                                 <label for="gender--men" class="label--radio u-inline-block u-m-medium--right">
-                                                                    <input type="radio" name="gender" value="men" id="gender--men" class="input--radio"' . ($is_logged_in ? ($row["gender"] == "M" ? ' checked disabled' : ' disabled') : '') . '>
+                                                                    <input type="radio" name="gender" value="men" id="gender--men" class="input--radio"' . ($is_logged_in ? ($row["gender"] == "M" ? ' checked disabled' : ' disabled') : (isset($_POST["gender"]) && $_POST["gender"] == "men" ? ' checked' : '')) . '>
                                                                     Men
                                                                 </label>
                                                                 <label for="gender--women" class="label--radio u-inline-block">
-                                                                    <input type="radio" name="gender" value="women" id="gender--women" class="input--radio"' . ($is_logged_in ? ($row["gender"] == "W" ? ' checked disabled' : ' disabled') : '') . '>
+                                                                    <input type="radio" name="gender" value="women" id="gender--women" class="input--radio"' . ($is_logged_in ? ($row["gender"] == "W" ? ' checked disabled' : ' disabled') : (isset($_POST["gender"]) && $_POST["gender"] == "women" ? ' checked' : '')) . '>
                                                                     Women
                                                                 </label>
                                                             </span>
@@ -463,7 +464,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number"' . ($is_logged_in ? (' value="' . $row["phone"] . '" disabled') : '') . ' onblur="validatePhone()" required>
+                                                                <input type="text" name="phone" id="phone" class="input--text u-fill" placeholder="Phone number"' . ($is_logged_in ? (' value="' . $row["phone"] . '" disabled') : (!empty(trim($_POST["phone"])) ? ' value="' . $_POST["phone"] . '"' : '')) . ' onblur="validatePhone()" required>
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -479,7 +480,7 @@
             } else {
                 echo '                                          <select name="country" id="country" class="input--text u-fill">';
                 foreach ($countries as $country) {
-                    echo '                                          <option value="' . $country . '">' . $country . '</option>';
+                    echo '                                          <option value="' . $country . '"' . (isset($_POST["country"]) && $_POST["country"] == $country ? ' selected ' : '') . '>' . $country . '</option>';
                 }
                 echo '                                          </select>';
             }
@@ -494,7 +495,7 @@
                                                         </td>
                                                         <td>
                                                             <span class="input">
-                                                                <input type="text" name="birthday" id="birthday" onblur="validateBirthday()" class="input--date u-fill"' . ($is_logged_in ? (' value="' . $row["birthday"] . '" disabled') : '') . '>
+                                                                <input type="text" name="birthday" id="birthday" onblur="validateBirthday()" class="input--date u-fill"' . ($is_logged_in ? (' value="' . $row["birthday"] . '" disabled') : (!empty(trim($_POST["birthday"])) ? ' value="' . $_POST["birthday"] . '"' : '')) . '>
                                                             </span>
                                                         </td>
                                                     </tr>
@@ -505,7 +506,7 @@
                                                     <tr class="checkout__row">
                                                         <td colspan="2">
                                                             <label for="create-account" class="label--checkbox">
-                                                                <input type="checkbox" name="create-account" id="create-account" class="input--checkbox" onchange="toggleAccountCheckout(this)">
+                                                                <input type="checkbox" name="create-account" id="create-account" class="input--checkbox" onchange="toggleAccountCheckout(this)"' . (isset($_POST["create-account"]) ? ' checked' : '') . ' >
                                                                 Create account for later use.
                                                             </label>
                                                         </td>
@@ -514,17 +515,17 @@
                                                     <!-- default not checked -->
                                                     <!-- add `required` attribute if checked -->
                                                     <!-- remove `u-is-hidden` class if checked -->
-                                                    <tr class="checkout__row u-is-hidden" id="checkout-email">
+                                                    <tr class="checkout__row' . (isset($_POST["create-account"]) ? '' : ' u-is-hidden')  . '" id="checkout-email">
                                                         <td>
                                                             <label class="label--required">Email</label>
                                                         </td>
                                                         <td>
-                                                            <span class="input">
-                                                                <input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" onblur="validateEmail()">
+                                                            <span class="input' . ($emailregistered ? ' input--invalid" data-attr="Email already registered"' : '"') . '>
+                                                                <input type="text" name="email" id="email" class="input--text u-fill" placeholder="name@email.com" onblur="validateEmail()"' . (!empty(trim($_POST["email"])) ? ' value="' . $_POST["email"] . '" ' : '') . '>
                                                             </span>
                                                         </td>
                                                     </tr>
-                                                    <tr class="checkout__row u-is-hidden" id="checkout-password">
+                                                    <tr class="checkout__row' . (isset($_POST["create-account"]) ? '' : ' u-is-hidden')  . '" id="checkout-password">
                                                         <td>
                                                             <label class="label--required">Password</label>
                                                         </td>
@@ -534,7 +535,7 @@
                                                             </span>
                                                         </td>
                                                     </tr>
-                                                    <tr class="checkout__row u-is-hidden" id="checkout-password-verify">
+                                                    <tr class="checkout__row' . (isset($_POST["create-account"]) ? '' : ' u-is-hidden')  . '" id="checkout-password-verify">
                                                         <td>
                                                             <label class="label--required">Verify Password</label>
                                                         </td>
@@ -563,13 +564,13 @@
                                         </div>
                                         <div>
                                             <label for="shipping--standard" class="label--radio u-inline-block u-m-medium--bottom">
-                                                <input type="radio" name="shipping" value="standard" id="shipping--standard" class="input--radio" onchange="updateShipping(this)" required>
+                                                <input type="radio" name="shipping" value="standard" id="shipping--standard" class="input--radio" onchange="updateShipping(this)"' . (isset($_POST["shipping"]) && $_POST["shipping"] == "standard" ? ' checked ' : '') .  'required>
                                                 <span><strong>Standard</strong></span>
                                                 <br>
                                                 <span>Delivery fee $6.00, 1-3 working days</span>
                                             </label>
                                             <label for="shipping--express" class="label--radio u-inline-block u-m-medium--bottom">
-                                                <input type="radio" name="shipping" value="express" id="shipping--express" class="input--radio" onchange="updateShipping(this)">
+                                                <input type="radio" name="shipping" value="express" id="shipping--express" class="input--radio" onchange="updateShipping(this)"' . (isset($_POST["shipping"]) && $_POST["shipping"] == "express" ? ' checked' : '') .  '>
                                                 <span><strong>Express</strong></span>
                                                 <br>
                                                 <span>Delivery fee $18.00, next day</span>
@@ -586,7 +587,7 @@
                                             </div>
                                         </div>
                                         <h4 class="u-m-medium--bottom">Secure Payment</h4>
-                                        <h4 class="u-m-medium--bottom">Credit Card</h4>
+                                        <span' . ($isvalidcard ? '' : ' data-attr="Invalid credit card" class="input input--invalid" ') . '><h4 id="credit-card-header" class="u-m-medium--bottom">Credit Card</h4></span>
                                         <table class="u-fill">
                                             <tbody class="checkout__section">
                                                 <tr class="checkout__row" class="label--required">
@@ -595,9 +596,9 @@
                                                     </td>
                                                     <td>
                                                         <span class="input">
-                                                            <select name="card-type" class="select u-fill">
-                                                                <option value="0">VISA</option>
-                                                                <option value="1">MasterCard</option>
+                                                            <select onchange="removeCardError()" name="card-type" class="select u-fill">
+                                                                <option value="0"' . (isset($_POST["card-type"]) && $_POST["card-type"] == "0" ? ' selected ' : '') . '>VISA</option>
+                                                                <option value="1"' . (isset($_POST["card-type"]) && $_POST["card-type"] == "1" ? ' selected ' : '') . '>MasterCard</option>
                                                             </select>
                                                         </span>
                                                     </td>
@@ -608,7 +609,7 @@
                                                     </td>
                                                     <td>
                                                         <span class="input">
-                                                            <input type="text" onblur="validateCardNumber()" name="card-number" id="card-number" class="input--text u-fill" required>
+                                                            <input type="text" onblur="validateCardNumber()" name="card-number" id="card-number" class="input--text u-fill"' . (!empty(trim($_POST["card-number"])) ? ' value="' . $_POST["card-number"] . '" ' : '') . 'required>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -619,21 +620,21 @@
                                                     <td>
                                                         <span class="input">
                                                             <div id="payment__expiry" class="payment__expiry">
-                                                                <select name="card-month" class="select u-m-medium--right u-flex-2">
-                                                                    <option value="1" selected="selected">January</option>
-                                                                    <option value="2">February</option>
-                                                                    <option value="3">March</option>
-                                                                    <option value="4">April</option>
-                                                                    <option value="5">May</option>
-                                                                    <option value="6">June</option>
-                                                                    <option value="7">July</option>
-                                                                    <option value="8">August</option>
-                                                                    <option value="9">September</option>
-                                                                    <option value="10">October</option>
-                                                                    <option value="11">November</option>
-                                                                    <option value="12">December</option>
+                                                                <select onchange="removeCardError()" name="card-month" class="select u-m-medium--right u-flex-2">
+                                                                    <option value="1"' . (isset($_POST["card-month"]) ? ($_POST["card-month"] == "1" ? ' selected ' : '') : ' selected ') . '>January</option>
+                                                                    <option value="2"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "2" ? ' selected ' : '') . '>February</option>
+                                                                    <option value="3"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "3" ? ' selected ' : '') . '>March</option>
+                                                                    <option value="4"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "4" ? ' selected ' : '') . '>April</option>
+                                                                    <option value="5"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "5" ? ' selected ' : '') . '>May</option>
+                                                                    <option value="6"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "6" ? ' selected ' : '') . '>June</option>
+                                                                    <option value="7"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "7" ? ' selected ' : '') . '>July</option>
+                                                                    <option value="8"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "8" ? ' selected ' : '') . '>August</option>
+                                                                    <option value="9"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "9" ? ' selected ' : '') . '>September</option>
+                                                                    <option value="10"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "10" ? ' selected ' : '') . '>October</option>
+                                                                    <option value="11"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "11" ? ' selected ' : '') . '>November</option>
+                                                                    <option value="12"' . (isset($_POST["card-month"]) && $_POST["card-month"] == "12" ? ' selected ' : '') . '>December</option>
                                                                 </select>
-                                                                <input type="text" onblur="validateCardYear()" id="card-year" class="input--text" name="card-year" size="5" maxlength="4" placeholder="Year">
+                                                                <input type="text" onblur="validateCardYear()" id="card-year" class="input--text" name="card-year" size="5" maxlength="4" placeholder="Year"' . (!empty(trim($_POST["card-year"])) ? ' value="' . $_POST["card-year"] . '" ' : '') . '>
                                                             </div>
                                                         </span>
                                                     </td>
@@ -643,7 +644,7 @@
                                                         <label class="label--required">CVV</label>
                                                     </td>
                                                     <td>
-                                                        <input type="text" onblur="validateCardCVV()" name="card-cvv" id="card-cvv"  maxlength="4" class="input--text" required>
+                                                        <input type="text" onblur="validateCardCVV()" name="card-cvv" id="card-cvv"  maxlength="4" class="input--text"' . (!empty(trim($_POST["card-cvv"])) ? ' value="' . $_POST["card-cvv"] . '" ' : '') . 'required>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -678,16 +679,26 @@
                     $prices_per_item = $product_prices[$id];
                     $price_subtotal = $qty*$prices_per_item;
                     $price_sum += $price_subtotal;
-                    echo '  <tr class="table__row">
+                    if (in_array($id . '_' . $color . '_' . $size , $outofstock)) {
+                        echo '      <tr style="color:red;" class="table__row">
+                                      <td>' . $name . ' (' . ucfirst($color) . ',' . $size . ')</td>
+                                      <td class="u-align--center">Out of Stock</td>
+                                      <td class="u-align--right">N/A</td>
+                                    </tr>';
+                        echo '      <input type="hidden" name="items[]" value="' . $id . '_' . $color . '_' . $size . '_' . $qty . '">';
+                    } else {
+                        echo '  <tr class="table__row">
                                                       <td>' . $name . ' (' . ucfirst($color) . ',' . $size . ')</td>
                                                       <td class="u-align--center">' . $qty . '</td>
                                                       <td class="u-align--right">$' . number_format($price_subtotal,2) . '</td>
-                                                    </tr>
-                                              ';
-                    echo '<input type="hidden" name="items[]" value="' . $id . '_' . $color . '_' . $size . '_' . $qty . '">';
+                                                    </tr>';
+                        echo '<input type="hidden" name="items[]" value="' . $id . '_' . $color . '_' . $size . '_' . $qty . '">';
+                    }
+
                 }
 
-                echo '  <tr class="table__row">
+                if (empty($outofstock)) {
+                    echo '                <tr class="table__row">
                                                     <td colspan="2" class="u-align--left">
                                                         <div>Subtotal</div>
                                                         <div>Shipping</div>
@@ -705,9 +716,14 @@
                                                     Place Order Now
                                                 </button>
                                             </div>';
-            } else {
-                echo '                          <tr class="table__row"><td colspan="3">No item found.</td></tr>
+                } else {
+                    echo '                      <tr class="table__row"><td colspan="3">Unable to make transaction. Some items are out of stock.</td></tr>
                                             </table>';
+                }
+
+            } else {
+                echo '                          <tr class="table__row">' . ($isSuccessTransaction ? '<td colspan="3" style="color:green;">Items successfuly purchased</td>' :  '<td colspan="3">No item found.</td></tr>' ) .
+                                            '</table>';
             }
 
             echo '                      </section>
@@ -717,9 +733,9 @@
                         </div>
                     </section>';
         }
+        $conn->close();
+	    include './php/footer.php';
     ?>
-
-	<?php include './php/footer.php' ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

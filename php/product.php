@@ -1,10 +1,6 @@
 <div class="product">
     <div class="row product__image">
         <?php
-            /*
-             * To-do:
-             * -Popular/New tags
-             */
             echo '<a href="./product.php?id=' . $product_id .'" class="u-flex">';
             echo '<img id="' . $section_id . '_img_' . $product_id .'"></a>';
         ?>

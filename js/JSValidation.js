@@ -165,7 +165,10 @@ function validateRegistration() {
 }
 
 function validateAccountUpdate() {
-    return validatePhone() && validateBirthday() && validateEmail();
+    var validation = validatePhone() && validateBirthday();
+    if (document.getElementById("password").required) {
+        validation = validation && validateOldPassword() && validatePassword() && verifyPassword();
+    }
 }
 
 function validateCheckout() {
@@ -182,6 +185,7 @@ function validateCardNumber() {
         showErrorWithMessage($('#card-number'), "Invalid card");
         return false;
     }
+    removeCardError();
     hideErrorWithMessage($('#card-number'));
     return true;
 }
@@ -193,8 +197,13 @@ function validateCardYear() {
         showErrorWithMessage($('#card-year'), "Invalid year");
         return false;
     }
+    removeCardError();
     hideErrorWithMessage($('#card-year'));
     return true;
+}
+
+function removeCardError() {
+    hideErrorWithMessage($('#credit-card-header'));
 }
 
 function validateCardCVV() {
@@ -203,6 +212,7 @@ function validateCardCVV() {
         showErrorWithMessage($('#card-cvv'), "Invalid CVV");
         return false;
     }
+    removeCardError();
     hideErrorWithMessage($('#card-cvv'));
     return true;
 }

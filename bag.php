@@ -3,14 +3,6 @@
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
                         <?php
-                            /*To-do:
-                                -Proceed to checkout button
-                                -Allow update and delete of quantity
-                                -Real-time reflection of price updates
-                                -Quantity validation
-                                -(Optional) Display only if cookie contents match with database entry
-                            */
-
                             include './php/cart-item.php';
                             session_start();
 
@@ -35,6 +27,7 @@
 
                             if ($conn->connect_error) {
                                 //Fallback if unable to connect to database
+                                include_once ('./php/error.php');
                                 exit();
                             }
 
@@ -115,6 +108,7 @@
                                         }
 
                                         $query = 'SELECT productsID, color, size, stock FROM inventory AS i WHERE ' . $condition . ';';
+                                        $result->free();
                                         $result = $conn->query($query);
                                         if ($result) {
                                             $num_rows = $result->num_rows;
@@ -126,75 +120,74 @@
                                                     $id = $row["productsID"];
                                                     $size = $row["size"];
                                                     $stock = $row["stock"];
-                                                    if (!isset($inventory_arr[$color])) {
-                                                        $inventory_arr[$color] = array();
-                                                    }
-                                                    $inventory_arr[$color][$size] = $stock;
+                                                    $inventory_arr[$id][$color][$size] = $stock;
                                                 }
+                                                $result->free();
 
                                                 $index = 0;
-                                                $removedSomething = false;
+                                                $something_oos = false;
                                                 foreach ($_SESSION["cart"] as $cart_item) {
                                                     $id = $cart_item->id;
                                                     $color = $cart_item->color;
                                                     $qty = $cart_item->quantity;
                                                     $size = $cart_item->size;
                                                     $prices_per_item = $product_prices[$id];
-                                                    $subtotal = $prices_per_item*$qty;
-                                                    $stock = $inventory_arr[$color][$size];
 
-                                                    //Don't display if there is no stock, and remove from cart
-                                                    if ($stock < 1) {
-                                                        unset($_SESSION["cart"][$index]);
-                                                        $index += 1;
-                                                        $removedSomething = true;
-                                                        continue;
-                                                    } else if ($qty > $stock) {
+                                                    $stock = $inventory_arr[$id][$color][$size];
+
+                                                    //Saturate if quantity > stock, also removes checkout button if stock is empty
+                                                    if ($qty > $stock) {
                                                         $qty = $stock;
-                                                        $_SESSION["cart"][$index] = $stock;
+                                                        $_SESSION["cart"][$index]->quantity = $stock;
                                                     }
+
+                                                    if ($stock < 1) {
+                                                        $something_oos = true;
+                                                    }
+                                                    $subtotal = $prices_per_item*$qty;
                                                     $total += $subtotal;
-                                                    echo '<tr class="table__row">
-                                              <td>';
-                                                    echo '<img src="./images/' . $id . '_' . $color . '.jpg" class="bag__thumbnail">';
-                                                    echo '    </td>
-                                              <td>' . ucfirst($color) . '</td>
-                                              <td>' . $size . '</td>
-                                              <td>' . $product_names[$id] . '</td>
-                                              <td id="' . $id . '_' . $color . '_' . $size . '_price-single">$' . number_format($prices_per_item, 2) . '</td>
-                                              <td><input type="number" min="1" max="' . $inventory_arr[$color][$size] . '" id="' . $id . '_' . $color . '_' . $size . '_quantity" name="' . $id . '_' . $color .'_quantity" 
-                                              class="input--text" value="' . $qty . '" oninput="handleQuantityChange(this)"></td>
-                                              <td class="u-align--right"><strong>$<span class="price-subtotal" id="' . $id . '_' . $color . '_' . $size . '_price-subtotal">' .
-                                                        number_format($subtotal,2) . '
-                                              </span></strong></td>
+                                                    echo '  <tr class="table__row">
+                                                              <td><img src="./images/' . $id . '_' . $color . '.jpg" class="bag__thumbnail"></td>
+                                                              <td>' . ucfirst($color) . '</td>
+                                                              <td>' . $size . '</td>
+                                                              <td>' . $product_names[$id] . '</td>
+                                                              <td id="' . $id . '_' . $color . '_' . $size . '_price-single">$' . number_format($prices_per_item, 2) . '</td>
+                                                              <td><input type="number" min="1" max="' . $inventory_arr[$id][$color][$size] . '" id="' . $id . '_' . $color . '_' . $size . '_quantity" name="' . $id . '_' . $color .'_quantity" 
+                                                              class="input--text" value="' . ($qty > 0 ? $qty . '"' : 0 . '" disabled') . ' oninput="handleQuantityChange(this)"></td>
+                                                              <td class="u-align--right"><strong>$<span class="price-subtotal" id="' . $id . '_' . $color . '_' . $size . '_price-subtotal">' .
+                                                                        number_format($subtotal,2) . '
+                                                              </span></strong></td>
                                               <td class="bag__edit"><i class="material-icons"><span id="remove_' . $index . '" onclick="removeFromCart(this)">close</span></i></td>
                                           </tr>';
                                                     $index += 1;
                                                 }
-
-                                                if ($removedSomething) {
-                                                    $_SESSION["cart"] = array_values($_SESSION["cart"]);
-                                                }
                                             }
                                         } else {
                                             //Unable to query database for stocks
+                                            include_once ('./php/error.php');
                                             exit();
                                         }
                                     }
                                 } else {
                                     //Unable to query database for products information
+                                    include_once ('./php/error.php');
                                     exit();
                                 }
+
                                 echo '  </table>
                                         <div class="bag__review">
                                             <div class="bag__subtotal">
                                                 <h4 class="header"><strong>Total $<span id="total-price">' . number_format($total,2) . '</span></strong></h4>
-                                            </div>
-                                            <button type="submit" class="button button--primary button--large">
-                                                Proceed to checkout
-                                            </button>
-                                        </div>';
+                                            </div>';
+                                if (!$something_oos) {
+                                    echo '      <button type="submit" class="button button--primary button--large">
+                                                    Proceed to checkout
+                                                </button>';
+                                }
+                                echo '  </div>';
+
                             }
+                            $conn->close();
                         ?>
 				</div>
 			</div>
