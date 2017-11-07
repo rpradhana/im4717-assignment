@@ -96,22 +96,38 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (72, "Gray", "M", 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (72, "Blue", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (72, "Blue", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Smart Style Ankle Pants", "PNTS", "F",
-                             "Our comfortable, wrinkle-resistant dress pants.\n
-- Updated tapered cut designed for a more flattering look.\n
-- New, higher rise looks neat with a shirt tucked in, and won't slip down when crouching.\n
-- Stitchless surface gives them a cleaner look.\n
-- Stretchy pocket fabric allows easier movement.\n
-- Elegant wool-like material is wrinkle-resistant for easy care.\n
-- Added belt loops help you find the perfect fit.",
-39.90, 0);
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Satin Ankle Length Pants (Print)", "PNTS", "F",
+                             "Elegant, all-purpose pants that go with any style.\n
+- Narrow cuffs create a stylish, flattering tapered cut.\n
+- A high rise helps keep your shirt tucked in even when crouching.\n
+- Minimal visible stitching gives them a clean, neat appearance.\n
+- Stretch fabric in the pockets provides added comfort.",
+49.90, 0);
 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Gray", "S", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Gray", "M", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Blue", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Blue", "L", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Black", "XL", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Black", "L", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Beige", "XL", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (73, "Beige", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Smart Style Ankle Pants", "PNTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Satin Ankle Pants", "PNTS", "F",
+  "Elegant, all-purpose pants that go with any style.\n
+- Narrow cuffs create a stylish, flattering tapered cut.\n
+- A high rise helps keep your shirt tucked in even when crouching.\n
+- Minimal visible stitching gives them a clean, neat appearance.\n
+- Stretch fabric in the pockets provides added comfort.",
+49.90, 0);
+
+INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Brown", "S", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "White", "M", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Red", "XL", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Beige", "L", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Black", "L", 3);
+
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Wide Leg Ankle Pants", "PNTS", "F",
                              "Our comfortable, wrinkle-resistant dress pants.\n
 - Updated tapered cut designed for a more flattering look.\n
 - New, higher rise looks neat with a shirt tucked in, and won't slip down when crouching.\n
@@ -121,22 +137,9 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 - Added belt loops help you find the perfect fit.",
 39.90, 0);
 
-INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Gray", "S", 3);
-INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Gray", "M", 3);
-INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Blue", "XL", 3);
-INSERT INTO inventory (productsID, color, size, stock) VALUES (74, "Blue", "L", 3);
-
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Smart Style Ankle Pants", "PNTS", "F",
-                             "Our comfortable, wrinkle-resistant dress pants.\n
-- Updated tapered cut designed for a more flattering look.\n
-- New, higher rise looks neat with a shirt tucked in, and won't slip down when crouching.\n
-- Stitchless surface gives them a cleaner look.\n
-- Stretchy pocket fabric allows easier movement.\n
-- Elegant wool-like material is wrinkle-resistant for easy care.\n
-- Added belt loops help you find the perfect fit.",
-39.90, 0);
-
-INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Gray", "S", 3);
-INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Gray", "M", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Brown", "S", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Red", "M", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Blue", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Blue", "L", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Black", "XL", 3);
+INSERT INTO inventory (productsID, color, size, stock) VALUES (75, "Gray", "L", 3);
