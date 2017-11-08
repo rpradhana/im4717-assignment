@@ -26,9 +26,18 @@
             $add_to_cart = false;
         }
 
+        $result;
         $query = 'SELECT p.name, p.price, p.gender, p.category, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
 WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
         $result = $conn->query($query);
+
+        if ($result && $result->num_rows < 1) {
+            //ProductID does not belong to database
+            $product_id = 1;
+            $query = 'SELECT p.name, p.price, p.gender, p.category, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
+WHERE p.id = 1 AND p.id = i.productsID ORDER BY i.color ASC;';
+            $result = $conn->query($query);
+        }
 
         if ($result) {
             $num_rows = $result->num_rows;
@@ -92,6 +101,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                     $product_qty = $inventory_arr[$product_color][$product_size];
                     if ($product_qty < 1) {
                         $outofstock = true;
+                        $add_to_cart = false;
                     }
                 }
 
@@ -273,10 +283,10 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                     }
                     $result->free();
                 }
-
             } else {
                 //ProductID does not belong to database
                 include './php/nav.php';
+                echo 'No product is found with the given ID';
                 exit();
             }
         } else {

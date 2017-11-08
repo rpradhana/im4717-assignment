@@ -89,7 +89,6 @@
                         }
 
                         if (!empty($birthday)) {
-                            echo 'AAA';
                             preg_match('/^\d{4,4}-\d{1,2}-\d{1,2}$/', $birthday, $matches_birthday);
                             if (empty($matches_birthday)) {
                                 $shouldProcessFurther = false;

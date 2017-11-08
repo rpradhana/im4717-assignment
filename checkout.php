@@ -174,11 +174,9 @@
                         array_push($product_color, ucfirst($matches_item[2]));
                         array_push($product_size, $matches_item[3]);
                         array_push($product_qty, $matches_item[4]);
-                        if (!in_array($id, $unique_product_ids)) {
-                            array_push($unique_product_ids, $id);
-                        }
                     }
                 }
+                $unique_product_ids = array_unique($product_ids);
             }
 
             //Get product prices
@@ -294,7 +292,7 @@
                 $query = 'COMMIT;';
                 $conn->query($query);
 
-                if ($create_account) {
+                if ($create_account || isset($_SESSION["email"])) {
                     //Send email to notify success orders
                     $msg = "We have received your transaction at PRALLIE. Thank you for shopping with us.\r\n\r\n*** This is an automatically generated email, please do not reply ***";
                     $msg = wordwrap($msg,70);
