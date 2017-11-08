@@ -36,7 +36,7 @@
 	<div class="row product__color">
 
         <?php
-            $query = 'SELECT inventory.color FROM inventory WHERE inventory.productsID = ' . $product_id . ';';
+            $query = 'SELECT DISTINCT(inventory.color) FROM inventory WHERE inventory.productsID = ' . $product_id . ';';
             $inner_result = $conn->query($query);
             $inner_num_rows = $inner_result->num_rows;
             for ($j = 0; $j < $inner_num_rows; $j++) {

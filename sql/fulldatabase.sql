@@ -33,7 +33,6 @@ CREATE TABLE `accounts` (
   `email` varchar(50) NOT NULL,
   `password` char(41) NOT NULL,
   `role` char(4) NOT NULL,
-  `cart` blob,
   `customersID` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
