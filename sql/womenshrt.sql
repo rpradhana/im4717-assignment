@@ -1,4 +1,4 @@
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton 3/4 Sleeve Gather Blouse", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton 3/4 Sleeve Gather Blouse", "SHRT", "W",
                              "A stylish blouse with trendy touches, including a mock neck and smocked cuffs.\n
 - Gathered sleeves add volume without being too billowy.\n
 - Curved hem with side slits gives it an elegant style worn on its own.\n
@@ -18,7 +18,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (153, "Brown", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (153, "Brown", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (153, "Brown", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton 3/4 Sleeve Off Shoulder Blouse", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton 3/4 Sleeve Off Shoulder Blouse", "SHRT", "W",
                              "This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n
 - With added stretch for comfort and ease of movement.\n
 - Made from a premium two-ply yarn.\n
@@ -39,7 +39,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (154, "Gray", "M",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (154, "Gray", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (154, "Gray", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Extra Fine Cotton 3/4 Sleeve Off Shoulder Blouse", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Extra Fine Cotton 3/4 Sleeve Off Shoulder Blouse", "SHRT", "W",
                              "This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n
 - With added stretch for comfort and ease of movement.\n
 - Made from a premium two-ply yarn.\n
@@ -52,7 +52,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (155, "Green", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (155, "Green", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (155, "Green", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton Long Sleeve Shirt", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton Long Sleeve Shirt", "SHRT", "W",
                              "This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n
 - With added stretch for comfort and ease of movement.\n
 - Made from a premium two-ply yarn.\n
@@ -69,7 +69,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (156, "White", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (156, "White", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (156, "White", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Extra Fine Cotton Slit Neck Short Sleeve Blouse", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Extra Fine Cotton Slit Neck Short Sleeve Blouse", "SHRT", "W",
                              "This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n
 - With added stretch for comfort and ease of movement.\n
 - Made from a premium two-ply yarn.\n
@@ -86,7 +86,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (157, "White", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (157, "White", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (157, "White", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton Slit Neck Short Sleeve Blouse", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton Slit Neck Short Sleeve Blouse", "SHRT", "W",
                              "This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n
 - With added stretch for comfort and ease of movement.\n
 - Made from a premium two-ply yarn.\n
@@ -103,7 +103,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (158, "Green", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (158, "Green", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (158, "Green", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton Striped Long Sleeve Shirt", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Extra Fine Cotton Striped Long Sleeve Shirt", "SHRT", "W",
                              "This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n
 - With added stretch for comfort and ease of movement.\n
 - Made from a premium two-ply yarn.\n
@@ -120,7 +120,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (159, "White", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (159, "White", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (159, "White", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Camisole", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Camisole", "SHRT", "W",
                              "Supple material for simple elegance. This fine camisole is excellent for layering.\n
 -Chic, feminine camisole design.\n
 -Draped feel gives it a simple, elegant beauty.\n
@@ -136,7 +136,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (160, "White", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (160, "White", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (160, "White", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Camisole 2", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Camisole 2", "SHRT", "W",
                              "Supple material for simple elegance. This fine camisole is excellent for layering.\n
 -Chic, feminine camisole design.\n
 -Draped feel gives it a simple, elegant beauty.\n
@@ -152,7 +152,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (161, "Brown", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (161, "Brown", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (161, "Brown", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Mock Neck 3/4 Sleeve Blouse", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Mock Neck 3/4 Sleeve Blouse", "SHRT", "W",
                              "Supple material for simple elegance. This fine camisole is excellent for layering.\n
 -Chic, feminine camisole design.\n
 -Draped feel gives it a simple, elegant beauty.\n
@@ -168,7 +168,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (162, "White", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (162, "White", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (162, "White", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Tuck Short Sleeve T Blouse", "SHRT", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Drape Tuck Short Sleeve T Blouse", "SHRT", "W",
                              "Supple material for simple elegance. This fine camisole is excellent for layering.\n
 -Chic, feminine camisole design.\n
 -Draped feel gives it a simple, elegant beauty.\n

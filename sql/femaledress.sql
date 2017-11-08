@@ -1,4 +1,4 @@
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Crepe A Line Short Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Crepe A Line Short Sleeve Dress", "DRSS", "W",
                              "A lovely V-neck dress with an airy A-line cut.\n
 - Light crepe material.\n
 - Airy, flared A-line cut.\n
@@ -11,7 +11,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (27, "Black", "M",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (27, "Black", "XL", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (27, "Black", "L", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Crepe Camisole Long Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Crepe Camisole Long Dress", "DRSS", "W",
                              "This camisole-style dress is great for layered looks. Lovely, airy flared cut!\n
 - Camisole-style design great for layering with a t-shirt or other items.\n
 - Full-length cut and light material gives it an airy style.\n
@@ -21,7 +21,7 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 INSERT INTO inventory (productsID, color, size, stock) VALUES (28, "Black", "S", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (28, "Brown", "M", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn A Line 3/4 Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn A Line 3/4 Sleeve Dress", "DRSS", "W",
                              "This soft dress has a seasonal feel, with wide ribbing creating a beautiful shape.\n
 - Made from long-hair yarn for a soft, fluffy texture.\n
 - This dress can be slipped on as easily as a T-shirt.\n
@@ -33,7 +33,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (29, "Black", "S",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (29, "White", "M", 3);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (29, "Gray", "M", 3);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn Ribbed Striped 3/4 Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn Ribbed Striped 3/4 Sleeve Dress", "DRSS", "W",
                              "A ribbed-knit dress with a slender style and a refreshing striped design.\n
 - Soft knit material for easy care.\n
 - The vertical lines of ribbed knit create a slimming visual effect.",
@@ -42,14 +42,14 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 INSERT INTO inventory (productsID, color, size, stock) VALUES (30, "Black", "S", 7);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (30, "Gray", "M", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("", "DRSS", "W",
                              "",
 29.90, 0);
 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (30, "Black", "S", 7);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (30, "Gray", "M", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn Shift 3/4 Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn Shift 3/4 Sleeve Dress", "DRSS", "W",
                              "Comfort and style for any occasion! A stylish jersey-knit dress with a casual feel.\n
 - Slightly relaxed cut skims the lines of the body.\n
 - Boat neck design frames and flatters the collarbone for a feminine style.\n
@@ -62,7 +62,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (31, "Black", "S",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (31, "Brown", "M", 5);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (31, "Green", "M", 5);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn Short Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn Short Sleeve Dress", "DRSS", "W",
                              "Our striped jersey knit dress is easy to care for, so it's great for everyday wear.\n
 - Made from soft jersey knit material.\n
 - Looks great on its own thanks to a lovely, feminine cut.\n
@@ -73,7 +73,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (32, "Black", "S",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (32, "Gray", "M", 4);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (32, "Red", "M", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Flannel Check Long Sleeve Shirt Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Flannel Check Long Sleeve Shirt Dress", "DRSS", "W",
                              "This soft flannel dress lets you create a casual outfit with a single item.\n
 - Sash belt marks the waist.\n
 - Try layering with a knit for all-season wear.",
@@ -82,7 +82,7 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 INSERT INTO inventory (productsID, color, size, stock) VALUES (33, "Gray", "L", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (33, "Red", "XL", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Flannel Long Sleeve Shirt Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Flannel Long Sleeve Shirt Dress", "DRSS", "W",
                              "This soft flannel dress lets you create a casual outfit with a single item.\n
 - Sash belt marks the waist.\n
 - Try layering with a knit for all-season wear.",
@@ -93,7 +93,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (34, "Blue", "L", 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (34, "Blue", "XL", 4);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (34, "Blue", "XS", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("HEATTECH Extra Warm Lounge Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("HEATTECH Extra Warm Lounge Dress", "DRSS", "W",
                              "Even warmer than HEATTECH! A full-length dress featuring argan oil moisturizer.\n
 - Updated with a 2-inch longer hem to keep your legs even warmer.\n
 - New argan oil moisturizer.\n
@@ -105,7 +105,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (35, "Beige", "M",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (35, "Beige", "XL", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (35, "Blue", "L", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("HPJ Skipper Collar Long Sleeve Shirt Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("HPJ Skipper Collar Long Sleeve Shirt Dress", "DRSS", "W",
                              "This simple shirtdress features a cool skipper neck design.\n
 - Part of our popular collaboration series with renowned Muslim fashion designer Hana Tajima.\n
 - Skipper neck adds a touch of carefree style.
@@ -116,7 +116,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (36, "Black", "M",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (36, "Red", "XL", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (36, "Blue", "L", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Cotton Flannel Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Cotton Flannel Dress", "DRSS", "W",
                              "Made from soft, warm flannel, this belted dress features an elegant style.\n
 - Part of our collaboration collection with world-famous model and designer Ines de la Fressange.\n
 - Flannel material is a cold-weather classic.\n
@@ -130,7 +130,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (37, "Black", "XL"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (37, "Gray", "XL", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (37, "Yellow", "L", 4);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Double Face 3/4 Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Double Face 3/4 Sleeve Dress", "DRSS", "W",
                              "A dress made with a cotton exterior and rayon interior for superb comfort.\n
 - Part of our collaboration collection with world-famous model and designer Ines de la Fressange.\n
 - Double-sided material for outstanding comfort at first touch.\n
@@ -143,7 +143,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (38, "Blue", "L", 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (38, "Blue", "XL", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (38, "White", "XL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Jersey Flare Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Jersey Flare Sleeve Dress", "DRSS", "W",
                              "Loose sleeves and a narrow hem give a lovely outline in our soft, jersey-knit dress.\n
 - Wide flared sleeves give it a supple, elegant drape.\n
 - Fitted hemline creates a slender, feminine silhouette.\n
@@ -156,7 +156,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (39, "Red", "XS", 
 INSERT INTO inventory (productsID, color, size, stock) VALUES (39, "Green", "L", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (39, "Black", "XL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Lightweight Ponte 3/4 Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Lightweight Ponte 3/4 Sleeve Dress", "DRSS", "W",
                              "Our versatile, stylish ponte dress.\n
 - Crisp texture great for a variety of looks in any season.\n
 - Rounded cocoon cut for a slender look without being form-fitting.\n
@@ -171,7 +171,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (41, "Gray", "XL",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (41, "Blue", "S", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (41, "Blue", "XS", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Lightweight Ponte Sleeveless Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Lightweight Ponte Sleeveless Dress", "DRSS", "W",
                              "This dress features a lovely silhouette thanks to a simple design.\n
 - Sleeveless design shows off the upper arms.\n
 - Light ponte material gives it an elegant look and comfortable feel.",
@@ -185,7 +185,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (42, "Gray", "XL",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (42, "Pink", "S", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (42, "Gray", "XS", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Merino Blend V Neck Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Merino Blend V Neck Dress", "DRSS", "W",
                              "A knit dress made from a lovely Merino wool blend.\n
 - ・Featuring an exquisite look and clean, elegant texture.\n
 - Fitted hem creates a sleek look despite the relaxed fit.\n
@@ -200,7 +200,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (43, "Gray", "XL",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (43, "Brown", "S", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (43, "Gray", "XS", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Merino Blend Wide Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Merino Blend Wide Sleeve Dress", "DRSS", "W",
                              "Made from premium Merino wool, this wide-ribbed knit dress is super stylish.\n
 - Flared cut skims the lines of your waist and hips.\n
 - Elegant wide bell sleeves.\n
@@ -219,7 +219,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (44, "Blue", "XS",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (44, "Beige", "S", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (44, "Beige", "XS", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Mickey Travels Sweat Long Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Mickey Travels Sweat Long Sleeve Dress", "DRSS", "W",
  "Combining the most iconic Mickey pose with our very comfortable, high-quality products will bring smiles to all. This collection is a fun, affordable way to deliver the fashion of Mickey to everyone around the world.",
 49.90, 0);
 
@@ -227,7 +227,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (46, "White", "M",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (46, "White", "S", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (46, "Red", "XS", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Soft Lamb Crew Neck 3/4 Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Soft Lamb Crew Neck 3/4 Sleeve Dress", "DRSS", "W",
                              "A contoured, seamless knit gives this dress a form-fitting design.\n
 - A bold cocoon silhouette and balloon sleeves showcase the contoured knitting technique.\n
 - A combination of rounded and flared lines gives it a truly natural look and an attractive fitted feel.\n
@@ -244,7 +244,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (47, "White", "XS"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (47, "White", "S", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (47, "White", "XXS", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn A Line Long Sleeve Dress", "DRSS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Cut And Sewn A Line Long Sleeve Dress", "DRSS", "W",
                              "A ponte dress with a premium soft feel.\n
 - Flat, smooth ponte material with a premium feel and stretch.\n
 - Fitted waist for a more feminine outline.\n

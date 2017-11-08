@@ -1,4 +1,4 @@
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Chino Micro Shorts", "SHTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Chino Micro Shorts", "SHTS", "W",
                              "Chino shorts with a heavy pre-wash. Featuring a light, feminine, and active style.\n
 - Made from densely-woven cotton twill material.\n
 - Brushed and garment-dyed for a soft, feminine color and texture.\n
@@ -17,7 +17,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (87, "Black", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (87, "Green", "XS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (87, "Beige", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Chino Micro Shorts", "SHTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Chino Micro Shorts", "SHTS", "W",
                              "Chino shorts with a heavy pre-wash. Featuring a light, feminine, and active style.\n
 - Made from densely-woven cotton twill material.\n
 - Brushed and garment-dyed for a soft, feminine color and texture.\n
@@ -36,7 +36,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (88, "Black", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (88, "Pink", "XS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (88, "Beige", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Chino Shorts", "SHTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN Chino Shorts", "SHTS", "W",
                              "Chino shorts with a heavy pre-wash. Featuring a light, feminine, and active style.\n
 - Made from densely-woven cotton twill material.\n
 - Brushed and garment-dyed for a soft, feminine color and texture.\n
@@ -52,7 +52,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (89, "Orange", "XS
 INSERT INTO inventory (productsID, color, size, stock) VALUES (89, "Orange", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (89, "Orange", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry-EX Ultra Stretch Short Pants", "SHTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry-EX Ultra Stretch Short Pants", "SHTS", "W",
                              "Great for a workout or everyday wear! Our ultra quick-drying DRY-EX shorts.\n
 - DRY-EX material for a smooth, dry, cling-free feel.\n
 - Amazing stretch allows easy movement.\n
@@ -70,7 +70,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (90, "Black", "XS"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (90, "Black", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (90, "Gray", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry-EX Ultra Stretch Shorts", "SHTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry-EX Ultra Stretch Shorts", "SHTS", "W",
                              "Great for a workout or everyday wear! Our ultra quick-drying DRY-EX shorts.\n
 - DRY-EX material for a smooth, dry, cling-free feel.\n
 - Amazing stretch allows easy movement.\n
@@ -89,7 +89,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (91, "Pink", "XS",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (91, "Pink", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (91, "Pink", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Rise Denim Shorts", "SHTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Rise Denim Shorts", "SHTS", "W",
                              "High-rise denim shorts with active style! Authentic processing adds a vintage feel.\n
 - Processing developed in LA to produce a vintage denim style.\n
 - Stylish distressing gives them a modern look.\n
@@ -104,7 +104,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (92, "Blue", "XS",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (92, "White", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (92, "White", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Rise Drape Flare Shorts", "SHTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Rise Drape Flare Shorts", "SHTS", "W",
                              "High-rise denim shorts with active style! Authentic processing adds a vintage feel.\n
 - Processing developed in LA to produce a vintage denim style.\n
 - Stylish distressing gives them a modern look.\n

@@ -1,4 +1,4 @@
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Blocktech Fleece Pile Lined Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Blocktech Fleece Pile Lined Skirt", "SKTS", "W",
                              "On-trend sheepskin-style fleece protects you from the cold in this skirt,\n
 - Fleece-lined for soft comfort and superb warmth.\n
 - A layer of windproof sheeting provides great protection from the cold.\n
@@ -15,7 +15,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (94, "Gray", "XXL"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (94, "White", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (94, "White", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Blocktech Warm Lined Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Blocktech Warm Lined Skirt", "SKTS", "W",
                              "On-trend sheepskin-style fleece protects you from the cold in this skirt,\n
 - Fleece-lined for soft comfort and superb warmth.\n
 - A layer of windproof sheeting provides great protection from the cold.\n
@@ -30,7 +30,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (95, "Black", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (95, "Gray", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (95, "Gray", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry Stretch Tucked Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Dry Stretch Tucked Skirt", "SKTS", "W",
                              "Wide, airy cut for superb trendy style! Our convenient DRY skirt.\n
 - Cute, airy A-line cut showcases the stiff material.\n
 - High waist and midi length create a lovely, feminine silhouette.\n
@@ -44,7 +44,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (96, "Black", "XXS
 INSERT INTO inventory (productsID, color, size, stock) VALUES (96, "Black", "XXL", 6);
 
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Chiffon Pleated Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Chiffon Pleated Skirt", "SKTS", "W",
                              "On-trend sheepskin-style fleece protects you from the cold in this skirt,\n
 - Fleece-lined for soft comfort and superb warmth.\n
 - A layer of windproof sheeting provides great protection from the cold.\n
@@ -59,7 +59,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (97, "Black", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (97, "Pink", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (97, "Pink", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Corduroy Flared Midi Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Corduroy Flared Midi Skirt", "SKTS", "W",
                              "A super warm corduroy skirt in a trendy flared midi length!\n
 - Brushed corduroy material provides superb warm comfort.\n
 - Airy flared cut gives it added volume.\n
@@ -74,7 +74,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (98, "Beige", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (98, "Green", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (98, "Green", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Corduroy Mini Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Corduroy Mini Skirt", "SKTS", "W",
                              "A super warm corduroy skirt in a trendy flared midi length!\n
 - Brushed corduroy material provides superb warm comfort.\n
 - Airy flared cut gives it added volume.\n
@@ -91,7 +91,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (99, "Red", "XXL",
 INSERT INTO inventory (productsID, color, size, stock) VALUES (99, "Black", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (99, "Black", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Dry Stretch Tucked Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Dry Stretch Tucked Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -107,7 +107,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (100, "Orange", "X
 INSERT INTO inventory (productsID, color, size, stock) VALUES (100, "White", "M", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (100, "White", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Wool Blended Pencil Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("High Waist Wool Blended Pencil Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -122,7 +122,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (101, "Gray", "XXS
 INSERT INTO inventory (productsID, color, size, stock) VALUES (101, "Gray", "XXL", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (101, "Gray", "M", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Corduroy Mini Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Corduroy Mini Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -145,7 +145,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (102, "White", "M"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (102, "White", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (102, "White", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Rayon Flared Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Rayon Flared Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -159,7 +159,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (103, "Blue", "XS"
 INSERT INTO inventory (productsID, color, size, stock) VALUES (103, "Blue", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (103, "Blue", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN IDLF Rayon Flared Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("WOMEN IDLF Rayon Flared Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -173,7 +173,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (104, "Black", "XS
 INSERT INTO inventory (productsID, color, size, stock) VALUES (104, "Black", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (104, "Black", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Wrap Fringe Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("IDLF Wrap Fringe Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -189,7 +189,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (105, "Blue", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (105, "White", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (105, "White", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("J.W.Anderson Extra Fine Cotton Ruffle Wrap Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("J.W.Anderson Extra Fine Cotton Ruffle Wrap Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -200,7 +200,7 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 INSERT INTO inventory (productsID, color, size, stock) VALUES (106, "Blue", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (106, "Blue", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("J.W.Anderson Quilted Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("J.W.Anderson Quilted Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -211,7 +211,7 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 INSERT INTO inventory (productsID, color, size, stock) VALUES (107, "Green", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (107, "Green", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Lace Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Lace Skirt", "SKTS", "W",
                              "Take your skirt styles to the next level with gorgeous embroidery.\n
 - Featuring innovative lace newly developed by UNIQLO.\n
 - Lovely design featuring a delicate floral pattern all over.\n
@@ -229,7 +229,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (108, "Blue", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (108, "White", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (108, "White", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Merino Blend Ribbed Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Merino Blend Ribbed Skirt", "SKTS", "W",
                              "This on-trend skirt features a high waist and a full silhouette.\n
 - The crisp fabric creates a full silhouette with more volume than ever before.\n
 - The high waist and midi-length A-line cut are right on trend.\n
@@ -240,7 +240,7 @@ INSERT INTO products (name, category, gender, description, price, discount) VALU
 INSERT INTO inventory (productsID, color, size, stock) VALUES (115, "Gray", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (115, "Gray", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Milano Ribbed Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Milano Ribbed Skirt", "SKTS", "W",
                              "A mermaid skirt with beautiful, feminine lines and an elegant flared hem.\n
 - Feminine design is fitted in the hips and flared at the hem.\n
 - Add a touch of elegance to everyday skirt styles.\n
@@ -258,7 +258,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (116, "Blue", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (116, "Red", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (116, "Red", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("3D Milano Ribbed Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("3D Milano Ribbed Skirt", "SKTS", "W",
                              "A mermaid skirt with beautiful, feminine lines and an elegant flared hem.\n
 - Feminine design is fitted in the hips and flared at the hem.\n
 - Add a touch of elegance to everyday skirt styles.\n
@@ -276,7 +276,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (117, "Blue", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (117, "Red", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (117, "Red", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Double Face Flared Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Double Face Flared Skirt", "SKTS", "W",
                              "A mermaid skirt with beautiful, feminine lines and an elegant flared hem.\n
 - Feminine design is fitted in the hips and flared at the hem.\n
 - Add a touch of elegance to everyday skirt styles.\n
@@ -292,7 +292,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (118, "Black", "XS
 INSERT INTO inventory (productsID, color, size, stock) VALUES (118, "Blue", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (118, "Blue", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Wool Blended Jersey Volume Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Wool Blended Jersey Volume Skirt", "SKTS", "W",
                              "A mermaid skirt with beautiful, feminine lines and an elegant flared hem.\n
 - Feminine design is fitted in the hips and flared at the hem.\n
 - Add a touch of elegance to everyday skirt styles.\n
@@ -310,7 +310,7 @@ INSERT INTO inventory (productsID, color, size, stock) VALUES (119, "Blue", "XXL
 INSERT INTO inventory (productsID, color, size, stock) VALUES (119, "Gray", "XXS", 6);
 INSERT INTO inventory (productsID, color, size, stock) VALUES (119, "Gray", "XXL", 6);
 
-INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Wool Blended Wrap Mini Skirt", "SKTS", "F",
+INSERT INTO products (name, category, gender, description, price, discount) VALUES ("Wool Blended Wrap Mini Skirt", "SKTS", "W",
                              "A mermaid skirt with beautiful, feminine lines and an elegant flared hem.\n
 - Feminine design is fitted in the hips and flared at the hem.\n
 - Add a touch of elegance to everyday skirt styles.\n
