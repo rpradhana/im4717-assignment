@@ -59,8 +59,8 @@
 				 * adjust key value pair and checkbox visibility
 				 * depending on option--gender
 				 */
-                $men_selected = in_array('m', $_GET["gender"]);
-                $women_selected = in_array('w', $_GET["gender"]);
+                $men_selected = in_array('M', $_GET["gender"]);
+                $women_selected = in_array('W', $_GET["gender"]);
 				foreach($categories as $category => $category_string) {
 					echo '  <label for="category--' . $category . '" class="label label--checkbox">
                                 <div id="option--'. $category .'"' . (($category == 'DRSS' || $category == 'SKTS') ? (($women_selected || !$men_selected) ? '' : ' style="display:none;"') : '') . '>
