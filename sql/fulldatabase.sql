@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2017 at 01:11 PM
+-- Generation Time: Nov 08, 2017 at 01:22 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -839,7 +839,99 @@ INSERT INTO `inventory` (`id`, `productsID`, `color`, `size`, `stock`) VALUES
 (854, 152, 'White', 'S', 3),
 (855, 152, 'White', 'M', 3),
 (856, 152, 'White', 'XL', 3),
-(857, 152, 'White', 'L', 3);
+(857, 152, 'White', 'L', 3),
+(858, 153, 'Blue', 'S', 3),
+(859, 153, 'Blue', 'M', 3),
+(860, 153, 'Blue', 'XL', 3),
+(861, 153, 'Blue', 'L', 3),
+(862, 153, 'White', 'S', 3),
+(863, 153, 'White', 'M', 3),
+(864, 153, 'White', 'XL', 3),
+(865, 153, 'White', 'L', 3),
+(866, 153, 'Brown', 'S', 3),
+(867, 153, 'Brown', 'M', 3),
+(868, 153, 'Brown', 'XL', 3),
+(869, 153, 'Brown', 'L', 3),
+(870, 154, 'Blue', 'S', 3),
+(871, 154, 'Blue', 'M', 3),
+(872, 154, 'Blue', 'XL', 3),
+(873, 154, 'Blue', 'L', 3),
+(874, 154, 'White', 'S', 3),
+(875, 154, 'White', 'M', 3),
+(876, 154, 'White', 'XL', 3),
+(877, 154, 'White', 'L', 3),
+(878, 154, 'Gray', 'S', 3),
+(879, 154, 'Gray', 'M', 3),
+(880, 154, 'Gray', 'XL', 3),
+(881, 154, 'Gray', 'L', 3),
+(882, 155, 'Green', 'S', 3),
+(883, 155, 'Green', 'M', 3),
+(884, 155, 'Green', 'XL', 3),
+(885, 155, 'Green', 'L', 3),
+(886, 156, 'Blue', 'S', 3),
+(887, 156, 'Blue', 'M', 3),
+(888, 156, 'Blue', 'XL', 3),
+(889, 156, 'Blue', 'L', 3),
+(890, 156, 'White', 'S', 3),
+(891, 156, 'White', 'M', 3),
+(892, 156, 'White', 'XL', 3),
+(893, 156, 'White', 'L', 3),
+(894, 157, 'Blue', 'S', 3),
+(895, 157, 'Blue', 'M', 3),
+(896, 157, 'Blue', 'XL', 3),
+(897, 157, 'Blue', 'L', 3),
+(898, 157, 'White', 'S', 3),
+(899, 157, 'White', 'M', 3),
+(900, 157, 'White', 'XL', 3),
+(901, 157, 'White', 'L', 3),
+(902, 158, 'Red', 'S', 3),
+(903, 158, 'Red', 'M', 3),
+(904, 158, 'Red', 'XL', 3),
+(905, 158, 'Red', 'L', 3),
+(906, 158, 'Green', 'S', 3),
+(907, 158, 'Green', 'M', 3),
+(908, 158, 'Green', 'XL', 3),
+(909, 158, 'Green', 'L', 3),
+(910, 159, 'Blue', 'S', 3),
+(911, 159, 'Blue', 'M', 3),
+(912, 159, 'Blue', 'XL', 3),
+(913, 159, 'Blue', 'L', 3),
+(914, 159, 'White', 'S', 3),
+(915, 159, 'White', 'M', 3),
+(916, 159, 'White', 'XL', 3),
+(917, 159, 'White', 'L', 3),
+(918, 160, 'Black', 'S', 3),
+(919, 160, 'Black', 'M', 3),
+(920, 160, 'Brown', 'XL', 3),
+(921, 160, 'Brown', 'L', 3),
+(922, 160, 'White', 'S', 3),
+(923, 160, 'White', 'M', 3),
+(924, 160, 'White', 'XL', 3),
+(925, 160, 'White', 'L', 3),
+(926, 161, 'Red', 'S', 3),
+(927, 161, 'Red', 'M', 3),
+(928, 161, 'Red', 'XL', 3),
+(929, 161, 'Red', 'L', 3),
+(930, 161, 'Brown', 'S', 3),
+(931, 161, 'Brown', 'M', 3),
+(932, 161, 'Brown', 'XL', 3),
+(933, 161, 'Brown', 'L', 3),
+(934, 162, 'Black', 'S', 3),
+(935, 162, 'Black', 'M', 3),
+(936, 162, 'Red', 'XL', 3),
+(937, 162, 'Red', 'L', 3),
+(938, 162, 'White', 'S', 3),
+(939, 162, 'White', 'M', 3),
+(940, 162, 'White', 'XL', 3),
+(941, 162, 'White', 'L', 3),
+(942, 163, 'Gray', 'S', 3),
+(943, 163, 'Gray', 'M', 3),
+(944, 163, 'Gray', 'XL', 3),
+(945, 163, 'Gray', 'L', 3),
+(946, 163, 'White', 'S', 3),
+(947, 163, 'White', 'M', 3),
+(948, 163, 'White', 'XL', 3),
+(949, 163, 'White', 'L', 3);
 
 -- --------------------------------------------------------
 
@@ -1024,7 +1116,18 @@ INSERT INTO `products` (`id`, `name`, `category`, `gender`, `description`, `pric
 (149, 'Easy Care Striped Stretch Slim Fit Long Sleeve Shirt 3', 'SHRT', 'M', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
 (150, 'Easy Care Striped Stretch Slim Fit Long Sleeve Shirt 4', 'SHRT', 'M', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
 (151, 'Easy Care Stretch Slim Fit Oxford Long Sleeve Shirt', 'SHRT', 'M', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
-(152, 'Easy Care Stretch Slim Fit Oxford Long Sleeve Shirt 2', 'SHRT', 'M', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00);
+(152, 'Easy Care Stretch Slim Fit Oxford Long Sleeve Shirt 2', 'SHRT', 'M', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
+(153, 'Extra Fine Cotton 3/4 Sleeve Gather Blouse', 'SHRT', 'F', 'A stylish blouse with trendy touches, including a mock neck and smocked cuffs.\n\r\n- Gathered sleeves add volume without being too billowy.\n\r\n- Curved hem with side slits gives it an elegant style worn on its own.\n\r\n- Premium 100% extra-fine cotton material for a natural, airy texture.', '29.90', 0.00),
+(154, 'Extra Fine Cotton 3/4 Sleeve Off Shoulder Blouse', 'SHRT', 'F', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '29.90', 0.00),
+(155, 'WOMEN Extra Fine Cotton 3/4 Sleeve Off Shoulder Blouse', 'SHRT', 'F', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
+(156, 'Extra Fine Cotton Long Sleeve Shirt', 'SHRT', 'F', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
+(157, 'WOMEN Extra Fine Cotton Slit Neck Short Sleeve Blouse', 'SHRT', 'F', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
+(158, 'Extra Fine Cotton Slit Neck Short Sleeve Blouse', 'SHRT', 'F', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
+(159, 'Extra Fine Cotton Striped Long Sleeve Shirt', 'SHRT', 'F', 'This slim-fit shirt features the highest quality fabric, sewing, finish, and design.\n\r\n- With added stretch for comfort and ease of movement.\n\r\n- Made from a premium two-ply yarn.\n\r\n- Easy Care processing means it stays wrinkle-resistant even after washing.\n\r\n- The button-down collar looks good with or without a tie.', '39.90', 0.00),
+(160, 'Drape Camisole', 'SHRT', 'F', 'Supple material for simple elegance. This fine camisole is excellent for layering.\n\r\n-Chic, feminine camisole design.\n\r\n-Draped feel gives it a simple, elegant beauty.\n\r\n-A great option for layered styles.', '39.90', 0.00),
+(161, 'Drape Camisole 2', 'SHRT', 'F', 'Supple material for simple elegance. This fine camisole is excellent for layering.\n\r\n-Chic, feminine camisole design.\n\r\n-Draped feel gives it a simple, elegant beauty.\n\r\n-A great option for layered styles.', '39.90', 0.00),
+(162, 'Drape Mock Neck 3/4 Sleeve Blouse', 'SHRT', 'F', 'Supple material for simple elegance. This fine camisole is excellent for layering.\n\r\n-Chic, feminine camisole design.\n\r\n-Draped feel gives it a simple, elegant beauty.\n\r\n-A great option for layered styles.', '39.90', 0.00),
+(163, 'Drape Tuck Short Sleeve T Blouse', 'SHRT', 'F', 'Supple material for simple elegance. This fine camisole is excellent for layering.\n\r\n-Chic, feminine camisole design.\n\r\n-Draped feel gives it a simple, elegant beauty.\n\r\n-A great option for layered styles.', '39.90', 0.00);
 
 --
 -- Indexes for dumped tables
@@ -1091,7 +1194,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=858;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=950;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -1106,7 +1209,7 @@ ALTER TABLE `orders_inventory`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 --
 -- Constraints for dumped tables
 --
