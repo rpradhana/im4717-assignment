@@ -271,6 +271,8 @@ button-moz-focusring,
   appearance: none;
   -webkit-appearance: none;
   font-family: 'Open Sans';
+  cursor: pointer;
+  font-family: 'Open Sans';
   display: inline-block !important;
   visibility: visible !important;
   -webkit-box-shadow: inset 0 0 1px 1px rgba(0,17,34,0.125);
@@ -446,29 +448,22 @@ button-moz-focusring,
   display: flex;
   flex-direction: row;
 }
-.pagination a {
+.pagination button {
   border: none;
   padding: 0.5rem;
   width: 2rem;
   cursor: pointer;
   background: #dddeef;
-  -webkit-appearance: button;
-  -moz-appearance: button;
-  appearance: button;
-  text-decoration: none;
-  color: initial;
-  text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-
-.pagination a:hover,
-.pagination a:focus,
-.pagination a:active {
+.pagination button:hover,
+.pagination button:focus,
+.pagination button:active {
   background: rgba(221,222,239,0.75);
 }
-.pagination a:not(:nth-last-child(1)) {
+.pagination button:not(:nth-last-child(1)) {
   margin-right: 0.5rem;
 }
 html {
@@ -790,32 +785,53 @@ section[id^=collection] {
   -moz-border-radius: 2px;
   border-radius: 2px;
 }
+.product__color--beige {
+  background: #c9c8b1;
+}
 .product__color--black {
   background: #012;
+}
+.product__color--blue {
+  background: #1460aa;
+}
+.product__color--brown {
+  background: color-brown;
+}
+.product__color--green {
+  background: #1b7742;
+}
+.product__color--dark-gray {
+  background: #678;
 }
 .product__color--dark-grey {
   background: #678;
 }
+.product__color--gray {
+  background: #abc;
+}
 .product__color--grey {
   background: #abc;
+}
+.product__color--light-gray {
+  background: #dddeef;
 }
 .product__color--light-grey {
   background: #dddeef;
 }
+.product__color--light-white {
+  background: color-light-white;
+}
 .product__color--red {
   background: #cf000f;
+}
+.product__color--pink {
+  background: #ff9efd;
 }
 .product__color--orange {
   background: #d43900;
 }
 .product__color--yellow {
   background: #efbc08;
-}
-.product__color--green {
-  background: #1b7742;
-}
-.product__color--blue {
-  background: #1460aa;
 }
 .product__color--purple {
   background: #639;
@@ -1024,13 +1040,6 @@ section[id^=collection] {
 .profile__name {
   margin: 0 0 1.5rem;
 }
-
-.button--inventory {
-  width:3rem;
-  display:inline-block;
-  text-align: center;
-}
-
 .support {
   margin: 3rem 0;
   min-height: calc(100vh - 92px - 80px - 48px - 48px);
