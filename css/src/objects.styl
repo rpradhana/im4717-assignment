@@ -65,6 +65,11 @@
 	&:hover
 		color color-dark-grey
 
+.button--inventory
+	width 3rem
+	display inline-block
+	text-align center
+
 /**
  * Icon
  */
@@ -301,6 +306,9 @@
 	background color-light-grey
 	text-decoration none
 	text-align center
+	-webkit-appearance: button;
+	-moz-appearance: button;
+	appearance: button;
 	border-radius()
 	&:hover
 	&:focus
@@ -308,3 +316,4 @@
 		background alpha(color-light-grey, 0.75)
 	&:not(:nth-last-child(1))
 		margin-right size-s
+
