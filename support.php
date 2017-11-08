@@ -2,7 +2,19 @@
 <html lang="en-GB">
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
-	<?php include './php/nav.php' ?>
+	<?php
+        session_start();
+        //Connect to database
+        $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
+
+        if ($conn->connect_error) {
+            //Fallback if unable to connect to database
+            include_once ('./php/error.php');
+            exit();
+        }
+
+        include './php/nav.php' ;
+    ?>
 	<div class="container">
 		<div class="row">
 			<div class="two column"></div>
@@ -92,7 +104,10 @@
 			<div class="two column"></div>
 		</div>
 	</div>
-	<?php include './php/footer.php' ?>
+	<?php
+        $conn->close();
+        include './php/footer.php';
+    ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

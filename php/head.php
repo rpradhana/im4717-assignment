@@ -9,4 +9,5 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<script src='./js/JSCustomizeProduct.js' type='text/javascript'></script>
+    <script src='./js/JSValidation.js' type='text/javascript'></script>
 </head>

@@ -2,13 +2,35 @@
 <html lang="en-GB">
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
-	<?php include './php/nav.php' ?>
+	<?php
+        session_start();
+
+        //Connect to database
+        $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
+
+        if ($conn->connect_error) {
+            //Fallback if unable to connect to database
+            include_once ('./php/error.php');
+            exit();
+        }
+
+        if (isset($_POST["send"])) {
+            $msg = $_POST["message"];
+            $email = $_POST["email"];
+            mail( "f36im@EE-IM-4717","From " . $email ,$msg);
+        }
+
+
+    include './php/nav.php' ;
+
+    ?>
 	<section class="contact">
 		<div class="container">
 			<div class="row">
 				<div class="three column"></div>
 				<div class="six column">
-					<form>
+					<form onsubmit="return validateEmail();" method="post">
+                        <input type="hidden" name="send">
 						<h2 class="header u-m-large--bottom">Contact Us</h2>
 						<div class="u-flex">
 							<div class="u-m-medium--bottom">
@@ -21,7 +43,7 @@
 								<label for="message" class="label--required label--top">
 									Message
 								</label>
-								<span class="input"><textarea name="message" id="message" class="input--text u-fill" rows="5" placeholder="Enter your message."></textarea></span>
+								<span class="input"><textarea name="message" id="message" class="input--text u-fill" rows="5" placeholder="Enter your message." required></textarea></span>
 							</div>
 						</div>
 						<div>
@@ -47,7 +69,7 @@
 						Singapore 639798
 					</p>
 					<p>
-						contact@company.com<br>
+						contact@prallie.com<br>
 						+65 9876 5432
 					</p>
 					<p>
@@ -62,7 +84,10 @@
 			</div>
 		</div>
 	</section>
-	<?php include './php/footer.php' ?>
+	<?php
+        $conn->close();
+        include './php/footer.php';
+    ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

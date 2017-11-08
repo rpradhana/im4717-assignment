@@ -3,17 +3,17 @@
 <?php include './php/head.php'; ?>
 <body class="debug o f h d">
 	<?php
-        /* To-do:
-            -onclick change product-preview
-            -addclass remove class for active styling
-            -check quantity vs stock
-            -click thumbnail changes image preview
-            -recommended items
-            -increase quantity increase price in button
-        */
-
         include './php/cart-item.php';
         session_start();
+
+        //Connect to database
+        $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
+
+        if ($conn->connect_error) {
+            //Fallback if unable to connect to database
+            include_once ('./php/error.php');
+            exit();
+        }
 
         $product_id = $_GET["id"];
         $product_color = $_GET["color"];
@@ -26,22 +26,14 @@
             $add_to_cart = false;
         }
 
-        //Connect to database
-        $conn = new mysqli("localhost", "f36im", "f36im", "f36im");
-
-        if ($conn->connect_error) {
-            //Fallback if unable to connect to database
-            exit();
-        }
-
-        $query = 'SELECT p.name, p.price, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
+        $query = 'SELECT p.name, p.price, p.gender, p.category, p.discount, p.description, i.color, i.size, i.stock FROM products AS p, inventory AS i 
 WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
         $result = $conn->query($query);
 
         if ($result) {
             $num_rows = $result->num_rows;
             if ($num_rows > 0) {
-                global $row;
+                $row;
                 $inventory_arr = array();
                 $distinct_color = array();
                 $distinct_size = array();
@@ -65,15 +57,18 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                         $inventory_arr[$color] = array();
                     }
                     $inventory_arr[$color][$size] = $stock;
-
                 }
+                $result->free();
+
 
                 //Get product information
-                $name = $row["name"];
+                $name = stripslashes($row["name"]);
                 $discount = $row["discount"];
                 $price = $row["price"];
                 $price_after_discount = (1 - $product_discount/(float)100) * $price;
-                $description = $row["description"];
+                $description = stripslashes($row["description"]);
+                $gender = $row["gender"];
+                $category = $row["category"];
 
 
                 if (!$product_color || !in_array($product_color, $distinct_color)) {
@@ -86,10 +81,25 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                     $add_to_cart = false;
                 }
 
-                if (!$product_qty || $product_qty < 1 ||$product_qty > $inventory_arr[$product_color][$product_size]) {
+                if (!$product_qty || $product_qty < 1) {
                     $product_qty = 1;
                     $add_to_cart = false;
                 }
+
+                $outofstock = false;
+
+                if (!isset($inventory_arr[$product_color][$product_size]) || $product_qty > $inventory_arr[$product_color][$product_size]) {
+                    $product_qty = $inventory_arr[$product_color][$product_size];
+                    if ($product_qty < 1) {
+                        $outofstock = true;
+                    }
+                }
+
+                echo '  <script type="text/javascript">
+                            var inventory_arr = ' . json_encode($inventory_arr ) . ';
+                            var selectedColor = "' . $product_color . '";
+                            var selectedSize = "' . $product_size . '";
+                        </script>';
 
                 //Add selected product to cart
                 if ($add_to_cart) {
@@ -109,7 +119,8 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                 include './php/nav.php';
 
                 //Product preview and thumbnails
-                echo '	<section id="product-details" class="product-details">
+                $section_id = 'product-details';
+                echo '	<section id="' . $section_id . '" class="product-details">
                             <div class="container">
                                 <div class="row">
                                     <div class="one column u-p-zero--right">';
@@ -121,7 +132,8 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                         echo '<div class="product-thumbnails">';
                     }
 
-                    echo '  <img src="./images/' . $product_id . '_' . $color_name . '.jpg" width="100%">
+                    $button_id = $section_id . '_button_' . $product_id . '_' . $color_name;
+                    echo '  <input type="image" id="' . $button_id . '" src="./images/' . $product_id . '_' . $color_name . '.jpg" width="100%" onclick="pickColor(this)">
                           </div>';
                 }
 
@@ -129,7 +141,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                 echo '  </div>
                         <div class="four column">
                             <div class="product-preview">
-                                 <img src="./images/' . $product_id . '_' . $product_color . '.jpg" width="100%">
+                                 <img id="' . $section_id . '_img_' . $product_id . '" src="./images/' . $product_id . '_' . $product_color . '.jpg" width="100%">
                             </div>
                         </div>
                         <div class="three column">
@@ -147,9 +159,9 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                 <label for="color--' . $color_name . '" class="label label--checkbox">';
 
                     if ($color_name == $product_color) {
-                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '" checked>';
+                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '" checked onchange="updateStock(this, \'color\')">';
                     } else {
-                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '">';
+                        echo ' <input type="radio" name="color" class="input--checkbox" id="color--' . $color_name . '" value="' . $color_name . '" onchange="updateStock(this, \'color\')">';
                     }
 
                     echo ucfirst($color_name) .
@@ -176,27 +188,30 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                 <label for="size--' . $size . '" class="label label--checkbox">';
 
                     if ($size == $product_size) {
-                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '" checked>';
+                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '" checked onchange="updateStock(this, \'size\')">';
                     } else {
-                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '">';
+                        echo '<input type="radio" name="size" class="input--checkbox" id="size--' . $size . '" value="' . $size . '" onchange="updateStock(this, \'size\')">';
                     }
 
                     echo strtoupper($size) .
                                 '</label>
-                            </div>
-                        ';
+                            </div>';
                 }
 
+                echo '  </div>
+                    </div>';
+
                 //Container for quantity input + submit button
-                echo '    </div>
-						</div>
-						<div class="option--quantity">
+                echo ' <div class="option--quantity" id="option--quantity"'. ($outofstock ? ' style="display:none;"' : '') .'>
 							<div>Quantity</div>
-							<input type="text" name="quantity" class="input--text" id="quantity" value="' . $product_qty . '" placeholder="Quantity">
+							<input type="number" min="1" max="' . $inventory_arr[$product_color][$product_size] . '" name="quantity" class="input--text" id="product-quantity" value="' . ($product_qty > 0 ? $product_qty : 1) . '" oninput="updatePriceProduct(this)">
 						</div>
-						<button type="submit" class="button button--primary button--large option__button">
-							Add to Bag ($' . $price_after_discount . ')
+						<button type="submit" class="button button--primary button--large option__button" id="button--addtobag"'. ($outofstock ? ' style="display:none;"' : '') . '>
+							Add to Bag ($<span id="product-price-subtotal"> ' .
+                            number_format($price_after_discount,2)
+                            . '</span>)
 						</button>
+						<span class="button button--primary button--large option__button" id="button--outofstock"' . ($outofstock ? '' : ' style="display:none;"') .'>Out of Stock</span>
 					</form>
 				</div>';
 
@@ -210,7 +225,7 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                                     Product ID: ' . $product_id . '
                                 </div>
                                 <div class="product-info__price">
-                                    <span class="product-info__price--current">$' . number_format($price_after_discount,2) . '</span>';
+                                    <span class="product-info__price--current" id="product-price-single">$' . number_format($price_after_discount,2) . '</span>';
 
                 if ($product_discount > 0) {
                     echo ' <span class="product-info__price--pre-discount">$' . number_format($price,2) . '</span>';
@@ -226,6 +241,39 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
                 </div>
             </section>';
 
+                //Recommended items: related items in gender and category sorted randomly
+                $query = 'SELECT products.id, products.name, products.price, products.discount FROM products WHERE gender = "' . $gender . '" AND
+                category = "' . $category . '" AND products.id != ' . $product_id . ' ORDER BY RAND() LIMIT 0, 4;';
+                $result = $conn->query($query);
+                if ($result) {
+                    $num_rows = $result->num_rows;
+                    if ($num_rows > 0) {
+                        echo '  <section id="collection--recommended">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="twelve column">
+                                                <div class="collection__signifier"></div>
+                                                <h2 class="header collection__header"><a href="#">Recommended For You</a></h2>
+                                            </div>
+                                        </div>
+                                        <div class="row">';
+                        for ($i = 0; $i < $num_rows; $i++) {
+                            $row = $result->fetch_assoc();
+                            $product_id = $row["id"];
+                            $product_name = $row["name"];
+                            $product_price = $row["price"];
+                            $product_discount = $row["discount"];
+                            echo '          <div class="three column">';
+                            include './php/product.php';
+                            echo '          </div>';
+                        }
+                        echo '          </div>
+                                    </div>
+                                </section>';
+                    }
+                    $result->free();
+                }
+
             } else {
                 //ProductID does not belong to database
                 include './php/nav.php';
@@ -234,35 +282,14 @@ WHERE p.id = ' . $product_id . ' AND p.id = i.productsID ORDER BY i.color ASC;';
         } else {
             //Unable to query database for product information
             include './php/nav.php';
+            include_once ('./php/error.php');
             exit();
         }
-
-	?>
-<!--	<section id="collection--recommended">-->
-<!--		<div class="container">-->
-<!--			<div class="row">-->
-<!--				<div class="twelve column">-->
-<!--					<div class="collection__signifier"></div>-->
-<!--					<h2 class="header collection__header"><a href="#">Recommended For You</a></h2>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--			<div class="row">-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--				<div class="three column">-->
-<!--					--><?php //include './php/product.php' ?>
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</section>-->
-	<?php include './php/footer.php' ?>
+        
+        
+        $conn->close();
+	    include './php/footer.php';
+    ?>
 	<script type="text/javascript" src='./js/global.js'></script>
 </body>
 </html>

@@ -196,6 +196,11 @@ button-moz-focusring,
 .button:hover {
   color: #f05;
 }
+.button:disabled,
+.button:disabled:hover {
+  color: #678;
+  background-color: #dddeef;
+}
 .button--large {
   padding: 1rem 1.5rem;
 }
@@ -265,8 +270,6 @@ button-moz-focusring,
 .input--date {
   appearance: none;
   -webkit-appearance: none;
-  font-family: 'Open Sans';
-  cursor: pointer;
   font-family: 'Open Sans';
   display: inline-block !important;
   visibility: visible !important;
@@ -443,22 +446,29 @@ button-moz-focusring,
   display: flex;
   flex-direction: row;
 }
-.pagination button {
+.pagination a {
   border: none;
   padding: 0.5rem;
   width: 2rem;
   cursor: pointer;
   background: #dddeef;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+  color: initial;
+  text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-.pagination button:hover,
-.pagination button:focus,
-.pagination button:active {
+
+.pagination a:hover,
+.pagination a:focus,
+.pagination a:active {
   background: rgba(221,222,239,0.75);
 }
-.pagination button:not(:nth-last-child(1)) {
+.pagination a:not(:nth-last-child(1)) {
   margin-right: 0.5rem;
 }
 html {
@@ -1014,6 +1024,13 @@ section[id^=collection] {
 .profile__name {
   margin: 0 0 1.5rem;
 }
+
+.button--inventory {
+  width:3rem;
+  display:inline-block;
+  text-align: center;
+}
+
 .support {
   margin: 3rem 0;
   min-height: calc(100vh - 92px - 80px - 48px - 48px);
